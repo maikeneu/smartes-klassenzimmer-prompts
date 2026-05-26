@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 1/10: Grundschule, Alltagshelfer – 100 Claude-Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
+    min-height: 100vh;
+    color: #FFFFFF;
+  }
+  header {
+    background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%);
+    border-bottom: 1px solid rgba(90, 0, 153, 0.4);
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+  .asterisk {
+    font-size: 2rem;
+    color: #5A0099;
+    line-height: 1;
+    font-weight: 700;
+  }
+  .brand-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #c084fc;
+    letter-spacing: 0.05em;
+  }
+  .header-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .day-indicator {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+  }
+  .day-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #5A0099, #7B00CC);
+    border-radius: 50px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e9d5ff;
+    margin-bottom: 0.8rem;
+  }
+  .day-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  .day-subtitle {
+    font-size: 1rem;
+    color: #a78bfa;
+    margin-top: 0.3rem;
+  }
+  .prompts-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .prompt-card {
+    background: rgba(90, 0, 153, 0.08);
+    border: 1px solid rgba(90, 0, 153, 0.35);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(90, 0, 153, 0.15);
+    transition: box-shadow 0.2s ease;
+  }
+  .prompt-card:hover {
+    box-shadow: 0 0 32px rgba(90, 0, 153, 0.3);
+  }
+  .prompt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    gap: 1rem;
+  }
+  .prompt-header:hover { background: rgba(90, 0, 153, 0.12); }
+  .prompt-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .prompt-number {
+    background: linear-gradient(135deg, #5A0099, #FF9D00);
+    border-radius: 8px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .prompt-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e9d5ff;
+    line-height: 1.3;
+  }
+  .toggle-icon {
+    color: #a78bfa;
+    font-size: 1.2rem;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
+  .prompt-body {
+    display: none;
+    padding: 0 1.2rem 1.2rem;
+  }
+  .prompt-card.open .prompt-body { display: block; }
+  .prompt-text {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(90, 0, 153, 0.25);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #d4b8ff;
+    font-family: 'Poppins', monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 0.8rem;
+  }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #5A0099, #7B00CC);
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
+  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
+  .copy-icon { font-size: 1rem; }
+  nav.day-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem 2rem;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #a78bfa;
+    border: 1px solid rgba(90, 0, 153, 0.4);
+    transition: all 0.2s ease;
+  }
+  .nav-link:hover { background: rgba(90, 0, 153, 0.2); color: #FFFFFF; }
+  .nav-link.disabled { opacity: 0.3; pointer-events: none; }
+  footer {
+    border-top: 1px solid rgba(90, 0, 153, 0.3);
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .footer-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #7c3aed;
+    letter-spacing: 0.05em;
+  }
+  .footer-sub {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.3rem;
+  }
+  .footer-orange { color: #FF9D00; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <span class="asterisk">✱</span>
+    <span class="brand-name">@smartes.klassenzimmer</span>
+  </div>
+  <div class="header-title">100 Claude-Prompts</div>
+</header>
+
+<div class="day-indicator">
+  <div class="day-badge">Tag 1 / 10</div>
+  <div class="day-title">Grundschule</div>
+  <div class="day-subtitle">Alltagshelfer</div>
+</div>
+
+<div class="prompts-grid">
+
+  <div class="prompt-card open" id="card-1">
+    <div class="prompt-header" onclick="toggleCard('card-1')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.1</span>
+        <span class="prompt-title">Stundenplan-Dashboard erstellen</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-1">Du bist eine erfahrene Grundschullehrerin mit 15 Jahren Berufserfahrung und einem guten Blick fuer uebersichtliche Unterrichtsorganisation.
+
+Erstelle ein Tagesstart-Dokument fuer [Klassenstufe: Klasse 3] als uebersichtliches Dashboard, das ich jeden Morgen kurz durchsehen kann.
+
+Das Dokument ist fuer den Schulalltag einer Grundschullehrkraft in [Bundesland: Nordrhein-Westfalen]. Die Klasse hat [Anzahl Schueler: 22 Kinder]. Der Stundenplan umfasst [Faecher des Tages: Deutsch, Mathe, Sachunterricht, Sport, Musik].
+
+Gehe so vor:
+1. Zeige den Tagesablauf mit Uhrzeiten und Fachern als klare Uebersicht.
+2. Ergaenze Spalten fuer kurze To-Do-Notizen pro Stunde (z.B. "Materialien bereitlegen", "Hausaufgaben einsammeln").
+3. Fuege einen Bereich fuer besondere Hinweise des Tages ein (z.B. Elternnachrichten, Geburtstage, Termine).
+4. Ergaenze eine Klassenliste als Anwesenheits-Spalte fuer den Tag.
+
+Strukturiere das Ergebnis als Tabelle, die ich ausdrucken oder digital benutzen kann. Der Umfang soll auf eine DIN-A4-Seite passen.
+
+Pruefe vor der Ausgabe:
+- Ist das Dokument auf einen Blick lesbar, ohne lange zu suchen?
+- Gibt es Platz fuer handschriftliche Ergaenzungen?
+- Sind alle wichtigen Bereiche eines Schultags abgedeckt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-1', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-2">
+    <div class="prompt-header" onclick="toggleCard('card-2')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.2</span>
+        <span class="prompt-title">Elterngespräch-Organisator</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-2">Du bist eine erfahrene Grundschullehrerin mit Expertise in Schul-Eltern-Kommunikation und Terminorganisation.
+
+Erstelle einen vollstaendigen Buchungsplan fuer Lernentwicklungsgespraeche einer Grundschulklasse und passende Elternbriefe fuer jedes Kind.
+
+Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Die Klasse hat [Anzahl Kinder: 24 Schueler]. Gesprachstermine sollen [Zeitraum: am Donnerstagnachmittag zwischen 14 und 18 Uhr] stattfinden. Jedes Gespraech dauert 20 Minuten, mit 10 Minuten Puffer dazwischen.
+
+Gehe so vor:
+1. Erstelle eine Tabelle mit allen Zeitslots, Elternname (Platzhalter), Kind, Status (bestaetigt/ausstehend).
+2. Schreibe einen Muster-Elternbrief mit Datum, Uhrzeit, Ort und einer freundlichen Erinnerung daran, was die Eltern vorbereiten koennen.
+3. Schreibe eine kurze Erinnerungsnachricht, die ich eine Woche vorher per Schulapp oder Brief verschicken kann.
+4. Fuege eine Checkliste ein, was ich als Lehrkraft vor jedem Gespraech parat haben sollte.
+
+Strukturiere das Ergebnis klar getrennt: zuerst die Buchungstabelle, dann der Elternbrief, dann die Erinnerungsnachricht, dann meine Checkliste.
+
+Pruefe vor der Ausgabe:
+- Reichen die Zeitslots fuer 24 Kinder?
+- Ist der Elternbrief hoeflich und klar, ohne Fachjargon?
+- Wirkt die Checkliste vollstaendig fuer ein Standardgespraech?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-2', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-3">
+    <div class="prompt-header" onclick="toggleCard('card-3')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.3</span>
+        <span class="prompt-title">Epochalnoten-Tracker</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-3">Du bist eine erfahrene Grundschullehrerin mit fundierten Kenntnissen in der muendlichen Leistungsbeurteilung.
+
+Erstelle eine Notiztabelle, mit der ich waehrend und nach jeder Unterrichtsstunde schnell und uebersichtlich muendliche Beobachtungen fuer jedes Kind festhalten kann.
+
+Das Material ist fuer [Klassenstufe: Klasse 4] in [Fach: Deutsch]. Die Klasse hat [Anzahl Kinder: 20 Schueler]. Ich moechte beobachten: muendliche Mitarbeit, Hausaufgaben-Status und offene To-Dos fuer mich als Lehrkraft.
+
+Gehe so vor:
+1. Erstelle eine Tabelle mit einer Zeile pro Kind und Spalten fuer Name, Datum, muendliche Mitarbeit (Skala 1-3 oder kurze Stichworte), Hausaufgaben (gemacht/nicht gemacht/teilweise), Bemerkungen.
+2. Ergaenze eine kurze Erklaerung, wie ich die Skala benutzen soll, damit sie ueber Wochen vergleichbar bleibt.
+3. Fuege eine leere Zeile "To-Do fuer Lehrkraft" unter die Kinderliste, wo ich nach der Stunde meine eigenen Aufgaben notieren kann.
+
+Strukturiere das Ergebnis als druckfertige Tabelle fuer eine Unterrichtstunde. Der Umfang soll auf eine Seite passen.
+
+Pruefe vor der Ausgabe:
+- Kann ich die Tabelle auch waehrend des Unterrichts schnell ausfullen?
+- Ist die Skala klar genug, um spaeter nachvollziehbare Zeugnisformulierungen ableiten zu koennen?
+- Gibt es Platz fuer individuelle Beobachtungen pro Kind?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-3', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-4">
+    <div class="prompt-header" onclick="toggleCard('card-4')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.4</span>
+        <span class="prompt-title">Klassenfahrt-Checkliste</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-4">Du bist eine erfahrene Grundschullehrerin, die mehrfach Klassenfahrten organisiert hat und weiss, was dabei schiefgehen kann.
+
+Erstelle eine vollstaendige Organisationsuebersicht fuer eine bevorstehende Klassenfahrt inklusive Vorlagen fuer die Elternkommunikation.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Baden-Wuerttemberg]. Die Fahrt findet [Zeitraum: in sechs Wochen] statt und dauert [Dauer: zwei Tage]. Die Klasse hat [Anzahl Kinder: 22 Schueler].
+
+Gehe so vor:
+1. Erstelle eine Kinderliste mit Spalten: Name, Elternbrief erhalten (ja/nein), Notfallzettel abgegeben (ja/nein), Fahrtgeld bezahlt (ja/nein), besondere Hinweise (Allergien, Medikamente).
+2. Schreibe eine Erinnerungsnachricht an Eltern, bei denen noch Unterlagen fehlen, hoeflich aber klar.
+3. Erstelle meine Lehrkraft-Checkliste fuer die Vorbereitung: Was muss ich mindestens zwei Wochen vorher, eine Woche vorher und am Vortag erledigt haben?
+4. Ergaenze eine kurze Liste der Dinge, die ich auf der Fahrt selbst dabei haben muss (Erste-Hilfe-Kasten, Notfallzettel, Medikamente etc.).
+
+Strukturiere das Ergebnis in vier klar bezeichnete Abschnitte.
+
+Pruefe vor der Ausgabe:
+- Sind alle typischen Stolperstellen einer Grundschulklassenfahrt abgedeckt?
+- Ist die Erinnerungsnachricht freundlich und ohne Vorwuerfe formuliert?
+- Koennte ich die Checkliste wirklich im Schulalltag neben allem anderen abarbeiten?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-4', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-5">
+    <div class="prompt-header" onclick="toggleCard('card-5')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.5</span>
+        <span class="prompt-title">Vertretungsstunden-Mappe</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-5">Du bist eine erfahrene Grundschullehrerin und weisst aus eigener Erfahrung, wie schwierig es ist, kurzfristig eine unbekannte Klasse zu uebernehmen.
+
+Erstelle sofort einsetzbare Vertretungsmaterialien, die eine fachfremde Lehrkraft ohne Vorbereitung nutzen kann.
+
+Das Material ist fuer [Klassenstufe: Klasse 2] in [Fach: Deutsch]. Das letzte Unterrichtsthema war [Thema: Buchstabe Sch, Lautanalyse]. Die Stunde dauert [Dauer: 45 Minuten].
+
+Gehe so vor:
+1. Schreibe eine kurze Einseiter-Information fuer die Vertretungslehrkraft: Wo sitzt wer, welche Kinder brauchen besondere Aufmerksamkeit, was darf nicht gemacht werden, wo liegt das Material.
+2. Erstelle drei aufeinanderfolgende Aufgaben, die die Kinder groesstenteils selbststaendig bearbeiten koennen, in aufsteigendem Schwierigkeitsgrad.
+3. Ergaenze einen Zeitplan: Was passiert wann in der 45-Minuten-Stunde?
+4. Fuege am Ende eine kurze Notiz fuer die Vertretungslehrkraft ein, was sie nach der Stunde rueckmelden soll.
+
+Strukturiere das Ergebnis so, dass es ausgedruckt auf den Schreibtisch gelegt werden kann und die Vertretungsperson direkt loslegen kann.
+
+Pruefe vor der Ausgabe:
+- Kann eine fachfremde Lehrkraft diese Stunde wirklich ohne Vorkenntnisse halten?
+- Sind die Aufgaben fuer Klasse 2 sprachlich und inhaltlich angemessen?
+- Ist der Zeitplan realistisch?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-5', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-6">
+    <div class="prompt-header" onclick="toggleCard('card-6')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.6</span>
+        <span class="prompt-title">Elternbrief-Generator</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-6">Du bist eine erfahrene Grundschullehrerin mit einem sicheren Gefuehl fuer professionelle, warme und klare Elternkommunikation.
+
+Erstelle drei fertige Elternbriefe fuer haeufig wiederkehrende Anlaesse im Grundschulalltag.
+
+Das Material ist fuer die Eltern einer [Klassenstufe: 3. Klasse] in [Schulname: Grundschule Musterstadt]. Unterschreibe die Briefe mit [Lehrerkraft-Name: Frau Muster].
+
+Erstelle je einen Brief fuer diese drei Anlaesse:
+1. Schulausflug mit Ziel, Datum, Uhrzeit, Kosten und Genehmigungsvermerk fuer die Eltern.
+2. Materialien-Bitte am Schuljahresanfang oder nach den Ferien.
+3. Terminaenderung, z.B. wenn ein Elterntag verschoben wird.
+
+Gehe so vor:
+- Halte jeden Brief auf maximal einer halben Seite.
+- Benutze eine freundliche, respektvolle Ansprache ohne Fachjargon.
+- Mache deutlich, was die Eltern aktiv tun muessen (unterschreiben, einsenden, mitgeben).
+- Setze Platzhalter fuer alle variablen Angaben (Datum, Ort, Betrag etc.).
+
+Strukturiere das Ergebnis als drei klar getrennte, druckfertige Briefe.
+
+Pruefe vor der Ausgabe:
+- Sind alle noetigen Informationen vorhanden, ohne dass der Brief zu lang wird?
+- Ist die Tonalitaet freundlich und professionell?
+- Sind die Platzhalter gut erkennbar, damit ich sie leicht anpassen kann?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-6', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-7">
+    <div class="prompt-header" onclick="toggleCard('card-7')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.7</span>
+        <span class="prompt-title">Zeugnisformulierungs-Helfer</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-7">Du bist eine erfahrene Grundschullehrerin mit tiefen Kenntnissen in der Zeugnissprache und der rechtlichen Rahmenbedingungen in Deutschland.
+
+Formuliere individuelle Zeugnistexte fuer Arbeits- und Sozialverhalten basierend auf meinen Beobachtungsnotizen.
+
+Das Material ist fuer [Klassenstufe: Klasse 4] in [Bundesland: Hessen]. Die Zeugnisse folgen dem Format [Zeugnisart: Halbjahreszeugnis]. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen vollstaendigen Zeugnistext.
+
+Gehe so vor:
+1. Lies die Stichpunkte und identifiziere Staerken, Entwicklungsfelder und besondere Leistungen.
+2. Formuliere einen zusammenhaengenden Text von 5-8 Saetzen, der zeugnisueblich klingt und die notige Differenzierung benutzt.
+3. Schlage eine Notenempfehlung fuer Arbeits- und Sozialverhalten vor (sehr gut, gut, befriedigend, ausreichend) und begruende sie kurz.
+
+Hier sind meine Beobachtungsnotizen zu [Kindname: Max]:
+[Stichpunkte eingeben, z.B.: meldet sich selten, aber seine Beitraege sind treffend, haelt Regeln gut ein, hilft Mitschuelern, manchmal unkonzentriert in langen Phasen, Hausaufgaben immer vollstaendig]
+
+Strukturiere das Ergebnis: zuerst der fertige Zeugnistext, dann die Notenempfehlung mit kurzer Begruendung.
+
+Pruefe vor der Ausgabe:
+- Ist die Sprache zeugnisueblich und nicht wertend?
+- Klingt der Text individuell und nicht wie eine Vorlage, die fuer alle Kinder passt?
+- Sind sowohl Staerken als auch Entwicklungsfelder angemessen beruecksichtigt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-7', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-8">
+    <div class="prompt-header" onclick="toggleCard('card-8')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.8</span>
+        <span class="prompt-title">Sitzplan-Optimierer</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-8">Du bist eine erfahrene Grundschullehrerin mit Expertise in Klassenraumgestaltung und sozialem Lernen.
+
+Erstelle einen durchdachten Sitzordnungsvorschlag fuer meine Klasse basierend auf den Informationen, die ich dir gebe.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] mit [Anzahl Kinder: 24 Schuelern]. Der Klassenraum hat [Raumgestaltung: sechs Tischgruppen mit je vier Plaetzen]. Ich moechte folgende Kriterien beruecksichtigen: Foerderbedarf einzelner Kinder, Kombinationen die zu Unruhe fuehren und Staerken-Partnerschaften.
+
+Gehe so vor:
+1. Ich beschreibe dir in Stichpunkten einige Kinder und ihre Besonderheiten. Du baust daraus einen Vorschlag fuer die Sitzgruppen.
+2. Erklaere kurz, warum du welche Kombination gewaehlt hast.
+3. Gib mir zwei oder drei Alternativvorschlaege fuer Kinder, bei denen die Platzierung schwierig ist.
+
+Meine Stichpunkte zu einzelnen Kindern:
+[Hier deine Infos eingeben, z.B.: Tim lenkt andere ab, sitzt am besten alleine oder neben ruhigeren Kindern. Lea und Sophie arbeiten sehr gut zusammen. Jonas hat Foerderbedarf Lernen und braucht Naehe zum Lehrerpult. ...]
+
+Strukturiere das Ergebnis: zuerst die Sitzplan-Tabelle oder ein Schaubild mit Gruppe 1-6, dann die Begruendungen, dann die Alternativvorschlaege.
+
+Pruefe vor der Ausgabe:
+- Sind die genannten Problemkombinationen wirklich getrennt?
+- Ist jedes Kind mit Foerderbedarf sinnvoll platziert?
+- Klingt die Begruendung nachvollziehbar, falls Eltern oder Schulleitung fragen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-8', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-9">
+    <div class="prompt-header" onclick="toggleCard('card-9')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.9</span>
+        <span class="prompt-title">Materiallisten-Ersteller</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-9">Du bist eine erfahrene Grundschullehrerin, die weiss, welche Materialien in welcher Klassenstufe und welchem Fach wirklich gebraucht werden.
+
+Erstelle eine vollstaendige Materialliste fuer den Start eines neuen Schuljahres oder nach den Ferien.
+
+Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Die Faecher dieser Klasse sind [Faecher: Deutsch, Mathe, Sachunterricht, Kunst, Musik, Sport, Englisch]. Ich moechte eine Liste, die ich direkt als Elternbrief beilegen oder in die Schulapp stellen kann.
+
+Gehe so vor:
+1. Erstelle eine Materialliste differenziert nach Fach mit konkreten Mengenangaben (z.B. "2 Hefter DIN A4, liniert, 80 Seiten").
+2. Markiere, was die Schule stellt und was Eltern besorgen muessen.
+3. Ergaenze eine kurze Hinweis-Spalte, wo sinnvoll (z.B. "bitte beschriften", "kein Glitzerkleber wegen Allergien").
+4. Schreibe einen kurzen Begleittext fuer den Elternbrief oder die Schulapp.
+
+Strukturiere das Ergebnis: zuerst die Tabelle nach Faechern, dann der Begleittext.
+
+Pruefe vor der Ausgabe:
+- Sind die Materialien typisch fuer die genannte Klassenstufe?
+- Sind Mengenangaben konkret genug, damit Eltern einkaufen koennen ohne rueckfragen zu muessen?
+- Fehlt etwas Offensichtliches fuer den Schulalltag dieser Klassenstufe?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-9', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-10">
+    <div class="prompt-header" onclick="toggleCard('card-10')">
+      <div class="prompt-meta">
+        <span class="prompt-number">1.10</span>
+        <span class="prompt-title">Wochenplan-Vorlage</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-10">Du bist eine erfahrene Grundschullehrerin mit Erfahrung in offenem Unterricht und differenziertem Lernen.
+
+Erstelle eine strukturierte Wochenplan-Vorlage fuer meine Klasse, die Kinder mit unterschiedlichem Leistungsstand selbststaendig bearbeiten koennen.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [Faecher: Deutsch und Mathe]. Der Wochenplan soll [Zeitraum: von Montag bis Freitag] laufen. In der Klasse gibt es [Differenzierungsstufen: starke, durchschnittliche und schwache Leser und Rechner].
+
+Gehe so vor:
+1. Erstelle eine Wochenplan-Tabelle mit Spalten fuer Montag bis Freitag und Zeilen fuer Deutsch-Aufgaben und Mathe-Aufgaben.
+2. Baue fuer jede Aufgabe eine Pflichtspalte (alle Kinder) und eine Zusatz-Spalte (schnelle Kinder) ein.
+3. Beschreibe zu jeder Aufgabe in einem Satz, was die Kinder tun sollen (so klar, dass sie es selbst lesen koennen).
+4. Ergaenze eine Kontrollspalte, in der Kinder abgehakt koennen, was sie geschafft haben.
+
+Themen des Wochenplans: [Deutschthema: Woerter mit ie, Satzbau] und [Mathethema: Einmaleins 6 und 7, Textaufgaben].
+
+Strukturiere das Ergebnis als druckfertige Tabelle plus eine kurze Erklaerung, wie ich den Wochenplan einfuehre.
+
+Pruefe vor der Ausgabe:
+- Koennen Kinder der 3. Klasse die Aufgabenbeschreibungen selbst lesen?
+- Gibt es genuegend Aufgaben fuer die ganze Woche, ohne dass es zu viel wird?
+- Sind Pflicht- und Zusatzaufgaben klar unterschieden?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-10', this)">
+        <span class="copy-icon">📋</span> Kopieren
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<nav class="day-nav">
+  <a href="tag-1.html" class="nav-link disabled">← Tag 1</a>
+  <a href="tag-2.html" class="nav-link">Tag 2 →</a>
+</nav>
+
+<footer>
+  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
+  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
+</footer>
+
+<script>
+function toggleCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+function copyPrompt(textId, btn) {
+  const text = document.getElementById(textId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span class="copy-icon">✓</span> Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

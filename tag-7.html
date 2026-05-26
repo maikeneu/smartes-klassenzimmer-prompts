@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag 7: Gesellschaftswissenschaften – 100 Prompts Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
+      min-height: 100vh;
+      color: #FFFFFF;
+      padding: 0 0 40px;
+    }
+    .header {
+      text-align: center;
+      padding: 32px 20px 24px;
+      border-bottom: 1px solid rgba(90,0,153,0.3);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: #5A0099;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FF9D00;
+      flex-shrink: 0;
+    }
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.5px;
+    }
+    .day-indicator {
+      font-size: 13px;
+      font-weight: 500;
+      color: #FF9D00;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+    .prompt-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(90,0,153,0.4);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .prompt-card:hover {
+      border-color: rgba(90,0,153,0.7);
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+    .prompt-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .prompt-number {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF9D00;
+      background: rgba(255,157,0,0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .prompt-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.3;
+    }
+    .toggle-icon {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .prompt-card.open .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .prompt-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .prompt-card.open .prompt-body {
+      display: block;
+    }
+    .prompt-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
+      white-space: pre-wrap;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #5A0099;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .copy-btn:hover {
+      background: #7200bf;
+    }
+    .copy-btn:active {
+      transform: scale(0.97);
+    }
+    .copy-btn.copied {
+      background: #2d8a4e;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .nav-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(90,0,153,0.25);
+      border: 1px solid rgba(90,0,153,0.5);
+      border-radius: 8px;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover {
+      background: rgba(90,0,153,0.5);
+    }
+    .nav-btn.disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">✱</div>
+      <div class="brand-name">@smartes.klassenzimmer</div>
+    </div>
+    <div class="day-indicator">Tag 7/10: Gesellschaftswissenschaften</div>
+    <h1 class="page-title">Gesellschaftswissenschaften</h1>
+    <p class="page-subtitle">Geschichte, Politik, Erdkunde, Ethik, Religion</p>
+  </header>
+  <main class="main">
+
+        <div class="prompt-card open" id="card-7-1">
+          <div class="prompt-header" onclick="toggleCard('card-7-1')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.1</span>
+              <span class="prompt-title">Quellenanalyse anleiten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-1">Du bist eine erfahrene Geschichts- oder Politiklehrerin, die weiß, dass Quellenanalyse eine Methode ist, die Schülerinnen und Schüler systematisch lernen müssen, und nicht einfach können, nachdem sie es einmal erklärt bekommen haben. Du entwickelst Leitfäden, die die Methode strukturieren ohne das Denken zu ersetzen.
+
+Erstelle einen vollständigen Leitfaden zur Quellenanalyse für den Unterricht in [Fach, z.B. Geschichte / Politik / Erdkunde].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] an [Schulform, z.B. einem Gymnasium]. Die Schülerinnen und Schüler kennen Quellenarbeit aus früheren Jahrgängen, aber noch nicht auf dem Niveau einer Klausur-Analyse.
+
+Erstelle:
+1. Das Analyse-Schema: Vier bis fünf Schritte, nummeriert, mit einem klaren Oberbegriff pro Schritt (z.B. Äußere Analyse, Innere Analyse, Einordnung, Beurteilung) und einer kurzen Erklärung, was in diesem Schritt passiert
+2. Eine Beispielquelle (historisches Dokument, Karikatur oder Statistik) passend zum Thema [Kontext, z.B. Weimarer Republik / Kalter Krieg / Klimapolitik heute], die konkret genug ist um analysiert zu werden
+3. Eine Musteranalyse zu dieser Beispielquelle, die zeigt, wie eine gute Analyse aussieht (für die Klassenstufe passend, nicht universitäres Niveau)
+4. Eine Liste mit 10 nützlichen Formulierungen für die Quellenanalyse, die Schülerinnen und Schüler als Sprachgerüst nutzen können
+5. Drei häufige Fehler bei der Quellenanalyse mit Erklärung, wie man sie vermeidet
+
+Prüfe vor der Ausgabe:
+- Ist das Schema vollständig und deckt es alle wesentlichen Schritte einer Quellenanalyse ab?
+- Ist die Musteranalyse wirklich auf dem Niveau der Klassenstufe und nicht zu kurz oder zu lang?
+- Sind die Formulierungshilfen konkret genug zum Einsetzen, nicht generisch?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-1', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-2">
+          <div class="prompt-header" onclick="toggleCard('card-7-2')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.2</span>
+              <span class="prompt-title">Pro-Contra-Diskussion vorbereiten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-2">Du bist eine erfahrene Politik- oder Ethiklehrerin, die strukturierte Debatten im Unterricht einsetzt und weiß, dass eine gute Debatte vorbereitet, moderiert und ausgewertet werden muss, damit sie nicht im Chaos endet oder von Lauteren dominiert wird.
+
+Erstelle ein vollständiges Diskussionspaket für eine Pro-Contra-Debatte zum Thema [Thema, z.B. Sollte das Wahlalter auf 16 gesenkt werden? / Ist Fleischkonsum ethisch vertretbar? / Sollten soziale Medien reguliert werden?].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse]. Die Debatte soll eine vollständige Unterrichtsstunde füllen.
+
+Erstelle:
+1. Fünf Rollenkarten für die Pro-Seite: Jede Karte hat eine klar umrissene Position (z.B. Jugendliche, Politikerin, Wissenschaftler), drei bis vier Argumente mit kurzer Begründung und einem Hinweis auf mögliche Gegenargumente der anderen Seite
+2. Fünf Rollenkarten für die Contra-Seite: gleiches Format
+3. Eine Moderationskarte für die Lehrkraft mit Zeitplan, Redeanlass-Formulierungen und Hinweisen, wie man die Diskussion am Laufen hält wenn es stockt
+4. Einen Beobachtungsbogen für Schülerinnen und Schüler, die nicht aktiv debattieren, mit Kriterien wie Argumentation, Bezug auf die andere Seite, Überzeugungskraft
+5. Drei Reflexionsfragen nach der Debatte
+
+Prüfe vor der Ausgabe:
+- Sind die Argumente auf beiden Seiten gleich stark, also nicht eine Seite klar überzeugender als die andere?
+- Enthalten die Rollenkarten genug Inhalt, damit auch Schülerinnen und Schüler mit wenig Vorwissen mitdebattieren können?
+- Ist der Zeitplan realistisch für 45 Minuten?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-2', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-3">
+          <div class="prompt-header" onclick="toggleCard('card-7-3')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.3</span>
+              <span class="prompt-title">Mystery-Methode erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-3">Du bist eine erfahrene Gesellschaftswissenschaftslehrerin, die die Mystery-Methode regelmäßig einsetzt und weiß, wie man ein gutes Mystery baut: Die Leitfrage muss offen genug sein für verschiedene Lösungswege, die Informationskärtchen müssen so ausgewählt sein, dass keine direkte Antwort offensichtlich ist, aber die Verbindungen erkennbar werden.
+
+Erstelle ein vollständiges Mystery zum Thema [Thema, z.B. Warum verhungern Menschen, obwohl genug Lebensmittel produziert werden? / Wie hängt mein Smartphone mit Menschenrechten zusammen? / Warum gibt es in manchen Städten mehr Grünflächen als in anderen?].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] in [Fach, z.B. Erdkunde / Politik / Ethik / Geschichte].
+
+Erstelle:
+1. Die Leitfrage (eine offene Frage, die verschiedene Antworten ermöglicht)
+2. Eine Hauptperson oder ein Hauptereignis als Einstieg (die Geschichte hinter der Frage, drei bis fünf Sätze)
+3. 20 Informationskärtchen mit je einem kurzen Fakt, Zusammenhang oder Perspektive (Jedes Kärtchen: Titel + zwei bis drei Sätze). Die Kärtchen sollen verschiedene Ebenen abdecken: persönlich, lokal, global, historisch, wirtschaftlich, politisch.
+4. Eine Lehrkraft-Lösung: Welche Verbindungen sollen Schülerinnen und Schüler idealerweise erkennen? Was ist die komplexe Antwort auf die Leitfrage?
+5. Ablaufhinweise für die Lehrkraft: Wie wird das Mystery eingeführt? Was tun Gruppen mit den Kärtchen? Wie wird ausgewertet?
+
+Prüfe vor der Ausgabe:
+- Führen die Kärtchen zur Leitfrage hin, ohne die Antwort zu verraten?
+- Gibt es genug verschiedene Perspektiven, damit Gruppen zu unterschiedlichen Ergebnissen kommen können?
+- Ist die Lehrkraft-Lösung komplex genug und zeigt echte Zusammenhänge statt eine einfache Ursache-Wirkungs-Kette?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-3', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-4">
+          <div class="prompt-header" onclick="toggleCard('card-7-4')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.4</span>
+              <span class="prompt-title">Zeitleiste gestalten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-4">Du bist eine erfahrene Geschichtslehrerin, die weiß, dass Zeitleisten nur dann zum Verständnis beitragen, wenn sie nicht nur Daten aneinanderreihen, sondern Zusammenhänge sichtbar machen und Schülerinnen und Schüler aktiv damit arbeiten.
+
+Erstelle eine didaktisch aufbereitete Zeitleiste zur Epoche [Epoche, z.B. Weimarer Republik 1919-1933 / Kalter Krieg 1947-1991 / Nationalsozialismus 1933-1945 / Industrialisierung im 19. Jahrhundert].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. Klasse] an [Schulform, z.B. einem Gymnasium]. Die Zeitleiste soll sowohl als Unterrichtsmaterial als auch als Lernhilfe für die Klausur eingesetzt werden können.
+
+Erstelle:
+1. Die Zeitleiste selbst: 12-15 wichtige Ereignisse und Entwicklungen mit Datum, kurzem Ereignistitel und einem Satz Erklärung.
+2. Farbliche Kategorisierung: Ordne jedes Ereignis einer von drei bis vier Kategorien zu (z.B. politisch, wirtschaftlich, gesellschaftlich, militärisch) und erkläre die Kategorien am Rand.
+3. Drei markierte Wendepunkte: Erkläre in je drei bis vier Sätzen, warum genau dieses Ereignis ein Wendepunkt war.
+4. Fünf Arbeitsaufträge für die Schülerinnen und Schüler, die mit der Zeitleiste arbeiten: von Verständnis bis Analyse (z.B. Welche drei Ereignisse hängen direkt zusammen? Begründe. / Welches Ereignis hätte den Verlauf verändert, wenn es anders ausgegangen wäre?)
+5. Querverbindungen: Mindestens drei Pfeile oder Verbindungen, die zeigen, wie zwei Ereignisse kausal zusammenhängen.
+
+Prüfe vor der Ausgabe:
+- Sind die 12-15 Ereignisse wirklich die zentralen und nicht nur die bekanntesten?
+- Zeigen die Querverbindungen echte Kausalzusammenhänge, nicht nur zeitliche Nähe?
+- Sind die Arbeitsaufträge so, dass Schülerinnen und Schüler wirklich denken müssen und nicht nur abschreiben?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-4', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-5">
+          <div class="prompt-header" onclick="toggleCard('card-7-5')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.5</span>
+              <span class="prompt-title">Dilemma-Diskussion planen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-5">Du bist eine erfahrene Ethik- oder Religionslehrerin, die weiß, wie man ein echtes ethisches Dilemma so aufbereitet, dass Schülerinnen und Schüler keine einfache Antwort finden können, aber trotzdem begründet Stellung nehmen müssen. Du kennst den Unterschied zwischen einem Dilemma und einer Frage mit einer offensichtlich richtigen Antwort.
+
+Plane eine vollständige Unterrichtsstunde zu einem ethischen Dilemma für das Thema [Thema, z.B. Autonomes Fahren und die Trolley-Problem-Variante / Pflege von Angehörigen vs. eigenes Leben / Whistleblowing: Verrat oder Courage? / Digitale Überwachung für mehr Sicherheit?].
+
+Das Material ist für eine [Klassenstufe, z.B. 10. oder 11. Klasse] in [Fach, z.B. Ethik / Religion / Politik]. Die Stunde soll 45 Minuten dauern.
+
+Erstelle:
+1. Die Dilemma-Situation: Ein konkretes Szenario mit einer Hauptperson in einem echten Entscheidungskonflikt (150-200 Wörter, keine einfache Lösung möglich)
+2. Hintergrundinformationen: Drei bis vier Absätze mit Kontext, verschiedenen Perspektiven und relevanten Fakten
+3. Fünf Diskussionsfragen, die von der Situation ausgehend zu grundsätzlicheren ethischen Fragen führen
+4. Drei mögliche Positionen mit je drei Argumenten (aus unterschiedlichen ethischen Traditionen, z.B. Pflichtethik, Folgenethik, Tugendethik kurz erklärt)
+5. Einen Stundenplan: Was passiert in welcher Phase? (Einstieg: 5 Min., Einzelarbeit: 10 Min., Gruppendiskussion: 15 Min., Auswertung: 15 Min.)
+6. Einen Reflexionsauftrag am Ende: Schülerinnen und Schüler formulieren schriftlich in drei bis vier Sätzen ihre begründete Position.
+
+Prüfe vor der Ausgabe:
+- Gibt es wirklich keine einfache Antwort auf das Dilemma?
+- Sind alle drei ethischen Positionen gleichwertig stark argumentiert?
+- Passt alles in 45 Minuten, also ist der Zeitplan realistisch?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-5', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-6">
+          <div class="prompt-header" onclick="toggleCard('card-7-6')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.6</span>
+              <span class="prompt-title">Aktuelles Thema didaktisieren</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-6">Du bist eine erfahrene Gesellschaftswissenschaftslehrerin, die aktuelle Nachrichten regelmäßig in den Unterricht einbindet und weiß, wie man ein Thema aus der Tageszeitung so aufbereitet, dass es kompetenzorientiert und altersgerecht im Unterricht eingesetzt werden kann.
+
+Bereite das aktuelle Thema [Thema, z.B. KI-Regulierung in Europa / Klimaproteste und Generationenkonflikte / Inflation und ihre Auswirkungen auf Familien / Rechtsextremismus in sozialen Medien] didaktisch für den Unterricht auf.
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] in [Fach, z.B. Politik / Erdkunde / Geschichte / Ethik]. Die Unterrichtseinheit soll eine bis zwei Stunden dauern.
+
+Erstelle:
+1. Einen schülergerechten Sachtext zum Thema (300-400 Wörter, keine Fachsprache ohne Erklärung, B1-Niveau)
+2. Fünf Verständnisfragen zum Text (von einfach bis komplex)
+3. Drei Arbeitsaufträge, die über das Textverstehen hinausgehen:
+   - Einen Auftrag zur Einordnung (Wo ordne ich das Thema in größere Zusammenhänge ein?)
+   - Einen Auftrag zur Perspektivenübernahme (Wie sehen verschiedene Gruppen dieses Thema?)
+   - Einen Auftrag zur Meinungsbildung (Was denke ich darüber und warum?)
+4. Zwei bis drei Quellen-Empfehlungen (z.B. Bundeszentrale für politische Bildung, Planet Schule, klexikon.de) passend zum Thema
+5. Einen Ausblick: Welche Fragen bleiben offen? Was könnten Schülerinnen und Schüler selbst weiterrecherchieren?
+
+Prüfe vor der Ausgabe:
+- Ist der Sachtext wirklich auf B1-Niveau und nicht zu komplex?
+- Decken die drei Arbeitsaufträge verschiedene Kompetenzniveaus ab?
+- Sind die Quellen-Empfehlungen seriös und für Schülerinnen und Schüler zugänglich?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-6', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-7">
+          <div class="prompt-header" onclick="toggleCard('card-7-7')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.7</span>
+              <span class="prompt-title">Stationenlernen erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-7">Du bist eine erfahrene Gesellschaftswissenschaftslehrerin, die Stationenlernen so entwickelt, dass es wirklich trägt: Jede Station hat ein klares Lernziel, ist mit anderen Stationen verbunden und endet in einem Ergebnis, das die Schülerinnen und Schüler behalten.
+
+Erstelle ein vollständiges Stationenlernen zum Thema [Thema, z.B. Demokratie und ihre Formen / Klimazonen und ihre Besonderheiten / Erster Weltkrieg: Ursachen und Folgen / Menschenrechte und ihre Verletzungen].
+
+Das Material ist für eine [Klassenstufe, z.B. 8. oder 9. Klasse] in [Fach, z.B. Geschichte / Erdkunde / Politik]. Die Stationenarbeit soll in einer Doppelstunde (90 Minuten) durchführbar sein.
+
+Erstelle sechs Stationen mit verschiedenen Methoden und Materialien:
+- Station 1: Textarbeit (Lesetext mit Aufgaben)
+- Station 2: Kartenarbeit oder Bildanalyse (Karte, Grafik oder Bild mit Aufgaben)
+- Station 3: Quellenarbeit (historische Quelle, Statistik oder Zitat)
+- Station 4: Kreative Aufgabe (Schreiben, Gestalten, Rollenspiel-Vorbereitung)
+- Station 5: Recherche-Auftrag (mit klaren Leitfragen, die mit vorhandenem Material oder Schulbuch beantwortet werden können)
+- Station 6: Pflichtstation für alle: Sicherung des Gelernten (Lernziel-Überprüfung, z.B. Mindmap, Tabelle ausfüllen)
+
+Für jede Station:
+- Arbeitsauftrag (klar und selbsterklärend)
+- Das Material selbst (Text, Aufgabe, Vorlage)
+- Zeitempfehlung (max. 12-15 Minuten pro Station)
+- Lösungshinweis in einem Umschlag (nur Lehrkraft)
+
+Prüfe vor der Ausgabe:
+- Sind alle sechs Stationen wirklich verschiedene Methoden, nicht nur verschiedene Texte?
+- Können Schülerinnen und Schüler die Stationen in beliebiger Reihenfolge bearbeiten (außer Station 6)?
+- Ist jede Station selbsterklärend, also keine Lehrkraft-Erklärung nötig zum Starten?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-7', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-8">
+          <div class="prompt-header" onclick="toggleCard('card-7-8')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.8</span>
+              <span class="prompt-title">Kartenarbeit anleiten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-8">Du bist eine erfahrene Erdkundelehrerin, die weiß, dass Kartenarbeit systematisch gelernt werden muss und nicht selbstverständlich ist. Du entwickelst Materialien, die Schülerinnen und Schüler Schritt für Schritt durch die Kartenanalyse führen.
+
+Erstelle Unterrichtsmaterial zur Kartenarbeit für [Kartentyp, z.B. eine Klimakarte / eine Bevölkerungsdichte-Karte / eine politische Weltkarte / eine historische Karte aus dem 19. Jahrhundert].
+
+Das Material ist für eine [Klassenstufe, z.B. 7. oder 8. Klasse]. Die Stunde soll die Kompetenz der Kartenanalyse aufbauen, nicht nur eine bestimmte Karte besprechen.
+
+Erstelle:
+1. Eine Einführung in vier Schritten, wie man eine Karte liest: Titel, Legende, Maßstab, Inhalt. Für jeden Schritt: eine konkrete Aufgabe an der Beispielkarte.
+2. Fünf gestufte Aufgaben zur Kartenanalyse, von einfach (Informationen ablesen) bis komplex (Zusammenhänge erklären, Schlüsse ziehen):
+   - Aufgabe 1: Lies ab (direkte Information)
+   - Aufgabe 2: Beschreibe (was siehst du, ohne zu erklären)
+   - Aufgabe 3: Vergleiche (zwei Bereiche der Karte)
+   - Aufgabe 4: Erkläre (warum sieht die Karte so aus?)
+   - Aufgabe 5: Beurteile (Was zeigt die Karte nicht? Was wäre eine Einschränkung dieser Karte?)
+3. Sieben nützliche Formulierungshilfen für die schriftliche Kartenarbeit (z.B. &quot;Im Norden zeigt die Karte...&quot;)
+4. Eine Checkliste für Schülerinnen und Schüler zur Selbstkontrolle: Habe ich alle relevanten Aspekte der Karte beschrieben?
+
+Prüfe vor der Ausgabe:
+- Führen die fünf Aufgaben wirklich in steigender Komplexität von Abbild über Beschreibung zu Analyse?
+- Sind die Formulierungshilfen wirklich nützlich für die Kartenanalyse und nicht allgemeine Schreibtipps?
+- Ist die Einführung kurz genug, damit noch Zeit für die eigentliche Kartenarbeit bleibt?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-8', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-9">
+          <div class="prompt-header" onclick="toggleCard('card-7-9')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.9</span>
+              <span class="prompt-title">Vergleichs-Tabelle erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-9">Du bist eine erfahrene Gesellschaftswissenschaftslehrerin, die weiß, dass Vergleiche ein zentrales Werkzeug des politischen, geographischen und historischen Denkens sind. Du entwickelst Vergleichstabellen, die über das bloße Gegenüberstellen hinausgehen und zu echten Erkenntnissen führen.
+
+Erstelle eine strukturierte Vergleichstabelle und passendes Arbeitsmaterial für den Vergleich von [Vergleichsthema, z.B. Demokratie und Diktatur / Tropischer Regenwald und Wüste als Ökosysteme / Christentum, Islam und Buddhismus / DDR und Bundesrepublik Deutschland].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. Klasse] in [Fach, z.B. Politik / Erdkunde / Religion / Geschichte].
+
+Erstelle:
+1. Die Vergleichstabelle selbst mit:
+   - Den zu vergleichenden Kategorien als Zeilen (mindestens acht sinnvolle Kategorien, passend zum Thema)
+   - Den Vergleichsobjekten als Spalten
+   - Den Zellinhalten als knappe, präzise Stichpunkte (kein Fließtext)
+2. Drei Deutungsfragen, die auf Basis der Tabelle beantwortet werden sollen (von Unterschied über Gemeinsamkeit zu Bewertung)
+3. Einen Hinweis am Ende der Tabelle: Was erklärt die Tabelle nicht? Welche Einschränkungen hat ein solcher Vergleich?
+4. Eine Bonusaufgabe: Schülerinnen und Schüler ergänzen selbst eine neunte Kategorie und füllen sie für beide Seiten aus.
+5. Eine Musterlösung für die drei Deutungsfragen, die zeigt, wie eine vollständige Antwort aussieht.
+
+Prüfe vor der Ausgabe:
+- Sind die acht Kategorien wirklich aussagekräftig und nicht trivial?
+- Ist die Tabelle auf einem Blick lesbar, nicht zu vollgeschrieben?
+- Regen die Deutungsfragen wirklich zum Denken an und sind nicht mit der Tabelle direkt beantwortbar?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-9', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-7-10">
+          <div class="prompt-header" onclick="toggleCard('card-7-10')">
+            <div class="prompt-meta">
+              <span class="prompt-number">7.10</span>
+              <span class="prompt-title">Exkursion vor- und nachbereiten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-7-10">Du bist eine erfahrene Gesellschaftswissenschaftslehrerin, die Exkursionen so einsetzt, dass sie echten Lernmehrwert bringen und nicht nur Ausflüge sind. Du weißt, dass Vor- und Nachbereitung genauso wichtig sind wie der Besuch selbst.
+
+Erstelle Unterrichtsmaterialien für die Vor- und Nachbereitung einer Exkursion zu [Ziel, z.B. einem Stadtmuseum / einer KZ-Gedenkstätte / einem Stadtrat oder Parlament / einer Naturschutzstation / einem Unternehmen].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] in [Fach, z.B. Geschichte / Politik / Erdkunde]. Die Exkursion findet [Zeitrahmen, z.B. als Ganztagsveranstaltung] statt.
+
+Erstelle in drei Teilen:
+
+Teil 1: Vorbereitung (eine Unterrichtsstunde)
+- Sachtext zur Einführung (200-250 Wörter, schülergerecht)
+- Drei Aufgaben, die Schülerinnen und Schüler auf die Exkursion vorbereiten (Was sollen sie beobachten? Welche Fragen nehmen sie mit?)
+- Einen individuellen Beobachtungsauftrag, den jede Schülerin und jeder Schüler während der Exkursion verfolgt (aus drei Varianten wählen)
+
+Teil 2: Während der Exkursion
+- Ein Beobachtungsbogen zum Mitnehmen (A5-Format, zum Ausfüllen während des Besuchs)
+- Fünf bis sechs Leitfragen, die vor Ort beantwortet werden sollen
+
+Teil 3: Nachbereitung (eine Unterrichtsstunde)
+- Ein Auftrag zur Ergebnissicherung (z.B. Kurzbericht, Mindmap, Plakat in Gruppen)
+- Drei Reflexionsfragen, die persönliche Eindrücke und fachliche Erkenntnisse verbinden
+- Ein Idee für eine Abschlussprodukt, das die Ergebnisse der Exkursion dauerhaft sichert (z.B. eine Ausstellung, ein Podcast, ein Artikel für die Schulzeitung)
+
+Prüfe vor der Ausgabe:
+- Bauen die drei Teile aufeinander auf, oder könnten sie auch unabhängig voneinander eingesetzt werden?
+- Ist der Beobachtungsbogen so gestaltet, dass Schülerinnen und Schüler ihn wirklich vor Ort ausfüllen können (kurz, klar, handschriftlich)?
+- Regen die Reflexionsfragen wirklich zur persönlichen Auseinandersetzung an?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-7-10', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+    <nav class="nav-bar">
+      <a href="tag-6.html" class="nav-btn">← Tag 6</a>
+      <a href="tag-8.html" class="nav-btn">Tag 8 →</a>
+    </nav>
+    <p class="footer">100 Prompts in 10 Tagen Challenge</p>
+  </main>
+  <script>
+    function toggleCard(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    function copyPrompt(textId, btn) {
+      navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span>✓</span> Kopiert!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

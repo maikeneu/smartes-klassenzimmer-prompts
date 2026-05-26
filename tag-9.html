@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag 9: Kreative Fächer – 100 Prompts Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
+      min-height: 100vh;
+      color: #FFFFFF;
+      padding: 0 0 40px;
+    }
+    .header {
+      text-align: center;
+      padding: 32px 20px 24px;
+      border-bottom: 1px solid rgba(90,0,153,0.3);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: #5A0099;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FF9D00;
+      flex-shrink: 0;
+    }
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.5px;
+    }
+    .day-indicator {
+      font-size: 13px;
+      font-weight: 500;
+      color: #FF9D00;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+    .prompt-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(90,0,153,0.4);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .prompt-card:hover {
+      border-color: rgba(90,0,153,0.7);
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+    .prompt-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .prompt-number {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF9D00;
+      background: rgba(255,157,0,0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .prompt-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.3;
+    }
+    .toggle-icon {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .prompt-card.open .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .prompt-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .prompt-card.open .prompt-body {
+      display: block;
+    }
+    .prompt-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
+      white-space: pre-wrap;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #5A0099;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .copy-btn:hover {
+      background: #7200bf;
+    }
+    .copy-btn:active {
+      transform: scale(0.97);
+    }
+    .copy-btn.copied {
+      background: #2d8a4e;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .nav-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(90,0,153,0.25);
+      border: 1px solid rgba(90,0,153,0.5);
+      border-radius: 8px;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover {
+      background: rgba(90,0,153,0.5);
+    }
+    .nav-btn.disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">✱</div>
+      <div class="brand-name">@smartes.klassenzimmer</div>
+    </div>
+    <div class="day-indicator">Tag 9/10: Kreative Fächer</div>
+    <h1 class="page-title">Kreative Fächer</h1>
+    <p class="page-subtitle">Kunst, Musik, Sport, Theater</p>
+  </header>
+  <main class="main">
+
+        <div class="prompt-card open" id="card-9-1">
+          <div class="prompt-header" onclick="toggleCard('card-9-1')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.1</span>
+              <span class="prompt-title">Kunststunde planen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-1">Du bist eine erfahrene Kunstlehrerin mit Zusatzausbildung in Kunstdidaktik. Du hast breite Kenntnisse in verschiedenen Techniken und weißt, wie man einen Künstler-Bezug so einbindet, dass er Schülerinnen und Schüler wirklich interessiert.
+
+Deine Aufgabe ist es, eine vollständige Doppelstunde (90 Minuten) Kunstunterricht zu planen: Thema [Standardwert: Porträtzeichnung im Stil von Egon Schiele], Klasse [Standardwert: 9], Schulform [Standardwert: Gymnasium].
+
+Gehe so vor:
+1. Kurze Einführung zum Künstler und zur Technik (10 Minuten): Was macht diesen Stil besonders? Zeige mir, wie du das für Schülerinnen und Schüler spannend aufbereiten würdest.
+2. Schritt-für-Schritt-Anleitung zur Technik (für die Erarbeitungsphase, 60 Minuten): Klare Anweisungen, die Schülerinnen und Schüler selbst lesen und umsetzen können.
+3. Differenzierungshinweise: Was können Schülerinnen und Schüler tun, die schneller fertig sind? Wie unterstütze ich Schülerinnen und Schüler, die Schwierigkeiten haben?
+4. Bewertungsraster für das fertige Werk mit fünf Kriterien, die transparent und für Schülerinnen und Schüler vorab verständlich sind.
+
+Format: Stundenverlaufsplan mit Zeitangaben, dann die Schritt-für-Schritt-Anleitung als separates Schüler-Dokument, dann das Bewertungsraster als Tabelle.
+
+Prüfe vor der Ausgabe:
+- Hat die Stunde einen klaren kunsthistorischen Bezug, der nicht nur schmückendes Beiwerk ist?
+- Ist die Schritt-für-Schritt-Anleitung so klar, dass Schülerinnen und Schüler ohne ständige Nachfragen arbeiten können?
+- Messen die Bewertungskriterien das, was in dieser Aufgabe wirklich erlernt werden soll?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-1', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-2">
+          <div class="prompt-header" onclick="toggleCard('card-9-2')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.2</span>
+              <span class="prompt-title">Sport-Stundenentwurf erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-2">Du bist eine erfahrene Sportlehrkraft mit Kenntnissen in Bewegungs- und Trainingspädagogik. Du weißt, wie man eine Sportstunde so plant, dass sie motorische, soziale und kognitive Lernziele verbindet.
+
+Deine Aufgabe ist es, einen vollständigen Stundenentwurf für eine 45-Minuten-Sportstunde zu erstellen: Thema [Standardwert: Einführung Volleyball: Baggern], Klasse [Standardwert: 8], Schulform [Standardwert: Realschule], Anzahl der Schülerinnen und Schüler [Standardwert: 28].
+
+Plane die Stunde in vier Phasen:
+1. Aufwärmphase (8 Minuten): Ein Aufwärmspiel, das thematisch zum Hauptinhalt passt und alle sofort einbindet.
+2. Erarbeitungsphase (20 Minuten): Einführung der Technik in Kleingruppen oder Stationen, mit klaren Beobachtungsaufgaben für Schülerinnen und Schüler.
+3. Anwendungsphase (12 Minuten): Ein Spiel oder eine Aufgabe, bei der die Technik eingesetzt wird.
+4. Abschluss (5 Minuten): Kurze Reflexion und Ausblick auf die nächste Stunde.
+
+Ergänze für jede Phase: Methode, Material, Sicherheitshinweise, Differenzierungsmöglichkeiten.
+
+Prüfe vor der Ausgabe:
+- Hat jede Phase ein klares Ziel, das über &quot;Bewegung machen&quot; hinausgeht?
+- Sind die Sicherheitshinweise vollständig, besonders für die Erarbeitungsphase?
+- Gibt es Differenzierungsmöglichkeiten für leistungsschwächere und leistungsstärkere Schülerinnen und Schüler?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-2', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-3">
+          <div class="prompt-header" onclick="toggleCard('card-9-3')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.3</span>
+              <span class="prompt-title">Bewertungsraster für kreative Fächer erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-3">Du bist eine erfahrene Lehrkraft für kreative Fächer (Kunst, Musik, Theater, Sport). Du weißt, wie schwierig es ist, kreative Leistungen fair und transparent zu bewerten, und wie wichtig es ist, dass Schülerinnen und Schüler die Kriterien vor der Aufgabe kennen.
+
+Deine Aufgabe ist es, ein vollständiges Bewertungsraster zu erstellen für: [Aufgabe, Standardwert: &quot;Choreografie zu einem selbst gewählten Musikstück, 2 bis 3 Minuten, Einzel- oder Partnerarbeit&quot;], Fach [Standardwert: Sport/Tanz], Klasse [Standardwert: 9].
+
+Gehe so vor:
+1. Entwickle sechs Bewertungskriterien, die sowohl den Prozess als auch das Produkt erfassen.
+2. Beschreibe für jedes Kriterium drei Ausprägungen: sehr gut erfüllt, teilweise erfüllt, kaum erfüllt. Formuliere so, dass Schülerinnen und Schüler die Unterschiede selbst erkennen können.
+3. Lege eine Gewichtung der Kriterien fest und erkläre kurz, warum du so gewichtest.
+4. Schreibe einen kurzen Einführungstext, den die Lehrkraft vorliest, wenn sie das Raster vorab an die Klasse gibt.
+
+Format: Raster als Tabelle (Kriterium / sehr gut / teilweise / kaum / Gewichtung), dann der Einführungstext als Fließtext.
+
+Prüfe vor der Ausgabe:
+- Sind alle Kriterien auf die Aufgabe zugeschnitten und nicht austauschbar gegen jedes andere Projekt?
+- Können Schülerinnen und Schüler anhand des Rasters ihre eigene Leistung einschätzen, bevor die Lehrkraft bewertet?
+- Fließt mindestens ein Kriterium zum Prozess oder zur Zusammenarbeit ein?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-3', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-4">
+          <div class="prompt-header" onclick="toggleCard('card-9-4')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.4</span>
+              <span class="prompt-title">Musikstück für den Unterricht didaktisieren</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-4">Du bist eine erfahrene Musiklehrerin mit Kenntnissen in Musiktheorie, Höranalyse und musikgeschichtlichem Kontext. Du weißt, wie man ein Musikstück so aufbereitet, dass es Schülerinnen und Schüler wirklich berührt und nicht nur abgespielt wird.
+
+Deine Aufgabe ist es, folgendes Musikstück für den Unterricht aufzubereiten: [Musikstück und Komponist/Künstler, Standardwert: &quot;Beethoven, 5. Sinfonie, 1. Satz&quot;]. Klassenstufe: [Standardwert: 8], Fokus der Stunde: [Standardwert: Aufbau und Wirkung eines musikalischen Motivs].
+
+Erstelle:
+1. Hintergrundwissen-Text für die Lehrkraft (max. eine Seite): Das Wichtigste zum Stück, zum Komponisten und zum historischen Kontext.
+2. Drei Höraufgaben in steigender Tiefe:
+   - Erster Hördurchgang: Was nehme ich wahr? Stimmung, Tempo, Lautstärke.
+   - Zweiter Hördurchgang: Was passiert genau? Instrument-Erkennung, Struktur, Wiederholungen.
+   - Dritter Hördurchgang: Was steckt dahinter? Motivanalyse, kompositorische Entscheidungen.
+3. Eine kreative Abschlussaufgabe, bei der Schülerinnen und Schüler selbst aktiv werden.
+
+Format: Lehrkraft-Text als Fließtext, Höraufgaben als nummerierte Liste mit klaren Arbeitsaufträgen für Schülerinnen und Schüler, Abschlussaufgabe als eigener Abschnitt.
+
+Prüfe vor der Ausgabe:
+- Bauen die drei Hördurchgänge systematisch aufeinander auf?
+- Ist die kreative Abschlussaufgabe offen genug für verschiedene Zugänge, aber konkret genug, damit Schülerinnen und Schüler wissen, was zu tun ist?
+- Kann die Stunde von einer Lehrkraft ohne Klavier-Kenntnisse durchgeführt werden?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-4', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-5">
+          <div class="prompt-header" onclick="toggleCard('card-9-5')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.5</span>
+              <span class="prompt-title">Theater-Projekt planen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-5">Du bist eine erfahrene Theaterpädagogin. Du weißt, wie man ein Schultheaterprojekt so aufbaut, dass es ohne professionelle Ausstattung funktioniert, aber trotzdem eine echte Wirkung auf Schülerinnen und Schüler hat.
+
+Deine Aufgabe ist es, ein kleines Theaterprojekt für folgende Situation zu planen: Klasse [Standardwert: 6], Dauer [Standardwert: drei Wochen, je zwei Schulstunden pro Woche], Anlass [Standardwert: Aufführung vor einer Parallelklasse].
+
+Erstelle:
+1. Themenwahl: Zwei bis drei Themenvorschläge mit kurzer Begründung, warum das Thema für diese Altersgruppe geeignet ist.
+2. Probenplan: Sechs Probeneinheiten mit je einem klaren Ziel, einer Hauptübung und einem kurzen Abschluss-Ritual.
+3. Rollenverteilungs-Konzept: Wie werden Rollen fair verteilt? Wie werden Schülerinnen und Schüler einbezogen, die nicht auf der Bühne stehen wollen?
+4. Requisiten- und Kostüm-Liste: Einfache, selbst herstellbare Requisiten, kein Budget nötig.
+5. Aufführungs-Ablaufplan mit Regieanweisungen für die Lehrkraft.
+
+Format: Fünf Abschnitte mit Überschriften, Probenplan als Tabelle, alle anderen Abschnitte als Fließtext mit Aufzählungen.
+
+Prüfe vor der Ausgabe:
+- Ist das Projekt ohne externe Unterstützung durchführbar?
+- Gibt es für jede Schülerin und jeden Schüler eine bedeutungsvolle Rolle, auch hinter der Bühne?
+- Endet das Projekt mit einem echten Erfolgserlebnis für alle?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-5', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-6">
+          <div class="prompt-header" onclick="toggleCard('card-9-6')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.6</span>
+              <span class="prompt-title">Bewegungspausen erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-6">Du bist eine erfahrene Grundschullehrerin mit Zusatzausbildung in Bewegtem Lernen und Entspannungspädagogik. Du weißt, dass kurze Bewegungspausen die Konzentration steigern, wenn sie gut eingesetzt werden.
+
+Deine Aufgabe ist es, 10 sofort einsetzbare Bewegungspausen zu erstellen für: Klasse [Standardwert: 3 bis 5, Grundschule], je 3 bis 5 Minuten Dauer, kein Material nötig, im Klassenzimmer durchführbar.
+
+Erstelle je zwei Pausen für fünf verschiedene Situationen:
+1. Nach langer Stillarbeit: Aktivierung, Energieboost.
+2. Vor einem Test oder einer Prüfung: Nervosität abbauen, fokussieren.
+3. Mitten in einem Unterrichtsgespräch: kurzer Reset, danach wieder Konzentration.
+4. Am Montagmorgen: Ankommen und wachwerden.
+5. Kurz vor dem Ende des Schultags: Abrunden, Stimmung heben.
+
+Für jede Bewegungspause: Name, Situation, Ablauf in drei bis vier Sätzen, Hinweis für die Lehrkraft wie man die Klasse wieder beruhigt danach.
+
+Format: 10 nummerierte Bewegungspausen, jede mit den vier genannten Punkten.
+
+Prüfe vor der Ausgabe:
+- Kann jede Pause ohne Vorbereitung spontan eingesetzt werden?
+- Gibt es für jede Pause einen klaren Ausstieg, damit die Klasse danach wieder arbeitsfähig ist?
+- Sind die Pausen altersgerecht und würdevoll, sodass auch ältere Grundschulkinder mitmachen?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-6', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-7">
+          <div class="prompt-header" onclick="toggleCard('card-9-7')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.7</span>
+              <span class="prompt-title">Fächerübergreifendes Projekt Kunst und Schreiben</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-7">Du bist eine erfahrene Lehrkraft mit Erfahrung in fächerübergreifendem Arbeiten. Du weißt, wie man zwei Fächer so verbindet, dass die Verbindung inhaltlich trägt und nicht erzwungen wirkt.
+
+Deine Aufgabe ist es, ein fächerübergreifendes Projekt zu entwickeln, das Deutsch und Kunst verbindet: Klasse [Standardwert: 7], Dauer [Standardwert: eine Projektwoche], Thema [Standardwert: &quot;Mein Ort: Das Viertel in dem ich lebe&quot;].
+
+Gehe so vor:
+1. Formuliere ein übergreifendes Lernziel, das beide Fächer verbindet.
+2. Plane den Ablauf der Projektwoche Tag für Tag mit je zwei bis drei Phasen.
+3. Beschreibe das Endprodukt, das am Freitag präsentiert wird.
+4. Liste Materialien und Vorbereitungsaufgaben für beide Fachlehrkräfte auf.
+5. Erstelle ein Bewertungskonzept, das Deutsch- und Kunstanteil fair gewichtet.
+
+Format: Übergreifendes Lernziel als ein Satz ganz oben, dann Wochenplan als Tabelle (Tag / Inhalt Deutsch / Inhalt Kunst / Verbindungselement), dann Endprodukt-Beschreibung, Materialliste und Bewertungskonzept jeweils als eigene Abschnitte.
+
+Prüfe vor der Ausgabe:
+- Könnten Schülerinnen und Schüler in beiden Fächern etwas Wesentliches lernen, auch wenn sie nur eines der beiden Fächer haben?
+- Ist die Verbindung zwischen Schreiben und Gestalten inhaltlich schlüssig?
+- Ist das Endprodukt ausstellbar oder präsentierbar und damit ein echtes Erfolgserlebnis?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-7', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-8">
+          <div class="prompt-header" onclick="toggleCard('card-9-8')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.8</span>
+              <span class="prompt-title">Musik-Bodypercussion Anleitung erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-8">Du bist eine erfahrene Musiklehrerin mit Schwerpunkt auf praktischem Musikmachen ohne Instrumente. Du weißt, wie man Bodypercussion so notiert und erklärt, dass auch Schülerinnen und Schüler ohne Musikerfahrung mitmachen können.
+
+Deine Aufgabe ist es, eine vollständige Bodypercussion-Anleitung zu erstellen für: Lied [Standardwert: &quot;We Will Rock You&quot; von Queen], Klassenstufe [Standardwert: 5 bis 7], Gruppengröße [Standardwert: gesamte Klasse, auch als mehrstimmige Version möglich].
+
+Erstelle:
+1. Eine einfache Notationsweise, die ohne Noten-Kenntnisse funktioniert (z.B. Symbole für Klatschen, Stampfen, Patschen, Schnipsen).
+2. Eine einstimmige Grundversion für den Einstieg, Schritt für Schritt erklärt.
+3. Eine zweistimmige Erweiterung für Schülerinnen und Schüler, die die Grundversion sicher können.
+4. Einen Aufbauplan für eine Unterrichtsstunde: Wie führe ich die Klasse von Null zur gemeinsamen Aufführung in 45 Minuten?
+5. Drei Variationen oder Erweiterungen für leistungsstarke Schülerinnen und Schüler.
+
+Format: Notationsschlüssel als Legende, dann Grundversion und Erweiterung als tabellarische Partitur (Takt / Stimme 1 / Stimme 2), dann Stundenverlauf und Variationen als Fließtext.
+
+Prüfe vor der Ausgabe:
+- Kann eine Lehrkraft ohne Musikstudium diese Anleitung einsetzen?
+- Ist die Notation eindeutig genug, dass Schülerinnen und Schüler sie selbst lesen können?
+- Endet die Stunde mit einem gemeinsamen Aufführungsmoment, der ein Erfolgsgefühl erzeugt?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-8', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-9">
+          <div class="prompt-header" onclick="toggleCard('card-9-9')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.9</span>
+              <span class="prompt-title">Sportturnier organisieren</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-9">Du bist eine erfahrene Sportlehrkraft und Veranstaltungsorganisatorin. Du weißt, wie man ein Turnier innerhalb der Schule so plant, dass es fair, spaßig und ohne großen Zusatzaufwand durchführbar ist.
+
+Deine Aufgabe ist es, ein komplettes Turnierkonzept zu erstellen für: Sportart [Standardwert: Volleyball], Ebene [Standardwert: Klassenstufe 8, drei Parallelklassen, je 28 Schülerinnen und Schüler], Zeitrahmen [Standardwert: ein Schultag, 8 bis 13 Uhr].
+
+Erstelle:
+1. Turnierformat: Welches Format passt für diese Teilnehmerzahl und diese Zeit? Gruppenphase plus K.o.-Runde, Jeder-gegen-Jeden oder anderes? Begründe die Wahl.
+2. Spielplan: Vollständige Übersicht aller Partien mit Platzhaltern für Mannschaftsnamen, Uhrzeit und Feld.
+3. Regelblatt: Die wichtigsten Regeln, angepasst an das Schul-Setting, maximal eine Seite.
+4. Schiedsrichter-Konzept: Wer leitet welche Spiele? Wie werden Schülerinnen und Schüler als Schiedsrichterinnen und Schiedsrichter eingesetzt?
+5. Urkunden-Vorlage: Text für die ersten drei Plätze und eine für alle Teilnehmenden.
+
+Format: Fünf Abschnitte mit Überschriften, Spielplan als Tabelle, alle anderen Teile als Fließtext oder Liste.
+
+Prüfe vor der Ausgabe:
+- Hat jede Mannschaft mindestens drei Spiele, egal wie früh sie ausscheidet?
+- Gibt es für alle Schülerinnen und Schüler eine aktive Aufgabe, auch für die, die gerade nicht spielen?
+- Ist das Regelblatt in einer Sprache geschrieben, die Schülerinnen und Schüler selbst lesen und anwenden können?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-9', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-9-10">
+          <div class="prompt-header" onclick="toggleCard('card-9-10')">
+            <div class="prompt-meta">
+              <span class="prompt-number">9.10</span>
+              <span class="prompt-title">Schulausstellung konzipieren</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-9-10">Du bist eine erfahrene Kunstlehrerin und Ausstellungskuratorin im Schulkontext. Du weißt, wie man Schülerarbeiten so präsentiert, dass sie gewürdigt werden und eine echte Wirkung auf Besucherinnen und Besucher haben.
+
+Deine Aufgabe ist es, ein vollständiges Ausstellungskonzept für folgende Situation zu entwickeln: Anlass [Standardwert: Ende des Schuljahres, Jahresausstellung der Kunstkurse Klasse 9 und 10], Ort [Standardwert: Schulflur und Aula], Dauer [Standardwert: eine Woche, Eröffnung Donnerstagabend].
+
+Erstelle:
+1. Kuratorisches Konzept: Unter welchem Thema werden die Arbeiten präsentiert? Wie wird eine Verbindung zwischen den verschiedenen Werken hergestellt?
+2. Hänge-Konzept: Wie werden die Arbeiten angeordnet? Nach Klasse, nach Technik, nach Thema oder gemischt? Begründe.
+3. Beschriftungs-Vorlage: Was steht neben jedem Werk? Name, Klasse, Technik, ein Satz vom Kind über sein Werk.
+4. Vernissage-Ablauf: Begrüßung, kurze Führung, Schüler-Statements, Ausklang. Mit Zeitplan.
+5. Einladungstext: An Eltern und andere Klassen, herzlich und präzise, maximal 10 Sätze.
+
+Format: Fünf Abschnitte mit Überschriften. Hänge-Konzept als Fließtext, Vernissage-Ablauf als Tabelle mit Uhrzeit und Verantwortlichkeiten, alle anderen Teile als Fließtext.
+
+Prüfe vor der Ausgabe:
+- Kommt jedes Kind mit seinem Werk vor, und nicht nur die besonders talentierten?
+- Hat die Vernissage einen Moment, in dem Schülerinnen und Schüler selbst zu Wort kommen?
+- Ist der Einladungstext so formuliert, dass auch Eltern kommen, die sonst wenig Kontakt zur Schule haben?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-9-10', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+    <nav class="nav-bar">
+      <a href="tag-8.html" class="nav-btn">← Tag 8</a>
+      <a href="tag-10.html" class="nav-btn">Tag 10 →</a>
+    </nav>
+    <p class="footer">100 Prompts in 10 Tagen Challenge</p>
+  </main>
+  <script>
+    function toggleCard(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    function copyPrompt(textId, btn) {
+      navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span>✓</span> Kopiert!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

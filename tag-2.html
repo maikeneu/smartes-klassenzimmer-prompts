@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 2/10: Grundschule, Fachunterricht – 100 Claude-Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
+  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
+  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
+  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
+  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
+  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
+  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
+  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
+  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
+  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s ease; }
+  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
+  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
+  .prompt-header:hover { background: rgba(90,0,153,0.12); }
+  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
+  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
+  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
+  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s ease; flex-shrink: 0; }
+  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
+  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
+  .prompt-card.open .prompt-body { display: block; }
+  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; font-family: 'Poppins', monospace; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s ease; }
+  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
+  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
+  .copy-icon { font-size: 1rem; }
+  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
+  .nav-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s ease; }
+  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
+  .nav-link.disabled { opacity: 0.3; pointer-events: none; }
+  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
+  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; letter-spacing: 0.05em; }
+  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
+  .footer-orange { color: #FF9D00; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-brand"><span class="asterisk">✱</span><span class="brand-name">@smartes.klassenzimmer</span></div>
+  <div class="header-title">100 Claude-Prompts</div>
+</header>
+<div class="day-indicator">
+  <div class="day-badge">Tag 2 / 10</div>
+  <div class="day-title">Grundschule</div>
+  <div class="day-subtitle">Fachunterricht</div>
+</div>
+<div class="prompts-grid">
+
+  <div class="prompt-card open" id="card-1">
+    <div class="prompt-header" onclick="toggleCard('card-1')">
+      <div class="prompt-meta"><span class="prompt-number">2.1</span><span class="prompt-title">Buchstaben-Einführung planen</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-1">Du bist eine erfahrene Grundschullehrerin mit Spezialisierung auf Deutsch in Klasse 1 und 2 und kennst die gaengigen Fibellehrplaene gut.
+
+Erstelle eine vollstaendige Unterrichtsstunde zur Einfuehrung eines neuen Buchstabens fuer die Grundschule.
+
+Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Nordrhein-Westfalen]. Der einzufuehrende Buchstabe ist [Buchstabe: Mm]. Die Stunde dauert 45 Minuten. In der Klasse gibt es [besondere Umstaende: zwei Kinder mit Deutsch als Zweitsprache und ein Kind mit Foerderbedarf Sprache].
+
+Gehe so vor:
+1. Plane eine kurze Bewegungsuebung zum Einstieg, die mit dem Buchstaben oder seinem Klang verbunden ist (5 Minuten).
+2. Erstelle eine Schreibuebung mit Hilfslinien: zuerst Nachspuren, dann selbst schreiben, dann frei ueben (15 Minuten).
+3. Plane eine Hoeraufgabe, bei der Kinder den Buchstaben in Woertern identifizieren (10 Minuten).
+4. Ergaenze eine Differenzierungsaufgabe fuer schnellere Kinder und eine erleichterte Version fuer Kinder mit Foerderbedarf (10 Minuten).
+5. Plane einen kurzen Abschluss, bei dem Kinder zeigen, was sie gelernt haben (5 Minuten).
+
+Strukturiere das Ergebnis als Stundenverlaufsplan mit Zeitangaben, Lernziel, benotigten Materialien und konkreten Aufgabenformulierungen.
+
+Pruefe vor der Ausgabe:
+- Passt die Stunde wirklich in 45 Minuten?
+- Sind die Aufgaben fuer Erstklassler sprachlich und motorisch angemessen?
+- Sind die Differenzierungsmoeglichkeiten konkret, nicht nur als Hinweis formuliert?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-2">
+    <div class="prompt-header" onclick="toggleCard('card-2')">
+      <div class="prompt-meta"><span class="prompt-number">2.2</span><span class="prompt-title">Zahlen schreiben lernen</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-2">Du bist eine erfahrene Grundschullehrerin mit fundiertem Wissen in der Mathematikdidaktik der Grundschule.
+
+Erstelle gestufte Uebungsmaterialien zum Zahlenschreiben fuer den Mathematikunterricht.
+
+Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Sachsen]. Die Zahl, die gerade eingefuehrt wird, ist [Zahl: die 8]. Die Kinder haben bisher [Vorwissen: die Zahlen 0 bis 7] gelernt. In der Klasse gibt es Kinder mit sehr unterschiedlicher feinmotorischer Entwicklung.
+
+Gehe so vor:
+1. Erstelle eine Nachspuraufgabe: Die Zahl 8 in verschiedenen Groessen mit duennen Linien zum Nachfahren.
+2. Erstelle eine Hilfslinien-Aufgabe: Karos oder Linien, auf denen die Kinder die 8 selbst schreiben, mit einem Startpfeil als Orientierung.
+3. Erstelle eine freie Uebungsaufgabe: Kinder schreiben die 8 in eigener Groesse und verbinden sie mit passenden Mengenbildern.
+4. Ergaenze einen Lernschritt fuer die Ziffernschreibweise (wie fange ich an, wo dreht die Linie).
+5. Fuege eine kurze Uebung hinzu, bei der Kinder die 8 in ihrer Umgebung suchen und aufzeichnen.
+
+Strukturiere das Ergebnis als Abfolge von fuenf Aufgaben, die in einer Stunde oder aufgeteilt auf mehrere kurze Uebungsphasen benutzt werden koennen.
+
+Pruefe vor der Ausgabe:
+- Ist der Schwierigkeitsgrad von Aufgabe zu Aufgabe sinnvoll gesteigert?
+- Sind die Anweisungen so formuliert, dass Kinder sie mit Hilfe einer Lehrkraft verstehen?
+- Ist die motorische Anforderung fuer Erstklassler realistisch?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-3">
+    <div class="prompt-header" onclick="toggleCard('card-3')">
+      <div class="prompt-meta"><span class="prompt-number">2.3</span><span class="prompt-title">Lerntagebuch Sachunterricht</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-3">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in der portfolioorientierten Leistungsdokumentation und aktuellen Sachunterrichts-Lehrplaenen.
+
+Erstelle ein Lerntagebuch fuer eine Sachunterrichts-Einheit, das Kinder selbst fuehren koennen.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Thema der Einheit ist [Thema: Tiere im Winter, Schlaf und Wanderung]. Die Einheit dauert [Dauer: vier Wochen]. Das Lerntagebuch soll die Kinder durch die Einheit begleiten und am Ende als Kompetenznachweis dienen.
+
+Gehe so vor:
+1. Erstelle eine Startseite, auf der Kinder eintragen, was sie schon wissen und was sie noch nicht wissen (Vorwissen aktivieren).
+2. Erstelle pro Unterthema eine Doppelseite mit: Lernziel in Kindersprache, Platz fuer eigene Notizen und Zeichnungen, ein oder zwei kurze Aufgaben zum Thema.
+3. Erstelle eine Abschlussseite: Was habe ich gelernt? Was war schwer? Worauf bin ich stolz?
+4. Ergaenze eine Selbsteinschaetzungs-Skala mit Smileys oder Symbolen, die Kinder nach jeder Einheit ausfullen.
+
+Gib mir eine Vorlage fuer alle Seiten mit klar beschriftetem Layout und Platzhaltern fuer den Inhalt, den ich selbst einsetzen kann.
+
+Pruefe vor der Ausgabe:
+- Koennen Drittklassler das Lerntagebuch wirklich selbststaendig fuehren?
+- Ist die Sprache auf dem Niveau der Kinder?
+- Passt das Lerntagebuch zum genannten Sachunterrichtsthema?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-4">
+    <div class="prompt-header" onclick="toggleCard('card-4')">
+      <div class="prompt-meta"><span class="prompt-number">2.4</span><span class="prompt-title">Kopfrechenaufgaben Mathe</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-4">Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Mathematik und aktivierendem Unterrichtseinstieg.
+
+Erstelle 20 Kopfrechenaufgaben fuer den Stundeneinstieg, passend zum aktuellen Unterrichtsstoff und zur Wiederholung.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [aktuelles Thema: Einmaleins, Sieberreihe]. Die Aufgaben sollen [Ziel: das neue Einmaleins ueben und gleichzeitig die Sechserreihe aus der letzten Woche wiederholen]. Jede Aufgabe soll in 5 bis 10 Sekunden loesbar sein.
+
+Gehe so vor:
+1. Erstelle 10 Aufgaben zum aktuellen Thema (7er-Reihe) in aufsteigendem Schwierigkeitsgrad.
+2. Erstelle 10 Wiederholungsaufgaben aus der 6er-Reihe.
+3. Formuliere zu jeder Aufgabe auch die Loesung, damit ich beim Korrigieren Zeit spare.
+4. Schlage zwei Varianten vor, wie ich die Aufgaben im Unterricht einsetzen kann (z.B. Blitzrechnen an der Tafel, Partnerkontrolle).
+
+Strukturiere das Ergebnis als zwei Aufgabenlisten mit Loesungen und den zwei Einsatz-Varianten am Ende.
+
+Pruefe vor der Ausgabe:
+- Sind die Aufgaben wirklich fuer Kopfrechnen geeignet, also nicht zu komplex?
+- Ist die Mischung aus neuem Thema und Wiederholung sinnvoll?
+- Koennte ich diese Aufgaben ohne Vorbereitung direkt in einer Stunde einsetzen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-5">
+    <div class="prompt-header" onclick="toggleCard('card-5')">
+      <div class="prompt-meta"><span class="prompt-number">2.5</span><span class="prompt-title">Englisch-Portfolio erstellen</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-5">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen im Englischunterricht der Grundschule und in der portfolioorientierten Beurteilung.
+
+Erstelle ein digitales oder ausdruckbares Portfolio fuer den Englischunterricht einer Grundschulklasse.
+
+Das Material ist fuer [Klassenstufe: Klasse 4] in [Bundesland: Nordrhein-Westfalen]. Das Portfolio soll [Zeitraum: ein Schulhalbjahr] abdecken und Kompetenzen in den Bereichen Hoeren, Sprechen und Lesen dokumentieren. Es soll das Papierportfolio sinnvoll erganzen oder ersetzen.
+
+Gehe so vor:
+1. Erstelle eine Startseite mit Name, Klasse und einem Satz, den das Kind ueber sich auf Englisch schreiben kann (z.B. "My name is ... and I like ...").
+2. Erstelle vier Aufgabenseiten zu verschiedenen Themen des Englischunterrichts (z.B. My family, Colours and animals, Numbers, Food). Jede Seite hat: eine kurze Aufgabe, Platz fuer das Kind, ein Bild dazu zu zeichnen oder zu kleben.
+3. Ergaenze eine "I can do this!"-Seite, auf der Kinder ankreuzen, was sie auf Englisch koennen.
+4. Fuege eine Lehrkraft-Kommentar-Seite am Ende ein.
+
+Strukturiere das Ergebnis als vollstaendige Vorlage fuer jede Seite, fertig zum Ausdrucken oder digital auszufullen.
+
+Pruefe vor der Ausgabe:
+- Sind die Aufgaben sprachlich fuer Viertklassler im Anfaenger-Englisch geeignet?
+- Macht das Portfolio Spass, sodass Kinder es gerne ausfuellen?
+- Sind alle relevanten Kompetenzbereiche abgedeckt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-6">
+    <div class="prompt-header" onclick="toggleCard('card-6')">
+      <div class="prompt-meta"><span class="prompt-number">2.6</span><span class="prompt-title">Lernstrasse Buchstaben</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-6">Du bist eine erfahrene Grundschullehrerin mit Expertise in offenen Unterrichtsformen und Lernstationen fuer die Grundschule.
+
+Plane eine vollstaendige Lernstrasse mit verschiedenen Stationen, um einen Buchstaben zu festigen.
+
+Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Hessen]. Der Buchstabe ist [Buchstabe: Ff]. Die Lernstrasse soll etwa [Dauer: 60 Minuten] laufen und von den Kindern groesstenteils selbststaendig genutzt werden koennen.
+
+Gehe so vor:
+1. Plane sechs Stationen mit je einer anderen Lernmethode:
+   - Station 1: Kneten (Buchstabe aus Ton oder Knete formen)
+   - Station 2: Schreiben (auf Sandpapier oder mit Kreide)
+   - Station 3: Hoeren (Woerter mit dem Buchstaben aus einer Liste identifizieren)
+   - Station 4: Lesen (Kaertchen mit Woertern, die den Buchstaben enthalten)
+   - Station 5: Bewegen (Buchstabe mit dem Koerper nachformen)
+   - Station 6: Gestalten (Bild malen zu einem Wort mit dem Buchstaben)
+2. Schreibe fuer jede Station eine Aufgabenkarte in einfacher Kindersprache.
+3. Beschreibe das Material, das ich fuer jede Station benotige.
+4. Erklaere, wie ich die Kinder durch die Stationen fuehren kann (Ampelkarte, Laufzettel etc.).
+
+Strukturiere das Ergebnis als sechs Station-Karteikarten plus eine Materialuebersicht und eine Einfuehrungs-Erklaerung.
+
+Pruefe vor der Ausgabe:
+- Sind alle Aufgaben wirklich ohne Lehrkraft-Hilfe durchfuehrbar?
+- Ist das benotige Material in einer normalen Grundschule vorhanden?
+- Gibt es eine gute Mischung aus ruhigen und bewegten Stationen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-7">
+    <div class="prompt-header" onclick="toggleCard('card-7')">
+      <div class="prompt-meta"><span class="prompt-number">2.7</span><span class="prompt-title">Leseförderung differenziert</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-7">Du bist eine erfahrene Grundschullehrerin mit fundierter Ausbildung in der Lesefoerderung und Differenzierung im Deutschunterricht.
+
+Erstelle denselben Lesetext in drei Schwierigkeitsstufen, mit passenden Verstaendnisfragen fuer jede Stufe.
+
+Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Das Thema des Textes ist [Thema: Igel im Herbst]. Ziel ist es, dass alle Kinder denselben Sachinhalt lernen, aber auf ihrem Lese-Niveau.
+
+Gehe so vor:
+1. Schreibe eine einfache Version (Stufe 1): kurze Saetze, einfache Worte, maximal 5-6 Saetze, grosser Schrift angemessen, gerne mit Bildunterstuetzungs-Hinweis.
+2. Schreibe eine mittlere Version (Stufe 2): etwas laengere Saetze, 8-10 Saetze, normales Vokabular fuer Klasse 2.
+3. Schreibe eine anspruchsvollere Version (Stufe 3): 12-14 Saetze, komplexere Saetze, Fremdwoerter mit Erklaerung am Rand.
+4. Schreibe zu jeder Version drei Verstaendnisfragen, passend zum Schwierigkeitsgrad der Textstufe.
+
+Strukturiere das Ergebnis als drei klar getrennte Text-Bloecke mit den jeweiligen Fragen darunter.
+
+Pruefe vor der Ausgabe:
+- Transportieren alle drei Texte denselben Kerninhalt ueber Igel im Herbst?
+- Ist der Sprachkomplexitaets-Unterschied zwischen den Stufen wirklich deutlich?
+- Sind die Fragen zum Text und zur Klassenstufe angemessen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-8">
+    <div class="prompt-header" onclick="toggleCard('card-8')">
+      <div class="prompt-meta"><span class="prompt-number">2.8</span><span class="prompt-title">Sachunterricht-Experiment</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-8">Du bist eine erfahrene Grundschullehrerin mit Begeisterung fuer forschendes Lernen und praktische Sachunterrichts-Experimente.
+
+Plane ein vollstaendiges Experiment fuer den Sachunterricht inklusive Beobachtungsbogen und Erklaerung fuer die Kinder.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Thema ist [Thema: Wasser loest Stoffe auf]. Das Experiment soll [Dauer: 30 Minuten] dauern und in Kleingruppen durchgefuehrt werden.
+
+Gehe so vor:
+1. Beschreibe das Experiment Schritt fuer Schritt in einer kindgerechten Versuchsanleitung mit maximal fuenf Schritten.
+2. Erstelle eine Materialliste, die ich eine Woche vorher zusammenstellen kann.
+3. Erstelle einen Beobachtungsbogen fuer die Kinder: Was vermute ich vorher (Hypothese), was passiert wirklich, was erklaert mir das.
+4. Schreibe eine einfache Erklaerung, wie die Lehrkraft den Versuch am Ende erklaert (fuer das Unterrichtsgesprach).
+5. Ergaenze einen kurzen Sicherheitshinweis, falls noetig.
+
+Strukturiere das Ergebnis: zuerst die Versuchsanleitung fuer Kinder, dann die Materialliste, dann den Beobachtungsbogen, dann meine Lehrerkraft-Erklaerung.
+
+Pruefe vor der Ausgabe:
+- Ist das Experiment wirklich in einer Schulklasse ohne Labor durchfuehrbar?
+- Ist die Kindersprachversion der Anleitung verstaendlich fuer Drittklassler?
+- Sind Hypothese, Beobachtung und Erklaerung klar getrennt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-9">
+    <div class="prompt-header" onclick="toggleCard('card-9')">
+      <div class="prompt-meta"><span class="prompt-number">2.9</span><span class="prompt-title">Rechengeschichten erfinden</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-9">Du bist eine erfahrene Grundschullehrerin mit Begeisterung fuer kontextbezogenes Mathematiklernen und Alltagsbezuge.
+
+Erstelle Rechengeschichten aus der Lebenswelt der Kinder, differenziert nach Zahlenraum und Rechenart.
+
+Das Material ist fuer [Klassenstufe: Klasse 2] in [aktuelles Thema: Addition und Subtraktion im Zahlenraum bis 100]. Die Geschichten sollen die Lebenswelt von Kindern im Grundschulalter widerspiegeln (Schule, Spielplatz, Zuhause, Tiergeschichten).
+
+Gehe so vor:
+1. Erstelle 5 einfache Rechengeschichten (Zahlenraum bis 20) mit Addition.
+2. Erstelle 5 mittlere Rechengeschichten (Zahlenraum bis 50) mit Addition und Subtraktion.
+3. Erstelle 5 anspruchsvollere Rechengeschichten (Zahlenraum bis 100) mit Addition und Subtraktion, darunter eine Aufgabe mit zwei Rechenschritten.
+4. Schreibe zu jeder Geschichte die Loesung mit kurzem Loesungsweg, damit ich schnell korrigieren kann.
+
+Strukturiere das Ergebnis als drei Gruppen mit den Geschichten und Loesungen darunter.
+
+Pruefe vor der Ausgabe:
+- Sind die Geschichten wirklich aus der Lebenswelt von Grundschulkindern?
+- Passen die Zahlen zum angegebenen Zahlenraum?
+- Sind die Loesungswege nachvollziehbar, nicht nur das Ergebnis?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-10">
+    <div class="prompt-header" onclick="toggleCard('card-10')">
+      <div class="prompt-meta"><span class="prompt-number">2.10</span><span class="prompt-title">Diktat-Vorbereitung</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-10">Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Rechtschreibung und variantenreicher Lernwort-Uebung.
+
+Erstelle vollstaendige Uebungsmaterialien zu Lernwoertern fuer die Diktat-Vorbereitung.
+
+Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Nordrhein-Westfalen]. Die Lernwoerter sind [Woerter: fragen, spielen, schreiben, laufen, lachen, denken, horen, singen, malen, lesen]. Das Diktat findet [Zeitraum: naechste Woche] statt.
+
+Gehe so vor:
+1. Erstelle einen Lueckentext mit allen zehn Lernwoertern, bei dem die Kinder die fehlenden Woerter eintragen (Schluesselbuchstaben fehlen, nicht das ganze Wort).
+2. Erstelle Schleichdiktat-Kaertchen: Jedes Wort auf einer Karte mit Bild-Hinweis. Kinder schauen, praegen sich das Wort ein, klappen die Karte um und schreiben es auf.
+3. Erstelle eine Partner-Diktat-Anleitung: Wie sage ich meinem Partner das Wort vor, wie korrigieren wir gemeinsam?
+4. Erstelle eine abschliessende Uebungsliste, bei der Kinder jedes Wort dreimal in einem Satz benutzen.
+
+Strukturiere das Ergebnis als vier separate Uebungsmaterialien, die ich nacheinander oder parallel in der Woche einsetzen kann.
+
+Pruefe vor der Ausgabe:
+- Decken die vier Uebungen verschiedene Lernstrategien ab (visuell, auditiv, schriftlich)?
+- Sind die Uebungen auch ohne Lehrkraft selbststaendig nutzbar?
+- Sind alle zehn Lernwoerter in allen Uebungen beruecksichtigt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span class="copy-icon">📋</span> Kopieren</button>
+    </div>
+  </div>
+
+</div>
+<nav class="day-nav">
+  <a href="tag-1.html" class="nav-link">← Tag 1</a>
+  <a href="tag-3.html" class="nav-link">Tag 3 →</a>
+</nav>
+<footer>
+  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
+  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
+</footer>
+<script>
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function copyPrompt(textId, btn) {
+  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span class="copy-icon">✓</span> Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

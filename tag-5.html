@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 5/10: Sprachen, Deutsch, Englisch, Fremdsprachen – 100 Claude-Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
+  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
+  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
+  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
+  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
+  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
+  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
+  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
+  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
+  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s; }
+  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
+  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
+  .prompt-header:hover { background: rgba(90,0,153,0.12); }
+  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
+  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
+  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
+  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s; flex-shrink: 0; }
+  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
+  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
+  .prompt-card.open .prompt-body { display: block; }
+  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s; }
+  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
+  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
+  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
+  .nav-link { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s; }
+  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
+  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
+  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; }
+  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
+  .footer-orange { color: #FF9D00; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-brand"><span class="asterisk">&#10033;</span><span class="brand-name">@smartes.klassenzimmer</span></div>
+  <div class="header-title">100 Claude-Prompts</div>
+</header>
+<div class="day-indicator">
+  <div class="day-badge">Tag 5 / 10</div>
+  <div class="day-title">Sprachen</div>
+  <div class="day-subtitle">Deutsch, Englisch, Fremdsprachen</div>
+</div>
+<div class="prompts-grid">
+
+  <div class="prompt-card open" id="card-1">
+    <div class="prompt-header" onclick="toggleCard('card-1')">
+      <div class="prompt-meta"><span class="prompt-number">5.1</span><span class="prompt-title">Differenzierte Lesetexte erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-1">Du bist eine erfahrene Deutschlehrerin mit 15 Jahren Unterrichtserfahrung in der Sekundarstufe I und II. Du weißt genau, wie man Texte sprachlich so aufbereitet, dass sie für unterschiedliche Leistungsniveaus zugänglich sind, ohne dass das Thema vereinfacht wird.
+
+Schreibe denselben Informationstext zu [Thema, z.B. Klimawandel] in drei Niveaustufen: A2 (einfache Sprache, kurze Sätze), B1 (mittleres Niveau, erklärender Stil) und B2 (anspruchsvoll, fachsprachlich). Alle drei Texte sollen denselben Inhalt transportieren und ungefähr gleich lang sein (je 150-200 Wörter).
+
+Das Material ist für eine [Klassenstufe, z.B. 8. Klasse] an einer [Schulform, z.B. Gesamtschule] in [Bundesland, z.B. Nordrhein-Westfalen]. Die Klasse ist heterogen: etwa ein Drittel der Schülerinnen und Schüler hat Deutsch als Zweitsprache, ein Drittel liegt im Durchschnitt, ein Drittel ist leistungsstark.
+
+Gehe so vor:
+1. Schreibe zuerst den B1-Text als Basis.
+2. Erstelle daraus die A2-Version mit kürzeren Sätzen, häufigeren Wörtern und erklärenden Einschüben.
+3. Entwickle daraus die B2-Version mit Fachbegriffen, komplexeren Satzstrukturen und impliziten Informationen.
+4. Füge jedem Text drei passende Verständnisfragen bei, die auf das jeweilige Niveau abgestimmt sind.
+
+Strukturiere das Ergebnis so: Zuerst alle drei Texte nebeneinander (als Tabelle mit den Spalten A2, B1, B2), dann die Verständnisfragen untereinander, jeweils beschriftet mit dem Niveau.
+
+Prüfe vor der Ausgabe:
+- Sind alle drei Niveaustufen klar unterscheidbar in Satzbau und Wortschatz?
+- Enthalten alle drei Texte dieselben Kerninformationen?
+- Sind die Verständnisfragen wirklich auf das jeweilige Niveau zugeschnitten, nicht nur inhaltlich einfacher oder schwerer?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-2">
+    <div class="prompt-header" onclick="toggleCard('card-2')">
+      <div class="prompt-meta"><span class="prompt-number">5.2</span><span class="prompt-title">Vokabel-Übungen generieren</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-2">Du bist eine erfahrene Englischlehrerin, die weiß, dass Vokabellernen nur dann hängen bleibt, wenn die Wörter in verschiedenen Kontexten auftauchen. Du erstellst Übungsmaterial, das abwechslungsreich ist und echten Lerneffekt erzeugt, statt Vokabeln nur auswendig abzufragen.
+
+Erstelle ein vollständiges Vokabel-Übungspaket zum Wortfeld [Thema, z.B. Environment / Umwelt]. Das Paket soll fünf verschiedene Übungsformate enthalten und zusammen auf einer Doppelseite ausdruckbar sein.
+
+Das Material ist für eine [Klassenstufe, z.B. 9. Klasse] Gymnasium. Die Schülerinnen und Schüler kennen die Vokabeln aus dem Buch bereits, dieses Material dient der Vertiefung und Sicherung.
+
+Erstelle diese fünf Formate:
+1. Lückentext (10 Lücken, mittelschwer, mit Wortkasten)
+2. Zuordnung (Wort zu Definition zuordnen, 10 Paare)
+3. Kreuzworträtsel (8 Wörter mit Definitionen als Hinweise)
+4. Wörter im Kontext (5 kurze Situationen beschreiben, passendes Wort wählen)
+5. Eigene Sätze schreiben (5 Wörter, die die Schülerinnen und Schüler in eigene Sätze einbauen)
+
+Füge am Ende eine Lösungsseite für alle Formate außer dem letzten hinzu.
+
+Strukturiere das Ergebnis: Überschrift mit Wortfeld und Klasse, dann die fünf Übungen nummeriert, danach die Lösungsseite klar getrennt.
+
+Prüfe vor der Ausgabe:
+- Kommen alle wichtigen Vokabeln des Wortfelds vor?
+- Sind die Übungen wirklich fünf verschiedene Aufgabentypen, nicht nur Variationen desselben?
+- Ist die Lösungsseite vollständig und eindeutig?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-3">
+    <div class="prompt-header" onclick="toggleCard('card-3')">
+      <div class="prompt-meta"><span class="prompt-number">5.3</span><span class="prompt-title">Aufsatz-Feedback formulieren</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-3">Du bist eine erfahrene Deutschlehrerin, die konstruktives Feedback so formuliert, dass Schülerinnen und Schüler nicht nur verstehen, was sie falsch gemacht haben, sondern konkret wissen, wie sie es besser machen können. Du gibst Feedback, das motiviert statt entmutigt.
+
+Gib detailliertes, schriftliches Feedback auf diesen Schüler-Aufsatz: [Aufsatz hier einfügen oder: Stelle dir einen typischen Aufsatz einer [Klassenstufe, z.B. 10. Klasse] zum Thema [Thema, z.B. Erörterung: Sollte das Handy in der Schule verboten werden?] vor].
+
+Das Feedback ist für eine Schülerin oder einen Schüler, die oder der sich bemüht, aber noch Schwierigkeiten hat mit: [Schwächen, z.B. Argumentation strukturieren, Belege verwenden, Einleitung schreiben]. Das Niveau des Aufsatzes entspricht einer befriedigenden bis ausreichenden Leistung.
+
+Gehe so vor:
+1. Beginne mit konkretem Lob zu einem Aspekt, der tatsächlich gelungen ist.
+2. Benenne zwei bis drei Hauptprobleme mit je einem Beispielsatz aus dem Aufsatz.
+3. Zeige für jedes Problem, wie es konkret besser formuliert werden könnte (Musterformulierung).
+4. Schließe mit einer klaren Empfehlung ab: Was soll die Person als erstes üben oder verbessern?
+
+Das Feedback soll in Ich-Form geschrieben sein, als würde es die Lehrkraft direkt an die Schülerin oder den Schüler richten. Länge: eine halbe Seite, in Absätzen, kein Bullet-Point-Format.
+
+Prüfe vor der Ausgabe:
+- Ist das Feedback konstruktiv formuliert, also keine Sätze die nur sagen was schlecht ist, ohne einen Weg nach vorne aufzuzeigen?
+- Gibt es mindestens eine konkrete Musterformulierung als Vorbild?
+- Ist der Ton respektvoll und ermutigend, ohne falsch zu loben?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-4">
+    <div class="prompt-header" onclick="toggleCard('card-4')">
+      <div class="prompt-meta"><span class="prompt-number">5.4</span><span class="prompt-title">Grammatik-Erklärung vereinfachen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-4">Du bist eine erfahrene Sprachlehrerin, die komplizierte Grammatikregeln so erklären kann, dass Schülerinnen und Schüler sie beim ersten Lesen verstehen. Du nutzt dafür Alltagsbeispiele, Vergleiche und klare Merksätze statt Fachbegriffe.
+
+Erkläre die Grammatikregel [Thema, z.B. Konjunktiv II im Deutschen / Past Perfect im Englischen / Subjonctif im Französischen] so, dass Schülerinnen und Schüler ohne Vorkenntnisse sie direkt anwenden können.
+
+Das Material ist für eine [Klassenstufe, z.B. 9. Klasse] an [Schulform, z.B. einer Realschule]. Die Klasse hat immer wieder Probleme mit dieser Regel, weil bisherige Erklärungen zu theoretisch waren.
+
+Gehe so vor:
+1. Erkläre in zwei Sätzen, wann und wofür diese Regel gebraucht wird, mit einem Alltagsbeispiel.
+2. Zeige die Bildung Schritt für Schritt an drei Beispielen.
+3. Erkläre einen häufigen Fehler, den Schülerinnen und Schüler machen, und warum er passiert.
+4. Gib einen Merksatz oder eine Eselsbrücke, die im Kopf bleibt.
+5. Erstelle fünf Übungssätze, bei denen die Regel direkt angewendet werden kann, mit Lösungen.
+
+Schreibe die Erklärung so, als würdest du direkt mit Schülerinnen und Schülern sprechen. Kein Fachsprachen-Bingo, keine Aufzählung von Ausnahmen, nur das Wesentliche. Länge: maximal eine Seite.
+
+Prüfe vor der Ausgabe:
+- Kommt der Begriff für die Regel zwar vor, aber wird sofort in einfachen Worten erklärt?
+- Sind die Übungssätze klar formuliert und eindeutig zu lösen?
+- Würde jemand ohne Grammatik-Vorkenntnisse die Erklärung verstehen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-5">
+    <div class="prompt-header" onclick="toggleCard('card-5')">
+      <div class="prompt-meta"><span class="prompt-number">5.5</span><span class="prompt-title">Mündliche Prüfung vorbereiten</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-5">Du bist eine erfahrene Lehrkraft für [Fach, z.B. Englisch], die mündliche Prüfungen so gestaltet, dass sie auch für prüfungsängstliche Schülerinnen und Schüler fair und transparent sind. Du weißt, wie man Prüfungsformate entwickelt, die wirklich Sprachkompetenz messen und nicht nur Auswendiggelerntes abrufen.
+
+Erstelle ein vollständiges Prüfungspaket für eine mündliche [Fach]-Prüfung zum Thema [Thema, z.B. Social Media and Society / Globalisierung / Migration in Europa].
+
+Das Material ist für eine [Klassenstufe, z.B. 10. Klasse] an [Schulform, z.B. einer Gesamtschule]. Die Prüfung soll etwa 10-15 Minuten pro Schülerin oder Schüler dauern. Es gibt drei Niveaustufen in der Klasse.
+
+Erstelle dieses Paket:
+1. Drei Rollenkarten für ein Rollenspiel oder eine Diskussion (je eine pro Niveaustufe, aber alle zum selben Thema)
+2. Fünf offene Diskussionsfragen, die auf B1-Niveau beantwortet werden können, aber auch B2-Antworten ermöglichen
+3. Ein Bewertungsraster mit vier Kriterien (z.B. Aussprache, Wortschatz, Kommunikationsfähigkeit, Grammatik), das von 1 bis 4 Punkte pro Kriterium geht, mit kurzer Beschreibung jeder Punktzahl
+4. Ein Informationsblatt für die Schülerinnen und Schüler: Was wird bewertet? Wie läuft die Prüfung ab? Wie können sie sich vorbereiten?
+
+Prüfe vor der Ausgabe:
+- Sind die Rollenkarten wirklich unterschiedlich schwer, nicht nur thematisch verschieden?
+- Ist das Bewertungsraster klar genug, dass zwei verschiedene Lehrkräfte zu ähnlichen Noten kommen würden?
+- Gibt das Informationsblatt den Schülerinnen und Schülern eine echte Chance zur Vorbereitung, ohne die Prüfung zu verraten?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-6">
+    <div class="prompt-header" onclick="toggleCard('card-6')">
+      <div class="prompt-meta"><span class="prompt-number">5.6</span><span class="prompt-title">Lektüre-Begleitmaterial erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-6">Du bist eine erfahrene Deutschlehrerin, die Klassenlektüren so aufbereitet, dass Schülerinnen und Schüler wirklich damit arbeiten, statt nur zu lesen und wieder zu vergessen. Du verbindest Textarbeit mit kreativen Aufgaben und analytischem Denken.
+
+Erstelle ein Begleitheft für die Lektüre [Titel und Autor, z.B. &quot;Die Welle&quot; von Morton Rhue / oder: gehe von einer gängigen Schullektüre für [Klassenstufe, z.B. Klasse 9] aus].
+
+Das Material ist für eine [Klassenstufe] an [Schulform]. Die Klasse liest die Lektüre im Unterricht und zu Hause parallel, es gibt etwa [Anzahl, z.B. 6] Unterrichtsstunden zur Verarbeitung.
+
+Erstelle dieses Begleitmaterial:
+1. Eine Figurenübersicht mit den wichtigsten Charakteren: Name, Kurzbeschreibung, Funktion in der Handlung
+2. Fünf analytische Arbeitsaufträge zu verschiedenen Kapiteln oder Abschnitten des Buches
+3. Drei kreative Schreibaufgaben, die einen persönlichen Bezug zum Inhalt herstellen (z.B. Tagebucheintrag, Brief an eine Figur, alternatives Ende)
+4. Fünf Diskussionsfragen, die Interpretation und persönliche Meinung verbinden
+5. Drei mögliche Klausur- oder Prüfungsaufgaben mit Operatoren aus dem Deutschunterricht (beschreiben, analysieren, erörtern)
+
+Strukturiere das Material klar mit Überschriften, sodass es direkt als Schülerhandout ausgedruckt werden kann.
+
+Prüfe vor der Ausgabe:
+- Decken die Aufgaben verschiedene Kompetenzbereiche ab (Textverständnis, Analyse, kreatives Schreiben, Diskussion)?
+- Sind die Aufgaben so formuliert, dass Schülerinnen und Schüler ohne zusätzliche Erklärung damit arbeiten können?
+- Passt das Material zum Anspruchsniveau der genannten Klassenstufe?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-7">
+    <div class="prompt-header" onclick="toggleCard('card-7')">
+      <div class="prompt-meta"><span class="prompt-number">5.7</span><span class="prompt-title">Schreibkonferenz anleiten</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-7">Du bist eine erfahrene Deutschlehrerin, die die Schreibkonferenz-Methode regelmäßig im Unterricht einsetzt und weiß, wie man Peer-Feedback so strukturiert, dass es produktiv ist und nicht in oberflächlichen Kommentaren oder verletzenden Rückmeldungen endet.
+
+Erstelle einen vollständigen Leitfaden für eine Schreibkonferenz im Unterricht. Schülerinnen und Schüler geben sich gegenseitig schriftliches Feedback auf ihre Texte.
+
+Das Material ist für eine [Klassenstufe, z.B. 7. oder 8. Klasse]. Die Schülerinnen und Schüler haben noch keine Erfahrung mit strukturiertem Peer-Feedback. Die Textgattung ist [Gattung, z.B. Erlebniserzählung / Erörterung / Kurzgeschichte].
+
+Erstelle:
+1. Eine kurze Erklärung für Schülerinnen und Schüler: Was ist eine Schreibkonferenz und warum machen wir das? (Maximal 5 Sätze)
+2. Eine Schritt-für-Schritt-Anleitung für den Ablauf der Konferenz mit Zeitangaben (Gesamtdauer: 25-30 Minuten)
+3. Einen Feedback-Bogen mit vier bis fünf konkreten Kriterien (passend zur Textgattung), zu dem Schülerinnen und Schüler jeweils schriftlich antworten
+4. Zehn Muster-Feedbacksätze, die Schülerinnen und Schüler als Sprachgerüst nutzen können (je fünf für positive Rückmeldungen und fünf für konstruktive Hinweise)
+5. Drei Regeln für die Schreibkonferenz, die einen respektvollen Umgang sicherstellen
+
+Prüfe vor der Ausgabe:
+- Sind die Muster-Feedbacksätze wirklich konkret und nicht generisch (&quot;Das war gut&quot;)?
+- Führt der Ablauf klar durch die Konferenz ohne Lücken, in denen Schülerinnen und Schüler nicht wissen, was sie tun sollen?
+- Ist die Sprache im Schüler-Leitfaden verständlich für die genannte Klassenstufe?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-8">
+    <div class="prompt-header" onclick="toggleCard('card-8')">
+      <div class="prompt-meta"><span class="prompt-number">5.8</span><span class="prompt-title">Hörverständnis-Text erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-8">Du bist eine erfahrene Englischlehrerin, die Hörverständnis-Materialien entwickelt, die echten Sprachsituationen ähneln statt künstlich zu klingen. Du weißt, dass gutes Hörverständnis-Training Schülerinnen und Schüler auf reale Kommunikation vorbereiten soll.
+
+Schreibe einen vollständigen Hörverständnis-Test zum Thema [Thema, z.B. A job interview / Travelling on a budget / Climate activism] für den Unterrichtseinsatz.
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] an [Schulform, z.B. Gymnasium]. Sprachniveau: B1. Der Test soll ungefähr 3 Minuten dauern, wenn vorgelesen.
+
+Erstelle:
+1. Den Hörtext selbst: ein Dialog oder Monolog (z.B. Interview, Radiosendung, Telefongespräch) in natürlicher Sprache, ohne zu vereinfacht zu klingen. Länge: 300-350 Wörter.
+2. Fünf Verständnisfragen in drei Schwierigkeitsstufen:
+   - Zwei globale Fragen (Was ist das Hauptthema? Welche Meinung vertritt die Person?)
+   - Zwei Detailfragen (konkrete Informationen aus dem Text)
+   - Eine Schlussfolgerungsfrage (Was kann man daraus ableiten?)
+3. Eine Lehrkraft-Version mit den Antworten und einer kurzen Hinweis, welche Stellen im Text die Antworten enthalten.
+
+Prüfe vor der Ausgabe:
+- Klingt der Hörtext natürlich, also so wie Menschen wirklich sprechen, mit kleinen Füllwörtern und normaler Satzmelodie?
+- Sind die Fragen eindeutig beantwortbar, ohne dass mehrere Antworten möglich sind?
+- Decken die drei Schwierigkeitsstufen wirklich verschiedene Verarbeitungstiefen ab?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-9">
+    <div class="prompt-header" onclick="toggleCard('card-9')">
+      <div class="prompt-meta"><span class="prompt-number">5.9</span><span class="prompt-title">Kreatives Schreiben anregen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-9">Du bist eine erfahrene Deutsch- oder Englischlehrerin, die weiß, dass der größte Feind des kreativen Schreibens das leere Blatt ist. Du entwickelst Schreibanlässe, die Schülerinnen und Schüler sofort in die Handlung reinziehen, statt sie vor dem Anfang zu blockieren.
+
+Erstelle 10 kreative Schreibanlässe für den [Fach, z.B. Deutsch- / Englisch-] Unterricht zum Thema [Thema, z.B. Fremde Welten / Coming of Age / Ungerechtigkeit / frei wählen].
+
+Das Material ist für eine [Klassenstufe, z.B. 8. oder 9. Klasse]. Die Schreibanlässe sollen unterschiedliche Formate bieten, damit verschiedene Schülertypen angesprochen werden.
+
+Erstelle 10 Schreibanlässe in diesen verschiedenen Formaten, mindestens zwei pro Formattyp:
+- Bildimpuls-Beschreibung (beschreibe ein Bild so, dass man direkt einsteigen kann)
+- Anfangssatz (ein konkreter erster Satz, der weiterschreibt werden soll)
+- Szenario-Vorgabe (eine Situation mit Konflikt, der aufgelöst werden soll)
+- Dialog-Einstieg (zwei bis drei Zeilen Dialog, die weitergeführt werden)
+
+Füge jedem Schreibanlass hinzu:
+- Eine kurze Aufgabenstellung (ein bis zwei Sätze)
+- Einen Umfangshinweis (z.B. mindestens eine Seite)
+- Einen optionalen Tipp für Schülerinnen und Schüler, die nicht wissen, wie sie anfangen sollen
+
+Prüfe vor der Ausgabe:
+- Sind die Schreibanlässe wirklich verschieden in Format und Ton, nicht nur thematisch ähnlich?
+- Lässt jeder Schreibanlass genug Raum für eigene Ideen, ohne zu eng zu führen?
+- Würde mindestens die Hälfte der Schreibanlässe auch für schwächere Schreiberinnen und Schreiber funktionieren?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-10">
+    <div class="prompt-header" onclick="toggleCard('card-10')">
+      <div class="prompt-meta"><span class="prompt-number">5.10</span><span class="prompt-title">Fehleranalyse-Übung erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-10">Du bist eine erfahrene Sprachlehrerin, die weiß, dass Fehler-Analyse-Übungen besonders wirkungsvoll sind: Schülerinnen und Schüler lernen mehr, wenn sie Fehler erkennen und erklären müssen, als wenn sie nur korrigierte Texte lesen. Du kennst die typischen Fehler der Klassenstufe aus dem Effeff.
+
+Erstelle eine Fehleranalyse-Übung für den [Fach, z.B. Deutsch- / Englisch-] Unterricht zum Thema [grammatikalischer Schwerpunkt, z.B. Kommasetzung / Zeitformen / Adjektivdeklination].
+
+Das Material ist für eine [Klassenstufe, z.B. 8. Klasse]. Die Übung soll etwa 15-20 Minuten dauern.
+
+Erstelle:
+1. Einen kurzen Text (150-200 Wörter) zu einem interessanten Alltagsthema, der genau 10 typische Fehler zum gewählten grammatikalischen Schwerpunkt enthält. Die Fehler sollen realistisch sein, also Fehler die echte Schülerinnen und Schüler wirklich machen.
+2. Die Aufgabenstellung für die Schülerinnen und Schüler: Fehler finden, markieren, benennen, korrigieren.
+3. Eine Lösungsseite mit:
+   - Liste aller 10 Fehler mit Position im Text
+   - Erklärung, warum es ein Fehler ist (in einem bis zwei Sätzen)
+   - Die korrekte Version
+4. Einen kurzen Reflexionsauftrag am Ende: Welche zwei Fehler mache ich selbst am häufigsten?
+
+Prüfe vor der Ausgabe:
+- Sind wirklich genau 10 Fehler enthalten, nicht mehr und nicht weniger?
+- Sind die Fehler-Erklärungen in der Lösungsseite verständlich ohne Fachbegriff-Inflation?
+- Ist der Text trotz der eingebauten Fehler inhaltlich interessant genug, dass Schülerinnen und Schüler ihn gerne lesen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+
+</div>
+<nav class="day-nav">
+  <a href="tag-4.html" class="nav-link">← Tag 4</a>
+  <a href="tag-6.html" class="nav-link">Tag 6 →</a>
+</nav>
+<footer>
+  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
+  <div class="footer-sub">@smartes.klassenzimmer &middot; &Ouml;ffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
+</footer>
+<script>
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function copyPrompt(textId, btn) {
+  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span>✓</span> Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

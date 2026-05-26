@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag 8: Inklusion und Differenzierung – 100 Prompts Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
+      min-height: 100vh;
+      color: #FFFFFF;
+      padding: 0 0 40px;
+    }
+    .header {
+      text-align: center;
+      padding: 32px 20px 24px;
+      border-bottom: 1px solid rgba(90,0,153,0.3);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: #5A0099;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FF9D00;
+      flex-shrink: 0;
+    }
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.5px;
+    }
+    .day-indicator {
+      font-size: 13px;
+      font-weight: 500;
+      color: #FF9D00;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+    .prompt-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(90,0,153,0.4);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .prompt-card:hover {
+      border-color: rgba(90,0,153,0.7);
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+    .prompt-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .prompt-number {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FF9D00;
+      background: rgba(255,157,0,0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .prompt-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.3;
+    }
+    .toggle-icon {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .prompt-card.open .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .prompt-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .prompt-card.open .prompt-body {
+      display: block;
+    }
+    .prompt-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
+      white-space: pre-wrap;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #5A0099;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .copy-btn:hover {
+      background: #7200bf;
+    }
+    .copy-btn:active {
+      transform: scale(0.97);
+    }
+    .copy-btn.copied {
+      background: #2d8a4e;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(90,0,153,0.3);
+    }
+    .nav-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(90,0,153,0.25);
+      border: 1px solid rgba(90,0,153,0.5);
+      border-radius: 8px;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover {
+      background: rgba(90,0,153,0.5);
+    }
+    .nav-btn.disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">✱</div>
+      <div class="brand-name">@smartes.klassenzimmer</div>
+    </div>
+    <div class="day-indicator">Tag 8/10: Inklusion und Differenzierung</div>
+    <h1 class="page-title">Inklusion und Differenzierung</h1>
+    <p class="page-subtitle">Materialien für alle Lernenden</p>
+  </header>
+  <main class="main">
+
+        <div class="prompt-card open" id="card-8-1">
+          <div class="prompt-header" onclick="toggleCard('card-8-1')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.1</span>
+              <span class="prompt-title">Material vereinfachen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-1">Du bist eine erfahrene Sonderpädagogin mit 15 Jahren Erfahrung in inklusivem Unterricht. Du kennst die gängigen Förderschwerpunkte (Lernen, Sprache, geistige Entwicklung) aus dem Schulalltag sehr genau.
+
+Deine Aufgabe ist es, ein vorhandenes Arbeitsblatt sprachlich und inhaltlich so zu vereinfachen, dass Schülerinnen und Schüler mit Förderbedarf Lernen es eigenständig bearbeiten können.
+
+Ich gebe dir folgendes Ausgangsmaterial: [hier das Arbeitsblatt einfügen oder den Text des Arbeitsblatts kopieren]. Das Material ist für Klasse [5 bis 10, Standardwert: 7], Fach [Standardwert: Deutsch].
+
+Gehe so vor:
+1. Analysiere das Original auf Satzlänge, Fremdwörter und Abstraktionsgrad.
+2. Schreibe den Text neu: Sätze maximal 8 bis 10 Wörter, keine Fremdwörter ohne Erklärung, konkrete statt abstrakte Formulierungen.
+3. Ergänze für jede Aufgabe eine visuelle Stütze, indem du in Klammern beschreibst, welche Abbildung oder welches Piktogramm sinnvoll wäre.
+4. Füge eine Wörterkiste mit den wichtigsten Fachbegriffen und einfachen Erklärungen hinzu.
+
+Gib das Ergebnis als vollständiges, druckfertiges Arbeitsblatt aus. Kennzeichne klar, welche Abschnitte du vereinfacht hast und warum.
+
+Prüfe vor der Ausgabe:
+- Ist kein Satz länger als 12 Wörter?
+- Ist jede Aufgabenstellung so klar formuliert, dass das Kind weiß, was zu tun ist?
+- Gibt es für jeden Aufgabenbereich mindestens eine Visualisierungs-Idee?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-1', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-2">
+          <div class="prompt-header" onclick="toggleCard('card-8-2')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.2</span>
+              <span class="prompt-title">Nachteilsausgleich formulieren</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-2">Du bist eine erfahrene Beratungslehrerin und Schulrechtsexpertin. Du kennst die rechtlichen Grundlagen für Nachteilsausgleich in [Bundesland, Standardwert: NRW] und weißt, wie man Formulierungen wählt, die im Schulalltag umsetzbar sind und einer schulrechtlichen Prüfung standhalten.
+
+Deine Aufgabe ist es, einen vollständigen Nachteilsausgleichs-Antrag für folgendes Kind zu formulieren:
+- Name (Platzhalter): [Schülerin/Schüler]
+- Diagnose: [Standardwert: Lese-Rechtschreib-Schwäche (LRS)]
+- Klassenstufe: [Standardwert: 8]
+- Schulform: [Standardwert: Gesamtschule]
+
+Gehe so vor:
+1. Formuliere zunächst eine kurze Beschreibung der Ausgangslage, die auf Basis der Diagnose typisch ist.
+2. Liste die konkreten Maßnahmen auf, die beantragt werden sollen (z.B. Zeitzuschlag, Schriftgrößen, Vorlesehilfe), und begründe jede Maßnahme kurz.
+3. Schreibe den offiziellen Antragstext als fertiges Dokument, das die Lehrkraft nur noch mit den echten Daten füllen muss.
+4. Ergänze am Ende Hinweise, was bei der Vorlage in der Konferenz zu beachten ist.
+
+Format: Erst die Übersicht der Maßnahmen als nummerierte Liste, dann den vollständigen Antragstext als formellen Brief.
+
+Prüfe vor der Ausgabe:
+- Sind alle Maßnahmen rechtlich zulässig und in [NRW / gewähltem Bundesland] üblich?
+- Ist der Antragstext klar und verständlich für Eltern, Schulleitung und Kollegen?
+- Enthält der Text keine Formulierungen, die ein Kind stigmatisieren könnten?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-2', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-3">
+          <div class="prompt-header" onclick="toggleCard('card-8-3')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.3</span>
+              <span class="prompt-title">Scaffolding-Materialien erstellen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-3">Du bist eine erfahrene Gymnasiallehrerin mit Schwerpunkt auf sprachsensiblem Fachunterricht und Binnendifferenzierung. Du weißt, wie man gestufte Hilfen so baut, dass sie Schülerinnen und Schüler wirklich weiterbringen, ohne die Aufgabe für sie zu lösen.
+
+Deine Aufgabe ist es, zu einer vorhandenen Aufgabe ein vollständiges Scaffolding-System aus drei Hilfe-Stufen zu erstellen.
+
+Die Ausgangsaufgabe lautet: [hier die Aufgabenstellung einfügen, Standardwert: &quot;Erkläre den Treibhauseffekt und seine Folgen für das Klima in einem zusammenhängenden Text.&quot;]
+Klassenstufe: [Standardwert: 9], Fach: [Standardwert: Biologie].
+
+Gehe so vor:
+1. Erstelle Hilfe-Stufe 1 (Maximum-Unterstützung): einen fast vollständig ausgefüllten Lückentext mit Wortbank, der die Struktur vorgibt.
+2. Erstelle Hilfe-Stufe 2 (Mittlere Unterstützung): eine Satzanfang-Vorlage und eine kurze Wortliste ohne Lückentext.
+3. Erstelle Hilfe-Stufe 3 (Minimale Unterstützung): nur eine strukturierende Frage-Abfolge, die das Denken lenkt.
+4. Füge eine kurze Lehrkraft-Notiz hinzu, wie die drei Stufen im Unterricht eingesetzt werden können.
+
+Format: Drei klar getrennte Abschnitte mit Überschriften, dann die Lehrkraft-Notiz.
+
+Prüfe vor der Ausgabe:
+- Führen alle drei Stufen zur selben Aufgabe, nur mit unterschiedlich viel Unterstützung?
+- Kann ein Kind mit Förderbedarf Stufe 1 eigenständig bearbeiten?
+- Bleibt das kognitive Niveau der Aufgabe auch in Stufe 1 erhalten?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-3', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-4">
+          <div class="prompt-header" onclick="toggleCard('card-8-4')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.4</span>
+              <span class="prompt-title">Leichte Sprache übersetzen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-4">Du bist eine zertifizierte Leichte-Sprache-Übersetzerin. Du kennst die offiziellen Regeln des Netzwerks Leichte Sprache und die BITV 2.0-Standards. Du weißt, dass Leichte Sprache kein vereinfachtes Kinder-Deutsch ist, sondern einem klaren Regelwerk folgt.
+
+Deine Aufgabe ist es, folgenden Text in Leichte Sprache zu übersetzen: [hier den Originaltext einfügen, Standardwert: ein Informationstext zum Thema &quot;Was ist der Klassenrat?&quot;]. Das Dokument ist für [Standardwert: Schülerinnen und Schüler in der Förderschule, Klassen 5 bis 7].
+
+Halte beim Übersetzen folgende Regeln ein:
+1. Maximal ein Gedanke pro Satz.
+2. Keine Verneinungen wenn möglich, lieber positiv formulieren.
+3. Aktiv statt Passiv.
+4. Bekannte Wörter statt Fremdwörter. Wenn ein Fachbegriff unvermeidbar ist, erkläre ihn direkt danach.
+5. Kurze Absätze, maximal drei bis vier Sätze.
+6. Zahlen in Ziffern schreiben, nicht ausschreiben.
+
+Gib nach jeder Textpassage in Klammern an, welche Regel du angewendet hast und warum, damit die Lehrkraft das Ergebnis selbst prüfen kann.
+
+Prüfe vor der Ausgabe:
+- Ist kein Satz länger als 10 Wörter?
+- Enthält der Text keine Verneinungen außer dort, wo sie inhaltlich nötig sind?
+- Könnten Menschen mit Lernschwierigkeiten den Text ohne fremde Hilfe lesen?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-4', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-5">
+          <div class="prompt-header" onclick="toggleCard('card-8-5')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.5</span>
+              <span class="prompt-title">Visualisierungshilfen bauen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-5">Du bist eine erfahrene Inklusionslehrerin und Materialentwicklerin. Du hast jahrelange Erfahrung darin, abstrakte Unterrichtsinhalte mit visuellen Stützen greifbar zu machen.
+
+Deine Aufgabe ist es, für folgendes Unterrichtsthema ein vollständiges Set an Visualisierungshilfen zu entwickeln: [Thema, Standardwert: &quot;Die vier Jahreszeiten und ihre Merkmale&quot;]. Das Material ist für [Standardwert: Klasse 2, Grundschule, Kinder mit Förderbedarf geistige Entwicklung].
+
+Erstelle folgende Materialien:
+1. Bild-Wort-Karten: 8 bis 10 Karten, auf denen du jeweils beschreibst, was abgebildet sein soll, und das passende Wort oder die Phrase darunter angibst.
+2. Eine visuelle Anleitung für eine Aufgabe zum Thema, Schritt für Schritt mit Bildbeschreibungen.
+3. Drei Piktogramm-Stützen für Handlungsanweisungen im Unterricht (z.B. &quot;Schneide aus&quot;, &quot;Klebe ein&quot;, &quot;Malt ein Bild&quot;), beschrieben so, dass eine Lehrkraft sie in PowerPoint oder Canva nachbauen kann.
+4. Einen kurzen Einsatz-Leitfaden für die Lehrkraft.
+
+Format: Jede Materialart als eigener Abschnitt mit Überschrift. Die Bildbeschreibungen in kursiver Schrift, damit klar ist, was gezeichnet oder gesucht werden soll.
+
+Prüfe vor der Ausgabe:
+- Sind alle Visualisierungen so beschrieben, dass eine Lehrkraft ohne Designerfahrung sie umsetzen kann?
+- Unterstützen die Materialien den Lerninhalt, ohne ihn zu ersetzen?
+- Sind die Handlungsanweisungen für Kinder ohne Lesekompetenz verständlich?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-5', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-6">
+          <div class="prompt-header" onclick="toggleCard('card-8-6')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.6</span>
+              <span class="prompt-title">Förder- und Forderaufgaben zum selben Thema</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-6">Du bist eine erfahrene Lehrkraft mit Fachweiterbildung in Binnendifferenzierung und begabungsgerechtem Lernen. Du weißt, dass gute Differenzierung nicht bedeutet, verschiedene Themen zu unterrichten, sondern dasselbe Thema in verschiedener Tiefe zugänglich zu machen.
+
+Deine Aufgabe ist es, zu folgendem Thema Aufgaben in drei Niveaustufen zu erstellen: [Thema, Standardwert: &quot;Bruchrechnung: Brüche addieren und subtrahieren&quot;]. Klassenstufe: [Standardwert: 6], Schulform: [Standardwert: Realschule].
+
+Erstelle:
+1. Förderaufgaben (Stufe A): drei Aufgaben für Schülerinnen und Schüler, die das Grundprinzip noch festigen müssen. Mit Veranschaulichung, kleinen Zahlen, konkretem Alltagsbezug.
+2. Regelaufgaben (Stufe B): vier Aufgaben auf dem Niveau des Lehrplans, wie sie in einer typischen Klassenarbeit vorkommen würden.
+3. Forderaufgaben (Stufe C): drei Aufgaben für leistungsstarke Schülerinnen und Schüler, die das Thema vertiefen, auf neue Kontexte übertragen oder kreativ anwenden.
+
+Schreibe für jede Stufe auch einen kurzen Lösungsweg, damit die Lehrkraft schnell korrigieren kann. Ergänze am Ende eine Lehrkraft-Notiz dazu, wie die drei Stufen im Unterricht eingesetzt werden können, ohne dass Schülerinnen und Schüler sich gegenseitig ihre Stufe sehen.
+
+Prüfe vor der Ausgabe:
+- Behandeln alle drei Stufen dasselbe Lernziel?
+- Sind die Förderaufgaben wirklich zugänglich und nicht nur einfacher, sondern kleinschrittiger?
+- Fordern die Forderaufgaben echtes Denken und nicht nur mehr Rechenaufwand?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-6', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-7">
+          <div class="prompt-header" onclick="toggleCard('card-8-7')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.7</span>
+              <span class="prompt-title">Sozialziel-Training planen</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-7">Du bist eine erfahrene Klassenlehrerin mit Ausbildung in sozioemotionalem Lernen und Konfliktpädagogik. Du weißt, wie man soziale Kompetenzen systematisch trainiert, ohne dass es den Schülerinnen und Schülern wie ein Trockenübungs-Programm vorkommt.
+
+Deine Aufgabe ist es, eine komplette Unterrichtseinheit zu folgendem Sozialziel zu planen: [Sozialziel, Standardwert: &quot;Kooperation: gemeinsam eine Aufgabe lösen, auch wenn man unterschiedlicher Meinung ist&quot;]. Klassenstufe: [Standardwert: 7], Schulform: [Standardwert: Gesamtschule].
+
+Plane drei Unterrichtsstunden (je 45 Minuten):
+1. Stunde 1: Einstieg und Bewusstmachung. Was ist das Sozialziel? Wann ist es im Alltag relevant? Aktivierung durch eine konkrete Situation oder ein kurzes Rollenspiel.
+2. Stunde 2: Übungsphase. Zwei bis drei kooperative Aufgaben, bei denen das Sozialziel trainiert wird. Klare Regeln, Beobachtungsbögen für Schülerinnen und Schüler.
+3. Stunde 3: Reflexion und Transfer. Was haben die Schülerinnen und Schüler gelernt? Wie können sie das außerhalb der Schule anwenden? Zielvereinbarung als Abschluss.
+
+Schreibe für jede Stunde: Ziel, Phasenbeschreibung mit Zeitangaben, Materialien, Lehrkraft-Hinweise.
+
+Prüfe vor der Ausgabe:
+- Gibt es in jeder Stunde eine echte Gelegenheit, das Sozialziel zu üben, nicht nur darüber zu reden?
+- Sind die Aktivitäten altersgerecht und ernstzunehmend für die Zielgruppe?
+- Endet die Einheit mit einem konkreten, selbst gewählten Schritt der Schülerinnen und Schüler?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-7', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-8">
+          <div class="prompt-header" onclick="toggleCard('card-8-8')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.8</span>
+              <span class="prompt-title">Individueller Wochenplan für ein Kind mit Förderbedarf</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-8">Du bist eine erfahrene Förderlehrkraft. Du weißt, wie man einen Wochenplan aufbaut, der ein Kind mit besonderem Förderbedarf strukturiert, motiviert und gleichzeitig in den regulären Klassenunterricht einbindet.
+
+Deine Aufgabe ist es, einen vollständigen Wochenplan für folgende Situation zu erstellen:
+- Schüler/Schülerin: [Alter und Klasse, Standardwert: 10 Jahre, Klasse 4]
+- Förderschwerpunkt: [Standardwert: Lernen und emotionale-soziale Entwicklung]
+- Besonderheiten: [Standardwert: geringe Frustrationstoleranz, braucht klare Struktur, mag Bewegung und hat Stärken im Werken]
+
+Gehe so vor:
+1. Erstelle eine Wochenplan-Übersicht für fünf Tage mit Morgenroutine, Unterrichtszeiten, Pausen und festen Ruhephasen.
+2. Schreibe für jeden Vormittag konkrete Aufgaben in zwei bis drei Fächern, die das Kind in seinem Tempo bearbeiten kann.
+3. Integriere an jedem Tag eine Stärkenaufgabe, die an die genannten Interessen anknüpft.
+4. Formuliere eine kurze Lehrkraft-Notiz mit Hinweisen, wie auf Frustrations-Momente reagiert werden kann.
+
+Format: Wochenplan als übersichtliche Tabelle (Montag bis Freitag), darunter die Lehrkraft-Notiz als Fließtext.
+
+Prüfe vor der Ausgabe:
+- Ist der Plan realistisch für einen normalen Schultag umsetzbar?
+- Gibt es an jedem Tag mindestens einen Moment, in dem das Kind Erfolg erleben kann?
+- Ist die Lehrkraft-Notiz konkret genug, damit auch Vertretungslehrkräfte damit arbeiten können?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-8', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-9">
+          <div class="prompt-header" onclick="toggleCard('card-8-9')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.9</span>
+              <span class="prompt-title">Elterngespräch Förderbedarf vorbereiten</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-9">Du bist eine erfahrene Klassenlehrerin und Beratungslehrkraft. Du weißt, wie wichtig es ist, Elterngespräche zu Förderbedarf wertschätzend, klar und lösungsorientiert zu führen, ohne Eltern zu überfordern oder zu beschämen.
+
+Deine Aufgabe ist es, mich auf ein Elterngespräch zu folgendem Thema vorzubereiten: [Thema, Standardwert: &quot;Wir besprechen mit den Eltern, dass wir eine sonderpädagogische Überprüfung beantragen möchten.&quot;].
+
+Gehe so vor:
+1. Erstelle einen Gesprächsleitfaden mit klarer Reihenfolge: Begrüßung und Atmosphäre schaffen, Beobachtungen schildern, Informationen geben, Fragen stellen, nächste Schritte festlegen.
+2. Schreibe für jeden Schritt zwei bis drei konkrete Formulierungsbeispiele, die wertschätzend und klar sind.
+3. Antizipiere die drei häufigsten Reaktionen von Eltern in dieser Situation und schreibe jeweils eine hilfreiche Lehrkraft-Antwort.
+4. Erstelle eine kurze Zusammenfassung der wichtigsten Fakten, die ich den Eltern mitgeben kann.
+
+Format: Gesprächsleitfaden als nummerierte Liste mit Formulierungsbeispielen in Kursivschrift, dann die Reaktions-Antworten, dann die Eltern-Info-Zusammenfassung.
+
+Prüfe vor der Ausgabe:
+- Beginnt das Gespräch mit positiven Beobachtungen, bevor schwierige Themen angesprochen werden?
+- Sind alle Formulierungen so gewählt, dass sie kein Kind und keine Familie abwerten?
+- Gibt es am Ende des Gesprächsleitfadens klare, konkrete nächste Schritte?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-9', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+        <div class="prompt-card" id="card-8-10">
+          <div class="prompt-header" onclick="toggleCard('card-8-10')">
+            <div class="prompt-meta">
+              <span class="prompt-number">8.10</span>
+              <span class="prompt-title">Übergangsvorbereitung für Kinder mit Förderbedarf</span>
+            </div>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="prompt-body">
+            <div class="prompt-text" id="text-8-10">Du bist eine erfahrene Förderlehrkraft mit Schwerpunkt auf Übergängen im Schulsystem. Du weißt, dass Übergänge für Kinder mit Förderbedarf besondere Herausforderungen bedeuten und gute Vorbereitung für alle Beteiligten entscheidend ist.
+
+Deine Aufgabe ist es, vollständige Übergangsmaterialien für folgende Situation zu erstellen: [Übergang, Standardwert: &quot;Wechsel von Klasse 4 Grundschule zur Förderschule Lernen Klasse 5&quot;]. Das Kind: [Standardwert: 10 Jahre, Förderbedarf Lernen, kommt aus einer russischsprachigen Familie].
+
+Erstelle:
+1. Ein Übergabedokument für die aufnehmende Schule mit den wichtigsten Informationen zu Lernstand, Stärken, Fördermaßnahmen und sozialen Besonderheiten. Nur das, was für einen guten Start wirklich relevant ist.
+2. Einen Brief an die Eltern, der den Übergang erklärt, beruhigt und konkrete nächste Schritte nennt. Einfach formuliert, ohne Fachbegriffe.
+3. Drei Aktivitäten, die die Grundschullehrkraft mit dem Kind in den letzten zwei Wochen machen kann, um den Abschied und den Neustart positiv zu gestalten.
+
+Format: Drei getrennte Abschnitte mit Überschriften, jeweils sofort einsetzbar.
+
+Prüfe vor der Ausgabe:
+- Enthält das Übergabedokument ausschließlich Informationen, die für die aufnehmende Schule hilfreich sind, keine wertenden Formulierungen?
+- Ist der Elternbrief in einer Sprache geschrieben, die auch für Eltern mit eingeschränkten Deutschkenntnissen verständlich ist?
+- Enden die Abschiedsaktivitäten auf einer positiven Note?</div>
+            <button class="copy-btn" onclick="copyPrompt('text-8-10', this)">
+              <span>📋</span> Kopieren
+            </button>
+          </div>
+        </div>
+    <nav class="nav-bar">
+      <a href="tag-7.html" class="nav-btn">← Tag 7</a>
+      <a href="tag-9.html" class="nav-btn">Tag 9 →</a>
+    </nav>
+    <p class="footer">100 Prompts in 10 Tagen Challenge</p>
+  </main>
+  <script>
+    function toggleCard(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    function copyPrompt(textId, btn) {
+      navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span>✓</span> Kopiert!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

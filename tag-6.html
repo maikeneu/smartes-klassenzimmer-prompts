@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 6/10: MINT-Fächer, Mathe, Physik, Chemie, Bio, Informatik – 100 Claude-Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
+  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
+  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
+  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
+  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
+  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
+  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
+  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
+  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
+  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s; }
+  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
+  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
+  .prompt-header:hover { background: rgba(90,0,153,0.12); }
+  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
+  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
+  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
+  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s; flex-shrink: 0; }
+  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
+  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
+  .prompt-card.open .prompt-body { display: block; }
+  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s; }
+  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
+  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
+  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
+  .nav-link { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s; }
+  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
+  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
+  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; }
+  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
+  .footer-orange { color: #FF9D00; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-brand"><span class="asterisk">&#10033;</span><span class="brand-name">@smartes.klassenzimmer</span></div>
+  <div class="header-title">100 Claude-Prompts</div>
+</header>
+<div class="day-indicator">
+  <div class="day-badge">Tag 6 / 10</div>
+  <div class="day-title">MINT-Fächer</div>
+  <div class="day-subtitle">Mathe, Physik, Chemie, Bio, Informatik</div>
+</div>
+<div class="prompts-grid">
+
+  <div class="prompt-card open" id="card-1">
+    <div class="prompt-header" onclick="toggleCard('card-1')">
+      <div class="prompt-meta"><span class="prompt-number">6.1</span><span class="prompt-title">Experiment planen und dokumentieren</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-1">Du bist eine erfahrene Naturwissenschaftslehrerin mit Fachkenntnissen in [Fach, z.B. Chemie / Physik / Biologie], die weiß, wie man Experimente so aufbereitet, dass Schülerinnen und Schüler nicht nur Handlungsschritte abarbeiten, sondern wirklich verstehen, was sie beobachten und warum.
+
+Erstelle eine vollständige Experimentieranleitung zum Thema [Thema, z.B. Osmose / Reaktion von Säuren und Basen / Hebelgesetz / Fotosynthese].
+
+Das Material ist für eine [Klassenstufe, z.B. 8. Klasse] an [Schulform, z.B. Gymnasium]. Das Experiment soll in einer Schulstunde (45 Minuten) durchführbar sein und mit Materialien, die in einer normalen Schulsammlung vorhanden sind.
+
+Strukturiere die Anleitung in diese Abschnitte:
+1. Lernziel: Was sollen die Schülerinnen und Schüler nach dem Experiment wissen und können? (ein bis zwei Sätze)
+2. Hypothese: Ein Satzstemmel, den Schülerinnen und Schüler vor dem Experiment vervollständigen (&quot;Ich vermute, dass...&quot;)
+3. Materialliste: Alles was gebraucht wird, mit Mengenangaben und möglichen Alternativen falls ein Material fehlt
+4. Durchführung: Schritt-für-Schritt-Anleitung, nummeriert, mit Zeitangaben pro Schritt
+5. Beobachtungsbogen: Eine Tabelle oder Vorlage, in die die Schülerinnen und Schüler ihre Beobachtungen eintragen
+6. Auswertung: Drei bis vier Leitfragen, die von der Beobachtung zur Erklärung führen
+7. Sicherheitshinweise: Was muss beachtet werden?
+8. Mögliche Fehlerquellen: Was kann schiefgehen und wie lässt es sich vermeiden?
+
+Prüfe vor der Ausgabe:
+- Lässt sich das Experiment wirklich in 45 Minuten durchführen, inklusive Aufbau und Aufräumen?
+- Führt der Beobachtungsbogen die Schülerinnen und Schüler wirklich zur Erkenntnis, oder dokumentieren sie nur?
+- Sind die Sicherheitshinweise vollständig und auf dem aktuellen Stand?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-2">
+    <div class="prompt-header" onclick="toggleCard('card-2')">
+      <div class="prompt-meta"><span class="prompt-number">6.2</span><span class="prompt-title">Mathe-Aufgaben mit Lösungswegen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-2">Du bist eine erfahrene Mathematiklehrerin, die weiß, dass Schülerinnen und Schüler am besten lernen, wenn sie nicht nur die Lösung sehen, sondern den Denkweg nachvollziehen können. Du entwickelst Aufgaben, die schrittweise aufgebaut sind und Verständnis fördern statt nur Formeln abrufen.
+
+Erstelle ein gestuftes Aufgabenpaket zum Mathematik-Thema [Thema, z.B. Bruchrechnung / Quadratische Gleichungen / Statistik / Geometrie: Satz des Pythagoras].
+
+Das Material ist für eine [Klassenstufe, z.B. 7. Klasse] an [Schulform, z.B. einer Realschule]. Das Paket soll drei Niveaustufen abdecken: Grundniveau (Pflicht für alle), mittleres Niveau und Erweiterungsniveau.
+
+Erstelle:
+1. Grundniveau: Fünf Aufgaben mit direkter Anwendung des Themas, klarer Struktur, ohne Textaufgabe. Für jede Aufgabe: Aufgabenstellung und ausführlicher Lösungsweg mit Kommentaren, der erklärt was in jedem Schritt passiert.
+2. Mittleres Niveau: Drei Aufgaben mit einer kleinen Textaufgabe und einer Schrittfolge, die mehr eigenständiges Denken erfordert. Lösungsweg als Stichwort-Skizze.
+3. Erweiterungsniveau: Zwei anspruchsvolle Aufgaben mit Alltagsbezug oder unbekanntem Kontext. Nur Endergebnis als Lösung.
+4. Ein kurzes Merkheft für die Seite davor (Formeln, Regeln, ein Beispiel), auf das die Schülerinnen und Schüler beim Bearbeiten zurückgreifen können.
+
+Prüfe vor der Ausgabe:
+- Sind die Lösungswege wirklich ausführlich genug, dass eine Schülerin oder ein Schüler ohne Lehrkraft damit alleine lernen kann?
+- Steigen die Niveaustufen tatsächlich in Schwierigkeit und Komplexität, nicht nur in der Aufgabenlänge?
+- Stimmen alle Lösungen rechnerisch?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-3">
+    <div class="prompt-header" onclick="toggleCard('card-3')">
+      <div class="prompt-meta"><span class="prompt-number">6.3</span><span class="prompt-title">Erklär-Video-Skript schreiben</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-3">Du bist eine erfahrene Naturwissenschaftslehrerin, die weiß, wie man komplexe Sachverhalte in kurzen Erklärmomenten auf den Punkt bringt. Du kennst das Format von Erklärvideos und weißt, wie eine Stimme allein (ohne visuelle Unterstützung) einen Sachverhalt so aufbaut, dass er verstanden wird.
+
+Schreibe ein Skript für ein drei- bis vierminütiges Erklärvideo zum Thema [Thema, z.B. Warum dehnen sich Metalle bei Wärme aus? / Wie funktioniert Photosynthese? / Was ist der Unterschied zwischen Vektor und Skalar?].
+
+Das Video ist für [Klassenstufe, z.B. eine 8. Klasse] gedacht und soll als Hausaufgabe oder zur Wiederholung eingesetzt werden. Die Schülerinnen und Schüler haben das Thema im Unterricht angesprochen, aber noch nicht vollständig verstanden.
+
+Strukturiere das Skript so:
+1. Einstieg (30 Sekunden): Eine Alltagssituation oder Frage, die sofort Neugier weckt
+2. Kernaussage (30 Sekunden): In einem bis zwei Sätzen: Was ist das Wesentliche?
+3. Erklärung (90-120 Sekunden): Schritt für Schritt, mit Alltagsvergleichen und konkreten Beispielen
+4. Visualisierungs-Hinweis: An drei Stellen in eckigen Klammern angeben, was im Video eingeblendet werden sollte [z.B. Animation: ...]
+5. Zusammenfassung (30 Sekunden): Die drei wichtigsten Punkte in kurzen Sätzen
+6. Abschluss (15 Sekunden): Eine Frage zum Nachdenken oder eine Übungsaufgabe
+
+Schreibe das Skript so, wie eine Person spricht, nicht wie jemand schreibt: kurze Sätze, direkte Ansprache, Wiederholungen wo nötig.
+
+Prüfe vor der Ausgabe:
+- Enthält das Skript Alltagsbeispiele, die Schülerinnen und Schüler wirklich kennen?
+- Passt das Skript in drei bis vier Minuten, wenn es in normalem Sprechtempo vorgelesen wird?
+- Ist das Thema am Ende des Videos verständlich, ohne dass man den Text gelesen haben muss?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-4">
+    <div class="prompt-header" onclick="toggleCard('card-4')">
+      <div class="prompt-meta"><span class="prompt-number">6.4</span><span class="prompt-title">Klausurvorbereitung erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-4">Du bist eine erfahrene Mathematik- oder Naturwissenschaftslehrerin, die Übungsklausuren so entwickelt, dass sie die echte Prüfung realistisch simulieren und gleichzeitig den Lerneffekt maximieren.
+
+Erstelle eine vollständige Übungsklausur zum Thema [Thema, z.B. Lineare Gleichungen / Optik / Chemische Reaktionen / Genetik] für [Klassenstufe, z.B. eine 9. Klasse].
+
+Die Übungsklausur soll der Form einer echten Schulklausur entsprechen und in [Dauer, z.B. 45 Minuten] lösbar sein. Es gibt [Schulform, z.B. Gymnasium], also höheres Anforderungsniveau.
+
+Erstelle:
+1. Eine Deckseite mit Name, Datum, Klasse und kurzen Hinweisen zur Bearbeitung (Hilfsmittel, Zeithinweis)
+2. Die Klausur selbst mit drei Abschnitten:
+   - Abschnitt A: Grundwissen (vier bis fünf kurze Fragen, je ein bis zwei Punkte, max. 10 Punkte)
+   - Abschnitt B: Anwendung (zwei bis drei Aufgaben mit mehreren Teilaufgaben, max. 20 Punkte)
+   - Abschnitt C: Transfer (eine anspruchsvollere Aufgabe in neuem Kontext, max. 10 Punkte)
+3. Einen Erwartungshorizont mit:
+   - Vollständigen Lösungen
+   - Punkteverteilung pro Teilaufgabe
+   - Hinweis welche Teilschritte auch ohne korrektes Endergebnis Punkte bringen
+4. Eine Notengrenze-Tabelle (was entspricht welcher Note bei 40 Gesamtpunkten)
+
+Prüfe vor der Ausgabe:
+- Ist die Klausur in der angegebenen Zeit lösbar?
+- Decken die drei Abschnitte wirklich Grundwissen, Anwendung und Transfer ab, nicht nur verschiedene Aufgaben zum selben Denktyp?
+- Ist die Punkteverteilung im Erwartungshorizont eindeutig und fair?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-5">
+    <div class="prompt-header" onclick="toggleCard('card-5')">
+      <div class="prompt-meta"><span class="prompt-number">6.5</span><span class="prompt-title">Alltagsbezug herstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-5">Du bist eine erfahrene MINT-Lehrerin, die weiß, dass abstrakte Konzepte nur dann wirklich verstanden werden, wenn Schülerinnen und Schüler sie in ihrer eigenen Lebenswelt wiedererkennen. Du kannst für jedes Thema echte, glaubwürdige Alltagsbeispiele finden.
+
+Finde und erkläre 10 konkrete Alltagsbeispiele für das abstrakte Thema [Thema, z.B. Wahrscheinlichkeitsrechnung / Osmose / Hebelgesetz / Elektromagnetismus / rekursive Algorithmen].
+
+Das Material ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse]. Die Beispiele sollen aus verschiedenen Lebensbereichen kommen: Haushalt, Sport, Technologie, Natur, Medizin, soziale Medien.
+
+Für jedes Beispiel:
+1. Name des Beispiels in einem prägnanten Satz
+2. Kurze Erklärung, wie das Thema dort vorkommt (zwei bis drei Sätze, schülergerecht)
+3. Die mathematische oder naturwissenschaftliche Verbindung: Welcher Aspekt des Themas zeigt sich hier konkret?
+4. Eine Frage, die Schülerinnen und Schüler selbst weiter nachdenken lässt
+
+Außerdem: Füge am Ende drei Ideen hinzu, wie die Lehrkraft eines dieser Beispiele als Einstieg in die Unterrichtsstunde nutzen kann (Methode: Provokation, Frage oder Mini-Experiment).
+
+Prüfe vor der Ausgabe:
+- Kommen die 10 Beispiele wirklich aus verschiedenen Lebensbereichen und sind nicht zu ähnlich?
+- Sind die Erklärungen verständlich ohne Vorwissen zu diesem Thema?
+- Würden die Beispiele Schülerinnen und Schüler tatsächlich überraschen oder zum Nachdenken bringen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-6">
+    <div class="prompt-header" onclick="toggleCard('card-6')">
+      <div class="prompt-meta"><span class="prompt-number">6.6</span><span class="prompt-title">Differenzierte Arbeitsaufträge</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-6">Du bist eine erfahrene MINT-Lehrerin, die differenziertes Unterrichten im Alltag umsetzt, nicht nur als Theorie kennt. Du weißt, wie man Aufgaben so abstuft, dass alle Schülerinnen und Schüler am selben Thema arbeiten, aber auf ihrem eigenen Niveau gefordert werden.
+
+Erstelle differenzierte Arbeitsaufträge zum Thema [Thema, z.B. Quadratische Funktionen / Zellteilung / Chemisches Gleichgewicht / Sortieralgorithmen] in drei Niveaustufen.
+
+Das Material ist für eine [Klassenstufe, z.B. 10. Klasse] an [Schulform, z.B. einer Gesamtschule mit Grundkurs und Erweiterungskurs]. Die Aufgaben sollen in einer Einzelarbeitsstunde (45 Minuten) bearbeitbar sein.
+
+Erstelle je drei Aufgaben pro Niveaustufe:
+
+Niveaustufe 1 (Grundkurs / Basisniveau):
+- Aufgaben mit starker Strukturierung, Lückentexten, Hilfestellungen und einfachen Operatoren (benennen, beschreiben, zuordnen)
+- Mit einem Tipp-Kasten für jede Aufgabe
+
+Niveaustufe 2 (Mittleres Niveau):
+- Aufgaben mit teilweiser Strukturierung, mittelschweren Operatoren (erklären, vergleichen, anwenden)
+- Ohne direkte Tipps, aber mit Hinweis auf verwendbare Hilfsmittel
+
+Niveaustufe 3 (Erweiterungskurs / Hochbegabung):
+- Offene Aufgaben mit anspruchsvollen Operatoren (beurteilen, entwickeln, übertragen)
+- Mit einer Bonusaufgabe die über den Lehrplan hinausgeht
+
+Füge am Ende einen kurzen Hinweis für die Lehrkraft hinzu, woran sie erkennt, ob eine Schülerin oder ein Schüler auf dem richtigen Niveau arbeitet.
+
+Prüfe vor der Ausgabe:
+- Sind es wirklich drei verschiedene Niveaustufen und nicht nur drei verschiedene Aufgabentypen auf gleichem Schwierigkeitsgrad?
+- Können Schülerinnen und Schüler alle drei Niveaustufen bearbeiten ohne die Lehrkraft zu fragen, weil alles klar erklärt ist?
+- Würde keine Schülerin und kein Schüler von der Niveaustufen-Einteilung beschämt oder ausgeschlossen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-7">
+    <div class="prompt-header" onclick="toggleCard('card-7')">
+      <div class="prompt-meta"><span class="prompt-number">6.7</span><span class="prompt-title">Formelsammlung mit Erklärungen erstellen</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-7">Du bist eine erfahrene Mathematik- oder Physiklehrerin, die weiß, dass eine Formelsammlung nur nützt, wenn man versteht, wann und wie man die Formeln anwendet. Du erstellst Lernhilfen, die Formeln in Kontext stellen statt sie nur aufzulisten.
+
+Erstelle eine schülerfreundliche Formelsammlung mit Erklärungen zum Thema [Thema, z.B. Geometrie: Flächen und Umfänge / Mechanik: Kräfte und Arbeit / Stochastik: Wahrscheinlichkeit].
+
+Das Material ist für [Klassenstufe, z.B. eine 9. Klasse] und soll als Lernhilfe für Klausuren und als Nachschlagewerk im Unterricht genutzt werden. Es soll auf maximal zwei Seiten passen.
+
+Für jede Formel:
+1. Name der Formel oder des Gesetzes in fetter Schrift
+2. Die Formel selbst mit allen Variablen beschriftet (Was bedeutet jeder Buchstabe?)
+3. Einheiten: In welcher Einheit wird jede Größe gemessen?
+4. Ein Beispielrechnung mit vollständigem Rechenweg (kurz, max. drei Zeilen)
+5. Wann verwende ich diese Formel? (ein bis zwei Sätze, in einfacher Sprache)
+6. Typischer Fehler, den Schülerinnen und Schüler bei dieser Formel machen
+
+Füge am Ende ein Mini-Quiz ein: Fünf kurze Aufgaben wo Schülerinnen und Schüler die richtige Formel auswählen müssen (Multiple Choice mit Erklärung der richtigen Antwort).
+
+Prüfe vor der Ausgabe:
+- Sind alle Variablen vollständig erklärt, sodass jemand ohne Unterricht die Formel anwenden könnte?
+- Ist die Beispielrechnung korrekt?
+- Enthält das Mini-Quiz auch Aufgaben, bei denen eine verführerische falsche Antwort erklärt wird?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-8">
+    <div class="prompt-header" onclick="toggleCard('card-8')">
+      <div class="prompt-meta"><span class="prompt-number">6.8</span><span class="prompt-title">Projektaufgabe MINT</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-8">Du bist eine erfahrene MINT-Lehrerin, die Projektaufgaben so entwickelt, dass Schülerinnen und Schüler eigenständig arbeiten, echte Probleme lösen und dabei Fachwissen anwenden. Du kennst den Unterschied zwischen einem Bastelauftrag und einer echten Projektaufgabe.
+
+Entwickle eine mehrstündige Projektaufgabe mit realem Bezug für [Fach, z.B. Physik / Informatik / Biologie] zum Thema [Thema, z.B. Brücken bauen und testen / Eine App planen / Klimadaten auswerten und visualisieren / Wasserqualität untersuchen].
+
+Das Projekt ist für eine [Klassenstufe, z.B. 9. oder 10. Klasse] an [Schulform, z.B. einem Gymnasium]. Es soll [Anzahl, z.B. vier] Unterrichtsstunden dauern plus Hausaufgabenzeit. Gruppenarbeit ist möglich.
+
+Erstelle:
+1. Die Projektbeschreibung für Schülerinnen und Schüler: Was ist die Aufgabe? Was ist das Ergebnis? Wer ist die (fiktive) Auftraggeberin oder der Auftraggeber? (Projektkontext so gestalten, dass es sich real anfühlt)
+2. Einen Zeitplan mit den vier Stunden und was in jeder Stunde erreicht werden soll
+3. Klare Materialien und Ressourcen-Liste
+4. Ein Bewertungsraster mit vier bis fünf Kriterien und Beschreibung was sehr gut, gut und ausreichend bedeutet
+5. Drei Differenzierungshinweise: Was können leistungsstärkere Gruppen zusätzlich machen? Wie können schwächere Gruppen unterstützt werden?
+6. Eine kurze Reflexionsfrage am Ende des Projekts für jede Schülerin und jeden Schüler
+
+Prüfe vor der Ausgabe:
+- Lässt sich die Projektaufgabe wirklich in der genannten Zeit bearbeiten?
+- Ist der Realitätsbezug glaubwürdig und motivierend?
+- Ist das Bewertungsraster klar genug, dass Schülerinnen und Schüler von Anfang an wissen, worauf es ankommt?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-9">
+    <div class="prompt-header" onclick="toggleCard('card-9')">
+      <div class="prompt-meta"><span class="prompt-number">6.9</span><span class="prompt-title">Fehlerhafte Lösung analysieren</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-9">Du bist eine erfahrene MINT-Lehrerin, die weiß, dass das Analysieren von Fehlern ein sehr wirksames Lernformat ist: Schülerinnen und Schüler, die einen Fehler in einer Muster-Lösung finden und erklären müssen, verstehen das Thema tiefer als beim einfachen Lösen einer Aufgabe.
+
+Erstelle eine Fehleranalyse-Übung für den [Fach, z.B. Mathe / Physik / Chemie]-Unterricht zum Thema [Thema, z.B. Prozentrechnung / Energieerhaltung / Gleichgewichtsreaktionen].
+
+Das Material ist für eine [Klassenstufe, z.B. 8. oder 9. Klasse]. Die Übung soll etwa 15-20 Minuten dauern.
+
+Erstelle:
+1. Eine Aufgabenstellung (so wie sie in einer echten Klausur stehen würde)
+2. Eine Muster-Schüler-Lösung, die zwei bis drei typische Fehler enthält, die Schülerinnen und Schüler wirklich machen. Die Fehler sollen eingebettet sein, nicht offensichtlich markiert.
+3. Die Aufgabenstellung für die Klasse: Fehler finden, mit Rotstift markieren, in einem kurzen Text erklären, was falsch ist und wie es richtig geht.
+4. Die Lösungsseite für die Lehrkraft:
+   - Welche Fehler sind enthalten?
+   - Warum passiert dieser Fehler häufig?
+   - Vollständige korrekte Lösung
+5. Eine Bonusfrage für schnelle Schülerinnen und Schüler: Welcher Denkfehler steckt hinter Fehler Nummer X?
+
+Prüfe vor der Ausgabe:
+- Sind die Fehler wirklich typisch und nicht konstruiert?
+- Enthält die Muster-Lösung auch richtige Teile, damit es nicht zu leicht ist, alle Fehler zu finden?
+- Stimmt die korrekte Lösung auf der Lösungsseite vollständig?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+  <div class="prompt-card " id="card-10">
+    <div class="prompt-header" onclick="toggleCard('card-10')">
+      <div class="prompt-meta"><span class="prompt-number">6.10</span><span class="prompt-title">Biologische Zeichnung anleiten</span></div>
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-10">Du bist eine erfahrene Biologielehrerin, die weiß, dass biologisches Zeichnen eine eigene Kompetenz ist, die gezielt geübt werden muss. Du kennst die genauen Anforderungen an eine wissenschaftliche Zeichnung und kannst sie so erklären, dass Schülerinnen und Schüler sie selbstständig umsetzen.
+
+Erstelle eine vollständige Anleitung für das biologische Zeichnen zu [Thema, z.B. Zwiebelzelle / Querschnitt durch ein Blatt / Tier-Präparat / Schaubild eines Organs].
+
+Das Material ist für eine [Klassenstufe, z.B. 7. oder 8. Klasse]. Es soll in einer Stunde (45 Minuten) vollständig durchgeführt werden können, inklusive des eigentlichen Zeichnens.
+
+Erstelle:
+1. Eine kurze Einführung: Was ist der Unterschied zwischen einer biologischen Zeichnung und einer künstlerischen Zeichnung? (Fünf bis sieben Sätze)
+2. Eine Schritt-für-Schritt-Anleitung für das Zeichnen (nummeriert, mit konkreten Hinweisen was in jedem Schritt zu tun ist)
+3. Eine Checkliste für Schülerinnen und Schüler, die sie während und nach dem Zeichnen abhaken können (z.B. Beschriftung vollständig, Maßstab angegeben, klare Linien)
+4. Ein Bewertungsraster mit sechs bis acht Kriterien und Punkteangabe, das die Lehrkraft direkt nutzen kann
+5. Drei häufige Fehler beim biologischen Zeichnen mit Erklärung, wie man sie vermeidet
+
+Prüfe vor der Ausgabe:
+- Ist die Schritt-für-Schritt-Anleitung so konkret, dass Schülerinnen und Schüler ohne mündliche Erklärung damit beginnen können?
+- Stimmen die Kriterien im Bewertungsraster mit den Anforderungen einer wissenschaftlichen Zeichnung überein?
+- Ist die Einführung motivierend und erklärt sie, warum biologisches Zeichnen überhaupt wichtig ist?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span>&#128203;</span> Kopieren</button>
+    </div>
+  </div>
+
+</div>
+<nav class="day-nav">
+  <a href="tag-5.html" class="nav-link">← Tag 5</a>
+  <a href="tag-7.html" class="nav-link">Tag 7 →</a>
+</nav>
+<footer>
+  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
+  <div class="footer-sub">@smartes.klassenzimmer &middot; &Ouml;ffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
+</footer>
+<script>
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function copyPrompt(textId, btn) {
+  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span>✓</span> Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

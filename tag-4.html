@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 4/10: Organisation und Schulalltag – 100 Claude-Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
+  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
+  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
+  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
+  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
+  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
+  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
+  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
+  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
+  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s; }
+  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
+  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
+  .prompt-header:hover { background: rgba(90,0,153,0.12); }
+  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
+  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
+  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
+  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s; flex-shrink: 0; }
+  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
+  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
+  .prompt-card.open .prompt-body { display: block; }
+  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s; }
+  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
+  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
+  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
+  .nav-link { display: inline-flex; align-items: center; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s; }
+  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
+  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
+  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; }
+  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
+  .footer-orange { color: #FF9D00; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-brand"><span class="asterisk">✱</span><span class="brand-name">@smartes.klassenzimmer</span></div>
+  <div class="header-title">100 Claude-Prompts</div>
+</header>
+<div class="day-indicator">
+  <div class="day-badge">Tag 4 / 10</div>
+  <div class="day-title">Organisation</div>
+  <div class="day-subtitle">und Schulalltag</div>
+</div>
+<div class="prompts-grid">
+
+  <div class="prompt-card open" id="card-1">
+    <div class="prompt-header" onclick="toggleCard('card-1')">
+      <div class="prompt-meta"><span class="prompt-number">4.1</span><span class="prompt-title">Konferenzvorbereitung</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-1">Du bist eine erfahrene Lehrkraft mit langjaehriger Erfahrung in der Schul-Organisation, Konferenzleitung und professionellen Kollaborationsformaten.
+
+Erstelle eine vollstaendige Vorlage fuer die Vorbereitung und Durchfuehrung einer schulinternen Konferenz.
+
+Das Material ist fuer [Konferenz-Typ: Klassenkonferenz] an einer [Schulform: Gesamtschule] in [Bundesland: Nordrhein-Westfalen]. Die Konferenz dauert [Dauer: 90 Minuten]. Es nehmen [Teilnehmende: alle Fachlehrkraefte der Klasse 8b] teil.
+
+Gehe so vor:
+1. Erstelle eine Tagesordnung mit Zeitplanung, die alle wichtigen Punkte einer Klassenkonferenz abdeckt (Leistungsstand, Sozialverhalten, besondere Schuelerfaelle, offene To-Dos).
+2. Erstelle eine Protokollvorlage, die waehrend der Konferenz ausgefuellt werden kann, mit Feldern fuer Beschluesse und Verantwortliche.
+3. Schreibe eine kurze Erinnerungsmail oder -nachricht, die ich eine Woche vorher an alle Kolleginnen und Kollegen schicken kann.
+4. Ergaenze eine Checkliste fuer mich als Konferenzleiterin: Was muss ich vor, waehrend und nach der Konferenz erledigt haben?
+
+Strukturiere das Ergebnis als vier Abschnitte: Tagesordnung, Protokollvorlage, Erinnerungstext, Checkliste.
+
+Pruefe vor der Ausgabe:
+- Ist die Tagesordnung realistisch fuer 90 Minuten?
+- Kann die Protokollvorlage auch von einer Person nebenbei gefuehrt werden?
+- Fehlt etwas, was bei Klassenkonferenzen typischerweise geregelt werden muss?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-2">
+    <div class="prompt-header" onclick="toggleCard('card-2')">
+      <div class="prompt-meta"><span class="prompt-number">4.2</span><span class="prompt-title">Förderplan schreiben</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-2">Du bist eine erfahrene Lehrkraft mit Kenntnissen in der sonderpadagogischen Grundversorgung, individuellem Foerdern und der rechtlichen Rahmenbedingungen in der Schule.
+
+Formuliere einen individuellen Foerderplan fuer ein Kind auf Basis der Informationen, die ich dir gebe.
+
+Das Material ist fuer [Schulform: Grundschule], [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Kind heisst [Kindname: Lena]. Ich gebe dir Stichpunkte zur Lernsituation, du formulierst daraus einen vollstaendigen Foerderplan.
+
+Gehe so vor:
+1. Formuliere die Lernausgangslage in ein bis zwei Absaetzen (was das Kind kann, wo Luecken sind).
+2. Formuliere zwei bis drei konkrete Foerderziele fuer das naechste Halbjahr (SMART: spezifisch, messbar, erreichbar, realistisch, terminiert).
+3. Beschreibe konkrete Foerdermassnahmen, die in der Schule und zu Hause umgesetzt werden koennen.
+4. Ergaenze Evaluationskriterien: Woran merken wir nach drei Monaten, ob das Kind Fortschritte gemacht hat?
+5. Fuege ein Feld fuer die Unterschriften aller Beteiligten ein (Kind, Eltern, Lehrkraft, ggf. Foerderschullehrkraft).
+
+Meine Stichpunkte zu Lena:
+[Hier deine Beobachtungen eingeben, z.B.: liest sehr langsam, versteht Texte gut wenn sie vorgelesen werden, hat Probleme mit Rechtschreibung, besonders ch- und sch-Woerter, ist motiviert und kommt gerne zur Schule, Eltern arbeiten aktiv mit...]
+
+Strukturiere das Ergebnis als fertiger Foerderplan im Schulformat.
+
+Pruefe vor der Ausgabe:
+- Sind die Foerderziele wirklich erreichbar in einem Schulhalbjahr?
+- Sind Schule und Elternhaus als Lernorte beruecksichtigt?
+- Klingt der Plan professionell und rechtssicher?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-3">
+    <div class="prompt-header" onclick="toggleCard('card-3')">
+      <div class="prompt-meta"><span class="prompt-number">4.3</span><span class="prompt-title">Elternsprechtag vorbereiten</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-3">Du bist eine erfahrene Lehrkraft mit sicherem Gesprächsgefuehl und Erfahrung in professioneller Elternkommunikation.
+
+Erstelle Gesprächsleitfaeden fuer den Elternsprechtag basierend auf meinen Stichpunkten zu einzelnen Schuelurinnen und Schuelern.
+
+Das Material ist fuer [Schulform: Realschule], [Klassenstufe: Klasse 7] in [Bundesland: Sachsen]. Jedes Gesprach dauert [Dauer: 15 Minuten]. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen strukturierten Gesprächsleitfaden.
+
+Gehe so vor:
+1. Formuliere eine freundliche Eroeffnung des Gespraches (2 Minuten).
+2. Formuliere einen Abschnitt zu Staerken des Kindes, basierend auf meinen Stichpunkten (3 Minuten).
+3. Formuliere einen Abschnitt zu Entwicklungsfeldern, professionell und ohne anklagend zu klingen (5 Minuten).
+4. Formuliere konkrete naechste Schritte, die Eltern zu Hause unterstuetzen koennen (3 Minuten).
+5. Formuliere einen positiven Abschluss (2 Minuten).
+
+Meine Stichpunkte zu [Kindname: Jonas]:
+[Hier deine Beobachtungen eingeben, z.B.: gute muendliche Mitarbeit, schriftliche Leistungen unter dem Klassendurchschnitt, wirkt manchmal demotiviert, hat gute Beziehungen zu Mitschuelern, zu Hause laut Elternauskunft wenig Schreibtischroutine...]
+
+Strukturiere das Ergebnis als Gesprächsleitfaden mit Zeitangaben und konkreten Formulierungsvorschlaegen.
+
+Pruefe vor der Ausgabe:
+- Ist das Gesprach in 15 Minuten schaffbar?
+- Klingt der Ton respektvoll und professionell?
+- Sind die naechsten Schritte konkret und fuer Eltern umsetzbar?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-4">
+    <div class="prompt-header" onclick="toggleCard('card-4')">
+      <div class="prompt-meta"><span class="prompt-number">4.4</span><span class="prompt-title">Projektwoche planen</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-4">Du bist eine erfahrene Lehrkraft mit Erfahrung in der Organisation und Durchfuehrung von Projektwochen und faecheruebergreifendem Unterricht.
+
+Entwirf eine vollstaendige Projektwoche fuer eine Schulklasse, von der ersten Idee bis zum Abschluss.
+
+Das Material ist fuer [Schulform: Grundschule], [Klassenstufe: Klasse 4] in [Bundesland: Nordrhein-Westfalen]. Das Thema der Projektwoche ist [Thema: Nachhaltigkeit und Umwelt]. Die Woche dauert [Dauer: Montag bis Freitag, jeweils 5 Stunden]. Es nehmen [Anzahl Kinder: 24 Kinder] teil.
+
+Gehe so vor:
+1. Erstelle eine Uebersicht der Woche: Welches Thema oder welcher Aspekt steht an welchem Tag im Vordergrund?
+2. Erstelle Tagesplaene mit grober Zeitstruktur, Aktivitaten und benotigten Materialien.
+3. Erstelle eine Materialliste fuer die gesamte Projektwoche.
+4. Beschreibe das Praesentationsformat am Ende der Woche: Wie zeigen die Kinder, was sie erarbeitet haben?
+5. Schreibe einen Elternbrief, der die Projektwoche ankuendigt und erklaert, was Kinder benoetigen.
+
+Strukturiere das Ergebnis: Wochen-Uebersicht, fuenf Tagesplaene, Materialliste, Praesentations-Format, Elternbrief.
+
+Pruefe vor der Ausgabe:
+- Sind die Aktivitaten fuer Viertklassler realistisch und ansprechend?
+- Gibt es eine gute Mischung aus Gruppenarbeit, Einzelarbeit und gemeinsamen Phasen?
+- Ist die Logistik (Material, Raumbedarfe) realistisch fuer eine normale Schule?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-5">
+    <div class="prompt-header" onclick="toggleCard('card-5')">
+      <div class="prompt-meta"><span class="prompt-number">4.5</span><span class="prompt-title">Wandertag organisieren</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-5">Du bist eine erfahrene Lehrkraft, die weiss, dass ein gut organisierter Wandertag von der Planung abhaengt und nicht von der Spontanitaet.
+
+Plane einen vollstaendigen Wandertag von A bis Z, inklusive aller Elternkommunikation und Notfall-Vorbereitung.
+
+Das Material ist fuer [Schulform: Grundschule], [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Ziel des Wandertags: [Ziel: ein nahe gelegener Wald mit Picknick]. Die Wanderung dauert [Dauer: ganzer Schultag, 8 bis 14 Uhr]. Die Klasse hat [Anzahl Kinder: 22 Kinder, 2 Begleitpersonen].
+
+Gehe so vor:
+1. Erstelle eine Zeitplanung fuer den Tag: Abfahrt, Ankunft, Pausen, Mittagspause, Rueckweg.
+2. Schreibe einen Elternbrief mit allen wichtigen Informationen (Was mitbringen, Kleidung, Kosten, Abholzeit, Genehmigungsvermerk).
+3. Erstelle eine Packliste fuer mich als Lehrkraft: Was muss ich dabei haben (Notfallzettel aller Kinder, Erste-Hilfe, Aufsichtspflicht-Hinweise, Telefonnummern)?
+4. Ergaenze einen kurzen Notfall-Plan: Was tue ich, wenn ein Kind verletzt wird, wenn ein Kind vermisst wird, wenn das Wetter umschlaegt?
+5. Schlage zwei bis drei padagogische Aktivitaten vor, die ich am Ziel mit den Kindern machen kann (spielerisch, ohne grosses Material).
+
+Strukturiere das Ergebnis: Zeitplanung, Elternbrief, Lehrkraft-Packliste, Notfall-Plan, Aktivitaeten-Vorschlaege.
+
+Pruefe vor der Ausgabe:
+- Ist der Zeitplan realistisch fuer Drittklassler auf einer Waldwanderung?
+- Sind alle rechtlich relevanten Punkte im Elternbrief (Genehmigung, Haftung) erwaehnt?
+- Sind die Aktivitaten wirklich ohne Vorbereitung vor Ort durchfuehrbar?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-6">
+    <div class="prompt-header" onclick="toggleCard('card-6')">
+      <div class="prompt-meta"><span class="prompt-number">4.6</span><span class="prompt-title">Vertretungsplan-Kommunikation</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-6">Du bist eine erfahrene Lehrkraft mit Erfahrung in professioneller Elternkommunikation und dem Umgang mit kurzfristigen Aenderungen im Schulalltag.
+
+Schreibe klare, professionelle Informationstexte fuer Eltern, wenn Unterricht ausfaellt oder vertreten wird.
+
+Das Material ist fuer [Schulform: Grundschule] in [Bundesland: Hessen]. Ich benotige Texte fuer drei verschiedene Situationen.
+
+Gehe so vor und schreibe fuer jede Situation einen kurzen Text (maximal 5-6 Saetze), den ich per Schulapp, Brief oder Aushang verschicken kann:
+
+Situation 1: Ein Fach faellt aus weil die Lehrkraft krank ist und kein Ersatz gefunden wird. Die Kinder koennen frueher abgeholt werden.
+
+Situation 2: Der Unterricht wird von einer fachfremden Kollegin uebernommen. Es laeuft wie normal, aber mit anderen Inhalten.
+
+Situation 3: Der Unterricht faellt wegen einer schulinternen Veranstaltung aus. Die Kinder verbringen die Zeit in der Schulbibliothek oder beim Freispiel.
+
+Formuliere alle drei Texte freundlich und klar ohne uebertriebene Entschuldigungen, informativ ohne Uebererklaerung.
+
+Strukturiere das Ergebnis als drei fertige, versandbereite Texte mit Platzhaltern fuer Datum und Fach.
+
+Pruefe vor der Ausgabe:
+- Haben Eltern nach jedem Text alle Informationen, die sie zum Handeln brauchen?
+- Klingt keiner der Texte entschuldigend oder unprofessionell?
+- Sind alle drei Texte kurz genug fuer eine Schulapp-Nachricht?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-7">
+    <div class="prompt-header" onclick="toggleCard('card-7')">
+      <div class="prompt-meta"><span class="prompt-number">4.7</span><span class="prompt-title">Schul-AG planen</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-7">Du bist eine erfahrene Lehrkraft mit Erfahrung in der Konzeption und Leitung von Schularbeitsgemeinschaften.
+
+Erstelle ein vollstaendiges Halbjahres-Konzept fuer eine Schul-AG.
+
+Das Material ist fuer [Schulform: Grundschule], [Klassenstufe: Klasse 3 und 4] in [Bundesland: Bayern]. Das Thema der AG ist [AG-Thema: Schach]. Die AG trifft sich [Haeufigkeit: einmal pro Woche, 60 Minuten]. Es koennen [Teilnehmende: maximal 15 Kinder] teilnehmen.
+
+Gehe so vor:
+1. Erstelle einen Themenplan fuer ein halbes Schuljahr (18-20 Sitzungen): Was wird wann gelernt oder gespielt?
+2. Beschreibe den Materialbedarf fuer die gesamte AG-Laufzeit.
+3. Erklaere, wie ich die Teilnehmenden organisiere (Warteliste, Anmeldeformular, Regeln fuer Ruecktritt).
+4. Schreibe einen kurzen Elternbrief, der die AG vorstellt.
+5. Beschreibe, wie die AG am Ende des Halbjahres abgeschlossen werden kann (kleines Turnier, Praesentation, Urkunden).
+
+Strukturiere das Ergebnis: Themenplan, Materialbedarf, Teilnehmer-Organisation, Elternbrief, Abschluss-Konzept.
+
+Pruefe vor der Ausgabe:
+- Ist der Themenplan fuer Anfaenger und leicht fortgeschrittene Kinder geeignet?
+- Ist der Materialbedarf realistisch fuer eine Schule ohne grosses Budget?
+- Ist die Organisation (Anmeldung, Ruecktritt) fair und praktisch?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-8">
+    <div class="prompt-header" onclick="toggleCard('card-8')">
+      <div class="prompt-meta"><span class="prompt-number">4.8</span><span class="prompt-title">Übergabe-Dokument</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-8">Du bist eine erfahrene Lehrkraft, die weiss, wie wichtig eine gute Uebergabe fuer den Erfolg der nachfolgenden Lehrkraft und das Wohl der Kinder ist.
+
+Erstelle ein vollstaendiges Uebergabe-Dokument fuer einen Klassenleitungswechsel.
+
+Das Material ist fuer [Schulform: Realschule], [Klassenstufe: Klasse 6] in [Bundesland: Nordrhein-Westfalen]. Die neue Lehrkraft kennt die Kinder noch nicht. Das Dokument soll einen guten Start ohne unnoetige Ueberraschungen ermoeglichen.
+
+Gehe so vor:
+1. Erstelle eine Klassenliste mit Spalten fuer alle wichtigen Informationen zu jedem Kind (Name, besondere Umstaende, Foerderbedarf, Elternkontakt-Notizen, Auffaelligkeiten im Sozialverhalten, Staerken).
+2. Schreibe eine kurze Klassen-Charakteristik: Wie ist die Gruppe als Ganzes? Welche sozialen Dynamiken gibt es?
+3. Beschreibe laufende Prozesse, die die neue Lehrkraft weiterfoehren muss (Foerderpplaene, offene Elternkontakte, Schuelersprecher, AG-Teilnahmen).
+4. Liste alle regelmaessigen Termine auf, die zum Klassenleitung-Alltag gehoeren.
+5. Gib drei bis fuenf persoenlliche Tipps fuer den Start mit dieser spezifischen Klasse.
+
+Strukturiere das Ergebnis: Klassenliste als Tabelle, Klassen-Charakteristik, laufende Prozesse, Termine, persoenliche Tipps.
+
+Pruefe vor der Ausgabe:
+- Koennte eine neue Lehrkraft mit diesem Dokument wirklich gut starten?
+- Sind datenschutzrelevante Hinweise beruecksichtigt (z.B. wer darf das Dokument sehen)?
+- Fehlt etwas, was bei einem Klassenleitungswechsel typischerweise verloren geht?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-9">
+    <div class="prompt-header" onclick="toggleCard('card-9')">
+      <div class="prompt-meta"><span class="prompt-number">4.9</span><span class="prompt-title">Hausaufgaben-Konzept</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-9">Du bist eine erfahrene Lehrkraft mit Kenntnissen in aktueller Hausaufgabenforschung und der Kommunikation von Schulkonzepten an Eltern und Schueler.
+
+Formuliere ein transparentes Hausaufgaben-Konzept fuer eine Klasse, das fuer alle Beteiligten klar verstaendlich ist.
+
+Das Material ist fuer [Schulform: Grundschule], [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Konzept soll an Elternabend praesentiert oder als Brief mitgegeben werden. Es soll Regeln, Umfang, Zweck und Konsequenzen klar beschreiben.
+
+Gehe so vor:
+1. Erklaere in einem kurzen Absatz, wozu Hausaufgaben in dieser Klasse dienen (Ueben, nicht Neues lernen).
+2. Beschreibe den erwarteten Umfang pro Tag (Zeitangabe, nicht Aufgabenanzahl).
+3. Formuliere klare Regeln fuer Kinder: Was mache ich bei Hausaufgaben? Wann, wo, wie?
+4. Formuliere klare Erwartungen an Eltern: Wie koennen und sollen sie helfen?
+5. Beschreibe, was passiert, wenn Hausaufgaben nicht gemacht werden (Konsequenz, kein Sanktionsdenken).
+6. Ergaenze eine Regelung fuer besondere Situationen (krank, Ausflug, vergessen).
+
+Strukturiere das Ergebnis als lesbarer Text, der auch als Elternbrief versandt werden kann.
+
+Pruefe vor der Ausgabe:
+- Klingt das Konzept fair und nicht strafend?
+- Sind Eltern klar informiert ueber ihre Rolle ohne ueberfordernd zu werden?
+- Ist das Konzept mit dem NRW-Erlass oder Bayerischen Schulgesetz vereinbar (ggf. allgemeine Empfehlungen)?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+  <div class="prompt-card" id="card-10">
+    <div class="prompt-header" onclick="toggleCard('card-10')">
+      <div class="prompt-meta"><span class="prompt-number">4.10</span><span class="prompt-title">Jahresplanung Überblick</span></div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="text-10">Du bist eine erfahrene Lehrkraft mit Erfahrung in der langfristigen Unterrichts- und Schuljahresplanung.
+
+Erstelle eine uebersichtliche Jahresplanung fuer ein Schuljahr mit allen relevanten Terminen, Pruefungsphasen, Projekten und Ferien.
+
+Das Material ist fuer [Schulform: Gesamtschule], [Klassenstufe: Klasse 9] in [Bundesland: Nordrhein-Westfalen]. Das Schuljahr laeuft von [Schuljahr: August 2026 bis Juni 2027]. Ich unterrichte [Faecher: Deutsch und Geschichte].
+
+Gehe so vor:
+1. Erstelle eine Jahresuebersicht als Tabelle: Monat, wichtige Schultermine (Zeugnisse, Konferenzen, Elternsprechtag), Ferien, meine geplanten Pruefungen oder groessere Projekte.
+2. Ergaenze fuer jedes Fach eine grobe Unterrichtsplanung: Welches Thema wann, wie lange?
+3. Markiere besonders dichte Phasen (z.B. kurz vor Zeugnissen) und schlage vor, was ich dort NICHT noch zusaetzlich einplane.
+4. Fuege eine Erinnerungsspalte ein fuer Dinge, die ich zu bestimmten Zeitpunkten vorbereiten muss (Kurswahlbogen, Abimotvorbereitung, Projektanmeldungen).
+
+Strukturiere das Ergebnis als Tabelle fuer die gesamte Jahresplanung plus eine Hinweis-Spalte fuer Vorbereitungsaufgaben.
+
+Pruefe vor der Ausgabe:
+- Deckt die Planung alle typischen Schuljahres-Highlights ab?
+- Sind die Pruefungsphasen sinnvoll verteilt, ohne Haeftungen zu erzeugen?
+- Koennte ich diese Tabelle als echtes Arbeitsinstrument durch das Schuljahr benutzen?</div>
+      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span>📋</span> Kopieren</button>
+    </div>
+  </div>
+
+</div>
+<nav class="day-nav">
+  <a href="tag-3.html" class="nav-link">← Tag 3</a>
+  <a href="tag-5.html" class="nav-link">Tag 5 →</a>
+</nav>
+<footer>
+  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
+  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
+</footer>
+<script>
+function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
+function copyPrompt(textId, btn) {
+  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span>✓</span> Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
