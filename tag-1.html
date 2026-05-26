@@ -3,592 +3,1020 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tag 1/10: Grundschule, Alltagshelfer – 100 Claude-Prompts</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Tag 1: Grundschule, Alltagshelfer – @smartes.klassenzimmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
+    background: linear-gradient(180deg, #0D0015 0%, #1A0033 100%);
     min-height: 100vh;
     color: #FFFFFF;
+    padding-bottom: 4rem;
   }
+
+  /* HEADER */
   header {
-    background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%);
-    border-bottom: 1px solid rgba(90, 0, 153, 0.4);
-    padding: 1.5rem 1rem;
     text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid rgba(90,0,153,0.3);
+    background: rgba(13,0,21,0.6);
   }
-  .header-brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    margin-bottom: 0.4rem;
-  }
-  .asterisk {
-    font-size: 2rem;
-    color: #5A0099;
-    line-height: 1;
-    font-weight: 700;
-  }
-  .brand-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #c084fc;
-    letter-spacing: 0.05em;
-  }
-  .header-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .day-indicator {
-    text-align: center;
-    padding: 2rem 1rem 1rem;
-  }
+
   .day-badge {
     display: inline-block;
-    background: linear-gradient(135deg, #5A0099, #7B00CC);
-    border-radius: 50px;
-    padding: 0.4rem 1.2rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #e9d5ff;
-    margin-bottom: 0.8rem;
-  }
-  .day-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #FFFFFF;
-  }
-  .day-subtitle {
-    font-size: 1rem;
-    color: #a78bfa;
-    margin-top: 0.3rem;
-  }
-  .prompts-grid {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem 1rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  .prompt-card {
-    background: rgba(90, 0, 153, 0.08);
-    border: 1px solid rgba(90, 0, 153, 0.35);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(90, 0, 153, 0.15);
-    transition: box-shadow 0.2s ease;
-  }
-  .prompt-card:hover {
-    box-shadow: 0 0 32px rgba(90, 0, 153, 0.3);
-  }
-  .prompt-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.2rem;
-    cursor: pointer;
-    user-select: none;
-    gap: 1rem;
-  }
-  .prompt-header:hover { background: rgba(90, 0, 153, 0.12); }
-  .prompt-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    flex: 1;
-    min-width: 0;
-  }
-  .prompt-number {
-    background: linear-gradient(135deg, #5A0099, #FF9D00);
-    border-radius: 8px;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.7rem;
-    font-weight: 700;
+    background: #5A0099;
     color: #fff;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 0.9rem;
   }
-  .prompt-title {
-    font-size: 1rem;
+
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  header h1 span {
+    color: #FF9D00;
+  }
+
+  .header-brand {
+    font-size: 0.9rem;
     font-weight: 600;
-    color: #e9d5ff;
-    line-height: 1.3;
-  }
-  .toggle-icon {
-    color: #a78bfa;
-    font-size: 1.2rem;
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-  }
-  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
-  .prompt-body {
-    display: none;
-    padding: 0 1.2rem 1.2rem;
-  }
-  .prompt-card.open .prompt-body { display: block; }
-  .prompt-text {
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(90, 0, 153, 0.25);
-    border-radius: 10px;
-    padding: 1rem 1.1rem;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: #d4b8ff;
-    font-family: 'Poppins', monospace;
-    white-space: pre-wrap;
-    word-break: break-word;
-    margin-bottom: 0.8rem;
-  }
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #5A0099, #7B00CC);
-    border: none;
-    border-radius: 8px;
-    padding: 0.55rem 1.1rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
-  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
-  .copy-icon { font-size: 1rem; }
-  nav.day-nav {
-    display: flex;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 1.5rem 1rem 2rem;
-    flex-wrap: wrap;
-  }
-  .nav-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: #a78bfa;
-    border: 1px solid rgba(90, 0, 153, 0.4);
-    transition: all 0.2s ease;
-  }
-  .nav-link:hover { background: rgba(90, 0, 153, 0.2); color: #FFFFFF; }
-  .nav-link.disabled { opacity: 0.3; pointer-events: none; }
-  footer {
-    border-top: 1px solid rgba(90, 0, 153, 0.3);
-    padding: 1.5rem 1rem;
-    text-align: center;
-  }
-  .footer-title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #7c3aed;
+    color: rgba(255,255,255,0.5);
     letter-spacing: 0.05em;
   }
-  .footer-sub {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin-top: 0.3rem;
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
   }
-  .footer-orange { color: #FF9D00; }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* PROMPT CARDS */
+  .prompt-card {
+    background: rgba(90,0,153,0.15);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .prompt-card:hover {
+    border-color: rgba(90,0,153,0.7);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .prompt-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(90,0,153,0.5);
+    border: 1px solid rgba(90,0,153,0.6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c084fc;
+  }
+
+  .card-title-wrap h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .card-title-wrap p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+    line-height: 1.5;
+  }
+
+  /* INPUT FIELDS */
+  .fields-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .fields-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .field-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.03em;
+  }
+
+  .field-group input,
+  .field-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: #FF9D00;
+    background: rgba(255,157,0,0.05);
+  }
+
+  .field-group textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+
+  /* GENERATE BUTTON */
+  .btn-generate {
+    margin-top: 1.2rem;
+    width: 100%;
+    background: #FF9D00;
+    color: #0D0015;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-generate:hover {
+    background: #ffb333;
+  }
+
+  .btn-generate:active {
+    transform: scale(0.98);
+  }
+
+  /* RESULT BOX */
+  .result-box {
+    margin-top: 1rem;
+    display: none;
+    animation: slideDown 0.25s ease;
+  }
+
+  .result-box.visible {
+    display: block;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-text {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    white-space: pre-wrap;
+    word-break: break-word;
+    user-select: text;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-copy {
+    margin-top: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+
+  .btn-copy.copied {
+    background: rgba(34,197,94,0.2);
+    border-color: rgba(34,197,94,0.5);
+    color: #4ade80;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(90,0,153,0.25);
+    margin-top: 1rem;
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF9D00;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-brand">
-    <span class="asterisk">✱</span>
-    <span class="brand-name">@smartes.klassenzimmer</span>
-  </div>
-  <div class="header-title">100 Claude-Prompts</div>
+  <div class="day-badge">Tag 1 von 10</div>
+  <h1>Grundschule: <span>Alltagshelfer</span></h1>
+  <div class="header-brand">@smartes.klassenzimmer</div>
+  <div class="header-sub">10 Prompts für Claude — füll deine Werte ein und generiere deinen Prompt</div>
 </header>
 
-<div class="day-indicator">
-  <div class="day-badge">Tag 1 / 10</div>
-  <div class="day-title">Grundschule</div>
-  <div class="day-subtitle">Alltagshelfer</div>
+<div class="container">
+  <p class="intro-text">
+    Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
+  </p>
+
+  <!-- PROMPT 1.1 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.1</div>
+      <div class="card-title-wrap">
+        <h2>Stundenplan-Dashboard erstellen</h2>
+        <p>Erstellt ein übersichtliches Tagesstart-Dokument mit Stundenplan, To-Do-Spalten und Klassenliste für den Schulmorgen.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p1-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p1-bundesland" value="Nordrhein-Westfalen">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Schüler</label>
+        <input type="text" id="p1-anzahl" value="22 Kinder">
+      </div>
+      <div class="field-group">
+        <label>Fächer des Tages</label>
+        <input type="text" id="p1-faecher" value="Deutsch, Mathe, Sachunterricht, Sport, Musik">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(1)">Prompt generieren</button>
+
+    <div class="result-box" id="result-1">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-1"></div>
+      <button class="btn-copy" onclick="copyPrompt(1, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.2 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.2</div>
+      <div class="card-title-wrap">
+        <h2>Elterngespräch-Organisator</h2>
+        <p>Erstellt einen kompletten Buchungsplan für Lernentwicklungsgespräche mit Zeitslots, Elternbrief und Checkliste.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p2-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p2-bundesland" value="Bayern">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Kinder</label>
+        <input type="text" id="p2-anzahl" value="24 Schüler">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum der Gespräche</label>
+        <input type="text" id="p2-zeitraum" value="am Donnerstagnachmittag zwischen 14 und 18 Uhr">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(2)">Prompt generieren</button>
+
+    <div class="result-box" id="result-2">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-2"></div>
+      <button class="btn-copy" onclick="copyPrompt(2, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.3 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.3</div>
+      <div class="card-title-wrap">
+        <h2>Epochalnoten-Tracker</h2>
+        <p>Erstellt eine Notiztabelle für schnelle, übersichtliche mündliche Beobachtungen während und nach jeder Unterrichtsstunde.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p3-klassenstufe" value="Klasse 4">
+      </div>
+      <div class="field-group">
+        <label>Fach</label>
+        <input type="text" id="p3-fach" value="Deutsch">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Kinder</label>
+        <input type="text" id="p3-anzahl" value="20 Schüler">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(3)">Prompt generieren</button>
+
+    <div class="result-box" id="result-3">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-3"></div>
+      <button class="btn-copy" onclick="copyPrompt(3, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.4 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.4</div>
+      <div class="card-title-wrap">
+        <h2>Klassenfahrt-Checkliste</h2>
+        <p>Erstellt eine vollständige Organisationsübersicht für die Klassenfahrt mit Kinderliste, Erinnerungsbrief und Lehrkraft-Checklisten.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p4-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p4-bundesland" value="Baden-Württemberg">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum bis Fahrt</label>
+        <input type="text" id="p4-zeitraum" value="in sechs Wochen">
+      </div>
+      <div class="field-group">
+        <label>Dauer der Fahrt</label>
+        <input type="text" id="p4-dauer" value="zwei Tage">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Kinder</label>
+        <input type="text" id="p4-anzahl" value="22 Schüler">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(4)">Prompt generieren</button>
+
+    <div class="result-box" id="result-4">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-4"></div>
+      <button class="btn-copy" onclick="copyPrompt(4, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.5 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.5</div>
+      <div class="card-title-wrap">
+        <h2>Vertretungsstunden-Mappe</h2>
+        <p>Erstellt sofort einsetzbare Materialien für fachfremde Vertretungslehrkräfte, inklusive Zeitplan und Aufgaben.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p5-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Fach</label>
+        <input type="text" id="p5-fach" value="Deutsch">
+      </div>
+      <div class="field-group">
+        <label>Letztes Unterrichtsthema</label>
+        <input type="text" id="p5-thema" value="Buchstabe Sch, Lautanalyse">
+      </div>
+      <div class="field-group">
+        <label>Stundendauer</label>
+        <input type="text" id="p5-dauer" value="45 Minuten">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(5)">Prompt generieren</button>
+
+    <div class="result-box" id="result-5">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-5"></div>
+      <button class="btn-copy" onclick="copyPrompt(5, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.6 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.6</div>
+      <div class="card-title-wrap">
+        <h2>Elternbrief-Generator</h2>
+        <p>Erstellt drei fertige Elternbriefe für häufige Anlässe: Schulausflug, Materialienbitte und Terminänderung.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p6-klassenstufe" value="3. Klasse">
+      </div>
+      <div class="field-group">
+        <label>Schulname</label>
+        <input type="text" id="p6-schulname" value="Grundschule Musterstadt">
+      </div>
+      <div class="field-group">
+        <label>Name der Lehrkraft</label>
+        <input type="text" id="p6-name" value="Frau Muster">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(6)">Prompt generieren</button>
+
+    <div class="result-box" id="result-6">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-6"></div>
+      <button class="btn-copy" onclick="copyPrompt(6, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.7 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.7</div>
+      <div class="card-title-wrap">
+        <h2>Zeugnisformulierungs-Helfer</h2>
+        <p>Formuliert individuelle Zeugnistexte für Arbeits- und Sozialverhalten auf Basis deiner Beobachtungsnotizen.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p7-klassenstufe" value="Klasse 4">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p7-bundesland" value="Hessen">
+      </div>
+      <div class="field-group">
+        <label>Zeugnisart</label>
+        <input type="text" id="p7-zeugnisart" value="Halbjahreszeugnis">
+      </div>
+      <div class="field-group">
+        <label>Name des Kindes</label>
+        <input type="text" id="p7-kindname" value="Max">
+      </div>
+      <div class="field-group full-width">
+        <label>Beobachtungsnotizen (Stichpunkte)</label>
+        <textarea id="p7-stichpunkte">meldet sich selten, aber seine Beiträge sind treffend, hält Regeln gut ein, hilft Mitschülern, manchmal unkonzentriert in langen Phasen, Hausaufgaben immer vollständig</textarea>
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(7)">Prompt generieren</button>
+
+    <div class="result-box" id="result-7">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-7"></div>
+      <button class="btn-copy" onclick="copyPrompt(7, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.8 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.8</div>
+      <div class="card-title-wrap">
+        <h2>Sitzplan-Optimierer</h2>
+        <p>Erstellt einen durchdachten Sitzordnungsvorschlag auf Basis deiner Infos zu Kindern, Förderbedarf und Gruppendynamik.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p8-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Kinder</label>
+        <input type="text" id="p8-anzahl" value="24 Schülern">
+      </div>
+      <div class="field-group full-width">
+        <label>Raumgestaltung</label>
+        <input type="text" id="p8-raum" value="sechs Tischgruppen mit je vier Plätzen">
+      </div>
+      <div class="field-group full-width">
+        <label>Stichpunkte zu einzelnen Kindern</label>
+        <textarea id="p8-stichpunkte">Tim lenkt andere ab, sitzt am besten alleine oder neben ruhigeren Kindern. Lea und Sophie arbeiten sehr gut zusammen. Jonas hat Förderbedarf Lernen und braucht Nähe zum Lehrerpult.</textarea>
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(8)">Prompt generieren</button>
+
+    <div class="result-box" id="result-8">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-8"></div>
+      <button class="btn-copy" onclick="copyPrompt(8, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.9 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.9</div>
+      <div class="card-title-wrap">
+        <h2>Materiallisten-Ersteller</h2>
+        <p>Erstellt eine vollständige Schulmaterialliste differenziert nach Fach, mit konkreten Mengenangaben und Elternbrief.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p9-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p9-bundesland" value="Bayern">
+      </div>
+      <div class="field-group full-width">
+        <label>Fächer der Klasse</label>
+        <input type="text" id="p9-faecher" value="Deutsch, Mathe, Sachunterricht, Kunst, Musik, Sport, Englisch">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(9)">Prompt generieren</button>
+
+    <div class="result-box" id="result-9">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-9"></div>
+      <button class="btn-copy" onclick="copyPrompt(9, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 1.10 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">1.10</div>
+      <div class="card-title-wrap">
+        <h2>Wochenplan-Vorlage</h2>
+        <p>Erstellt eine strukturierte Wochenplan-Vorlage mit Pflicht- und Zusatzaufgaben für offenen Unterricht mit Differenzierung.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p10-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Fächer</label>
+        <input type="text" id="p10-faecher" value="Deutsch und Mathe">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum</label>
+        <input type="text" id="p10-zeitraum" value="von Montag bis Freitag">
+      </div>
+      <div class="field-group">
+        <label>Differenzierungsstufen</label>
+        <input type="text" id="p10-diff" value="starke, durchschnittliche und schwache Leser und Rechner">
+      </div>
+      <div class="field-group">
+        <label>Deutschthema</label>
+        <input type="text" id="p10-deutschthema" value="Wörter mit ie, Satzbau">
+      </div>
+      <div class="field-group">
+        <label>Mathethema</label>
+        <input type="text" id="p10-mathethema" value="Einmaleins 6 und 7, Textaufgaben">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(10)">Prompt generieren</button>
+
+    <div class="result-box" id="result-10">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-10"></div>
+      <button class="btn-copy" onclick="copyPrompt(10, this)">Kopieren</button>
+    </div>
+  </div>
+
 </div>
 
-<div class="prompts-grid">
+<footer>
+  <div class="footer-brand">@smartes.klassenzimmer</div>
+  <div class="footer-sub">100 Prompts in 10 Tagen &mdash; Tag 1 von 10</div>
+</footer>
 
-  <div class="prompt-card open" id="card-1">
-    <div class="prompt-header" onclick="toggleCard('card-1')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.1</span>
-        <span class="prompt-title">Stundenplan-Dashboard erstellen</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-1">Du bist eine erfahrene Grundschullehrerin mit 15 Jahren Berufserfahrung und einem guten Blick fuer uebersichtliche Unterrichtsorganisation.
+<script>
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
 
-Erstelle ein Tagesstart-Dokument fuer [Klassenstufe: Klasse 3] als uebersichtliches Dashboard, das ich jeden Morgen kurz durchsehen kann.
+const templates = {
+  1: () => {
+    const klassenstufe = getVal('p1-klassenstufe');
+    const bundesland   = getVal('p1-bundesland');
+    const anzahl       = getVal('p1-anzahl');
+    const faecher      = getVal('p1-faecher');
+    return `Du bist eine erfahrene Grundschullehrerin mit 15 Jahren Berufserfahrung und einem guten Blick für übersichtliche Unterrichtsorganisation.
 
-Das Dokument ist fuer den Schulalltag einer Grundschullehrkraft in [Bundesland: Nordrhein-Westfalen]. Die Klasse hat [Anzahl Schueler: 22 Kinder]. Der Stundenplan umfasst [Faecher des Tages: Deutsch, Mathe, Sachunterricht, Sport, Musik].
+Erstelle ein Tagesstart-Dokument für ${klassenstufe} als übersichtliches Dashboard, das ich jeden Morgen kurz durchsehen kann.
+
+Das Dokument ist für den Schulalltag einer Grundschullehrkraft in ${bundesland}. Die Klasse hat ${anzahl}. Der Stundenplan umfasst ${faecher}.
 
 Gehe so vor:
-1. Zeige den Tagesablauf mit Uhrzeiten und Fachern als klare Uebersicht.
-2. Ergaenze Spalten fuer kurze To-Do-Notizen pro Stunde (z.B. "Materialien bereitlegen", "Hausaufgaben einsammeln").
-3. Fuege einen Bereich fuer besondere Hinweise des Tages ein (z.B. Elternnachrichten, Geburtstage, Termine).
-4. Ergaenze eine Klassenliste als Anwesenheits-Spalte fuer den Tag.
+1. Zeige den Tagesablauf mit Uhrzeiten und Fächern als klare Übersicht.
+2. Ergänze Spalten für kurze To-Do-Notizen pro Stunde (z.B. "Materialien bereitlegen", "Hausaufgaben einsammeln").
+3. Füge einen Bereich für besondere Hinweise des Tages ein (z.B. Elternnachrichten, Geburtstage, Termine).
+4. Ergänze eine Klassenliste als Anwesenheits-Spalte für den Tag.
 
 Strukturiere das Ergebnis als Tabelle, die ich ausdrucken oder digital benutzen kann. Der Umfang soll auf eine DIN-A4-Seite passen.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Ist das Dokument auf einen Blick lesbar, ohne lange zu suchen?
-- Gibt es Platz fuer handschriftliche Ergaenzungen?
-- Sind alle wichtigen Bereiche eines Schultags abgedeckt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-1', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+- Gibt es Platz für handschriftliche Ergänzungen?
+- Sind alle wichtigen Bereiche eines Schultags abgedeckt?`;
+  },
 
-  <div class="prompt-card" id="card-2">
-    <div class="prompt-header" onclick="toggleCard('card-2')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.2</span>
-        <span class="prompt-title">Elterngespräch-Organisator</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-2">Du bist eine erfahrene Grundschullehrerin mit Expertise in Schul-Eltern-Kommunikation und Terminorganisation.
+  2: () => {
+    const klassenstufe = getVal('p2-klassenstufe');
+    const bundesland   = getVal('p2-bundesland');
+    const anzahl       = getVal('p2-anzahl');
+    const zeitraum     = getVal('p2-zeitraum');
+    return `Du bist eine erfahrene Grundschullehrerin mit Expertise in Schul-Eltern-Kommunikation und Terminorganisation.
 
-Erstelle einen vollstaendigen Buchungsplan fuer Lernentwicklungsgespraeche einer Grundschulklasse und passende Elternbriefe fuer jedes Kind.
+Erstelle einen vollständigen Buchungsplan für Lernentwicklungsgespräche einer Grundschulklasse und passende Elternbriefe für jedes Kind.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Die Klasse hat [Anzahl Kinder: 24 Schueler]. Gesprachstermine sollen [Zeitraum: am Donnerstagnachmittag zwischen 14 und 18 Uhr] stattfinden. Jedes Gespraech dauert 20 Minuten, mit 10 Minuten Puffer dazwischen.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Klasse hat ${anzahl}. Gesprächstermine sollen ${zeitraum} stattfinden. Jedes Gespräch dauert 20 Minuten, mit 10 Minuten Puffer dazwischen.
 
 Gehe so vor:
-1. Erstelle eine Tabelle mit allen Zeitslots, Elternname (Platzhalter), Kind, Status (bestaetigt/ausstehend).
-2. Schreibe einen Muster-Elternbrief mit Datum, Uhrzeit, Ort und einer freundlichen Erinnerung daran, was die Eltern vorbereiten koennen.
+1. Erstelle eine Tabelle mit allen Zeitslots, Elternname (Platzhalter), Kind, Status (bestätigt/ausstehend).
+2. Schreibe einen Muster-Elternbrief mit Datum, Uhrzeit, Ort und einer freundlichen Erinnerung daran, was die Eltern vorbereiten können.
 3. Schreibe eine kurze Erinnerungsnachricht, die ich eine Woche vorher per Schulapp oder Brief verschicken kann.
-4. Fuege eine Checkliste ein, was ich als Lehrkraft vor jedem Gespraech parat haben sollte.
+4. Füge eine Checkliste ein, was ich als Lehrkraft vor jedem Gespräch parat haben sollte.
 
 Strukturiere das Ergebnis klar getrennt: zuerst die Buchungstabelle, dann der Elternbrief, dann die Erinnerungsnachricht, dann meine Checkliste.
 
-Pruefe vor der Ausgabe:
-- Reichen die Zeitslots fuer 24 Kinder?
-- Ist der Elternbrief hoeflich und klar, ohne Fachjargon?
-- Wirkt die Checkliste vollstaendig fuer ein Standardgespraech?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-2', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Reichen die Zeitslots für alle Kinder?
+- Ist der Elternbrief höflich und klar, ohne Fachjargon?
+- Wirkt die Checkliste vollständig für ein Standardgespräch?`;
+  },
 
-  <div class="prompt-card" id="card-3">
-    <div class="prompt-header" onclick="toggleCard('card-3')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.3</span>
-        <span class="prompt-title">Epochalnoten-Tracker</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-3">Du bist eine erfahrene Grundschullehrerin mit fundierten Kenntnissen in der muendlichen Leistungsbeurteilung.
+  3: () => {
+    const klassenstufe = getVal('p3-klassenstufe');
+    const fach         = getVal('p3-fach');
+    const anzahl       = getVal('p3-anzahl');
+    return `Du bist eine erfahrene Grundschullehrerin mit fundierten Kenntnissen in der mündlichen Leistungsbeurteilung.
 
-Erstelle eine Notiztabelle, mit der ich waehrend und nach jeder Unterrichtsstunde schnell und uebersichtlich muendliche Beobachtungen fuer jedes Kind festhalten kann.
+Erstelle eine Notiztabelle, mit der ich während und nach jeder Unterrichtsstunde schnell und übersichtlich mündliche Beobachtungen für jedes Kind festhalten kann.
 
-Das Material ist fuer [Klassenstufe: Klasse 4] in [Fach: Deutsch]. Die Klasse hat [Anzahl Kinder: 20 Schueler]. Ich moechte beobachten: muendliche Mitarbeit, Hausaufgaben-Status und offene To-Dos fuer mich als Lehrkraft.
+Das Material ist für ${klassenstufe} in ${fach}. Die Klasse hat ${anzahl}. Ich möchte beobachten: mündliche Mitarbeit, Hausaufgaben-Status und offene To-Dos für mich als Lehrkraft.
 
 Gehe so vor:
-1. Erstelle eine Tabelle mit einer Zeile pro Kind und Spalten fuer Name, Datum, muendliche Mitarbeit (Skala 1-3 oder kurze Stichworte), Hausaufgaben (gemacht/nicht gemacht/teilweise), Bemerkungen.
-2. Ergaenze eine kurze Erklaerung, wie ich die Skala benutzen soll, damit sie ueber Wochen vergleichbar bleibt.
-3. Fuege eine leere Zeile "To-Do fuer Lehrkraft" unter die Kinderliste, wo ich nach der Stunde meine eigenen Aufgaben notieren kann.
+1. Erstelle eine Tabelle mit einer Zeile pro Kind und Spalten für Name, Datum, mündliche Mitarbeit (Skala 1-3 oder kurze Stichworte), Hausaufgaben (gemacht/nicht gemacht/teilweise), Bemerkungen.
+2. Ergänze eine kurze Erklärung, wie ich die Skala benutzen soll, damit sie über Wochen vergleichbar bleibt.
+3. Füge eine leere Zeile "To-Do für Lehrkraft" unter die Kinderliste, wo ich nach der Stunde meine eigenen Aufgaben notieren kann.
 
-Strukturiere das Ergebnis als druckfertige Tabelle fuer eine Unterrichtstunde. Der Umfang soll auf eine Seite passen.
+Strukturiere das Ergebnis als druckfertige Tabelle für eine Unterrichtsstunde. Der Umfang soll auf eine Seite passen.
 
-Pruefe vor der Ausgabe:
-- Kann ich die Tabelle auch waehrend des Unterrichts schnell ausfullen?
-- Ist die Skala klar genug, um spaeter nachvollziehbare Zeugnisformulierungen ableiten zu koennen?
-- Gibt es Platz fuer individuelle Beobachtungen pro Kind?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-3', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Kann ich die Tabelle auch während des Unterrichts schnell ausfüllen?
+- Ist die Skala klar genug, um später nachvollziehbare Zeugnisformulierungen ableiten zu können?
+- Gibt es Platz für individuelle Beobachtungen pro Kind?`;
+  },
 
-  <div class="prompt-card" id="card-4">
-    <div class="prompt-header" onclick="toggleCard('card-4')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.4</span>
-        <span class="prompt-title">Klassenfahrt-Checkliste</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-4">Du bist eine erfahrene Grundschullehrerin, die mehrfach Klassenfahrten organisiert hat und weiss, was dabei schiefgehen kann.
+  4: () => {
+    const klassenstufe = getVal('p4-klassenstufe');
+    const bundesland   = getVal('p4-bundesland');
+    const zeitraum     = getVal('p4-zeitraum');
+    const dauer        = getVal('p4-dauer');
+    const anzahl       = getVal('p4-anzahl');
+    return `Du bist eine erfahrene Grundschullehrerin, die mehrfach Klassenfahrten organisiert hat und weiß, was dabei schiefgehen kann.
 
-Erstelle eine vollstaendige Organisationsuebersicht fuer eine bevorstehende Klassenfahrt inklusive Vorlagen fuer die Elternkommunikation.
+Erstelle eine vollständige Organisationsübersicht für eine bevorstehende Klassenfahrt inklusive Vorlagen für die Elternkommunikation.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Baden-Wuerttemberg]. Die Fahrt findet [Zeitraum: in sechs Wochen] statt und dauert [Dauer: zwei Tage]. Die Klasse hat [Anzahl Kinder: 22 Schueler].
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Fahrt findet ${zeitraum} statt und dauert ${dauer}. Die Klasse hat ${anzahl}.
 
 Gehe so vor:
 1. Erstelle eine Kinderliste mit Spalten: Name, Elternbrief erhalten (ja/nein), Notfallzettel abgegeben (ja/nein), Fahrtgeld bezahlt (ja/nein), besondere Hinweise (Allergien, Medikamente).
-2. Schreibe eine Erinnerungsnachricht an Eltern, bei denen noch Unterlagen fehlen, hoeflich aber klar.
-3. Erstelle meine Lehrkraft-Checkliste fuer die Vorbereitung: Was muss ich mindestens zwei Wochen vorher, eine Woche vorher und am Vortag erledigt haben?
-4. Ergaenze eine kurze Liste der Dinge, die ich auf der Fahrt selbst dabei haben muss (Erste-Hilfe-Kasten, Notfallzettel, Medikamente etc.).
+2. Schreibe eine Erinnerungsnachricht an Eltern, bei denen noch Unterlagen fehlen, höflich aber klar.
+3. Erstelle meine Lehrkraft-Checkliste für die Vorbereitung: Was muss ich mindestens zwei Wochen vorher, eine Woche vorher und am Vortag erledigt haben?
+4. Ergänze eine kurze Liste der Dinge, die ich auf der Fahrt selbst dabei haben muss (Erste-Hilfe-Kasten, Notfallzettel, Medikamente etc.).
 
 Strukturiere das Ergebnis in vier klar bezeichnete Abschnitte.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Sind alle typischen Stolperstellen einer Grundschulklassenfahrt abgedeckt?
-- Ist die Erinnerungsnachricht freundlich und ohne Vorwuerfe formuliert?
-- Koennte ich die Checkliste wirklich im Schulalltag neben allem anderen abarbeiten?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-4', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+- Ist die Erinnerungsnachricht freundlich und ohne Vorwürfe formuliert?
+- Könnte ich die Checkliste wirklich im Schulalltag neben allem anderen abarbeiten?`;
+  },
 
-  <div class="prompt-card" id="card-5">
-    <div class="prompt-header" onclick="toggleCard('card-5')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.5</span>
-        <span class="prompt-title">Vertretungsstunden-Mappe</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-5">Du bist eine erfahrene Grundschullehrerin und weisst aus eigener Erfahrung, wie schwierig es ist, kurzfristig eine unbekannte Klasse zu uebernehmen.
+  5: () => {
+    const klassenstufe = getVal('p5-klassenstufe');
+    const fach         = getVal('p5-fach');
+    const thema        = getVal('p5-thema');
+    const dauer        = getVal('p5-dauer');
+    return `Du bist eine erfahrene Grundschullehrerin und weißt aus eigener Erfahrung, wie schwierig es ist, kurzfristig eine unbekannte Klasse zu übernehmen.
 
 Erstelle sofort einsetzbare Vertretungsmaterialien, die eine fachfremde Lehrkraft ohne Vorbereitung nutzen kann.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Fach: Deutsch]. Das letzte Unterrichtsthema war [Thema: Buchstabe Sch, Lautanalyse]. Die Stunde dauert [Dauer: 45 Minuten].
+Das Material ist für ${klassenstufe} in ${fach}. Das letzte Unterrichtsthema war ${thema}. Die Stunde dauert ${dauer}.
 
 Gehe so vor:
-1. Schreibe eine kurze Einseiter-Information fuer die Vertretungslehrkraft: Wo sitzt wer, welche Kinder brauchen besondere Aufmerksamkeit, was darf nicht gemacht werden, wo liegt das Material.
-2. Erstelle drei aufeinanderfolgende Aufgaben, die die Kinder groesstenteils selbststaendig bearbeiten koennen, in aufsteigendem Schwierigkeitsgrad.
-3. Ergaenze einen Zeitplan: Was passiert wann in der 45-Minuten-Stunde?
-4. Fuege am Ende eine kurze Notiz fuer die Vertretungslehrkraft ein, was sie nach der Stunde rueckmelden soll.
+1. Schreibe eine kurze Einseiter-Information für die Vertretungslehrkraft: Wo sitzt wer, welche Kinder brauchen besondere Aufmerksamkeit, was darf nicht gemacht werden, wo liegt das Material.
+2. Erstelle drei aufeinanderfolgende Aufgaben, die die Kinder größtenteils selbstständig bearbeiten können, in aufsteigendem Schwierigkeitsgrad.
+3. Ergänze einen Zeitplan: Was passiert wann in der ${dauer}?
+4. Füge am Ende eine kurze Notiz für die Vertretungslehrkraft ein, was sie nach der Stunde rückmelden soll.
 
 Strukturiere das Ergebnis so, dass es ausgedruckt auf den Schreibtisch gelegt werden kann und die Vertretungsperson direkt loslegen kann.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Kann eine fachfremde Lehrkraft diese Stunde wirklich ohne Vorkenntnisse halten?
-- Sind die Aufgaben fuer Klasse 2 sprachlich und inhaltlich angemessen?
-- Ist der Zeitplan realistisch?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-5', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+- Sind die Aufgaben für die Klasse sprachlich und inhaltlich angemessen?
+- Ist der Zeitplan realistisch?`;
+  },
 
-  <div class="prompt-card" id="card-6">
-    <div class="prompt-header" onclick="toggleCard('card-6')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.6</span>
-        <span class="prompt-title">Elternbrief-Generator</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-6">Du bist eine erfahrene Grundschullehrerin mit einem sicheren Gefuehl fuer professionelle, warme und klare Elternkommunikation.
+  6: () => {
+    const klassenstufe = getVal('p6-klassenstufe');
+    const schulname    = getVal('p6-schulname');
+    const name         = getVal('p6-name');
+    return `Du bist eine erfahrene Grundschullehrerin mit einem sicheren Gefühl für professionelle, warme und klare Elternkommunikation.
 
-Erstelle drei fertige Elternbriefe fuer haeufig wiederkehrende Anlaesse im Grundschulalltag.
+Erstelle drei fertige Elternbriefe für häufig wiederkehrende Anlässe im Grundschulalltag.
 
-Das Material ist fuer die Eltern einer [Klassenstufe: 3. Klasse] in [Schulname: Grundschule Musterstadt]. Unterschreibe die Briefe mit [Lehrerkraft-Name: Frau Muster].
+Das Material ist für die Eltern einer ${klassenstufe} in ${schulname}. Unterschreibe die Briefe mit ${name}.
 
-Erstelle je einen Brief fuer diese drei Anlaesse:
-1. Schulausflug mit Ziel, Datum, Uhrzeit, Kosten und Genehmigungsvermerk fuer die Eltern.
+Erstelle je einen Brief für diese drei Anlässe:
+1. Schulausflug mit Ziel, Datum, Uhrzeit, Kosten und Genehmigungsvermerk für die Eltern.
 2. Materialien-Bitte am Schuljahresanfang oder nach den Ferien.
-3. Terminaenderung, z.B. wenn ein Elterntag verschoben wird.
+3. Terminänderung, z.B. wenn ein Elterntag verschoben wird.
 
 Gehe so vor:
 - Halte jeden Brief auf maximal einer halben Seite.
 - Benutze eine freundliche, respektvolle Ansprache ohne Fachjargon.
-- Mache deutlich, was die Eltern aktiv tun muessen (unterschreiben, einsenden, mitgeben).
-- Setze Platzhalter fuer alle variablen Angaben (Datum, Ort, Betrag etc.).
+- Mache deutlich, was die Eltern aktiv tun müssen (unterschreiben, einsenden, mitgeben).
+- Setze Platzhalter für alle variablen Angaben (Datum, Ort, Betrag etc.).
 
 Strukturiere das Ergebnis als drei klar getrennte, druckfertige Briefe.
 
-Pruefe vor der Ausgabe:
-- Sind alle noetigen Informationen vorhanden, ohne dass der Brief zu lang wird?
-- Ist die Tonalitaet freundlich und professionell?
-- Sind die Platzhalter gut erkennbar, damit ich sie leicht anpassen kann?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-6', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind alle nötigen Informationen vorhanden, ohne dass der Brief zu lang wird?
+- Ist die Tonalität freundlich und professionell?
+- Sind die Platzhalter gut erkennbar, damit ich sie leicht anpassen kann?`;
+  },
 
-  <div class="prompt-card" id="card-7">
-    <div class="prompt-header" onclick="toggleCard('card-7')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.7</span>
-        <span class="prompt-title">Zeugnisformulierungs-Helfer</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-7">Du bist eine erfahrene Grundschullehrerin mit tiefen Kenntnissen in der Zeugnissprache und der rechtlichen Rahmenbedingungen in Deutschland.
+  7: () => {
+    const klassenstufe  = getVal('p7-klassenstufe');
+    const bundesland    = getVal('p7-bundesland');
+    const zeugnisart    = getVal('p7-zeugnisart');
+    const kindname      = getVal('p7-kindname');
+    const stichpunkte   = getVal('p7-stichpunkte');
+    return `Du bist eine erfahrene Grundschullehrerin mit tiefen Kenntnissen in der Zeugnissprache und den rechtlichen Rahmenbedingungen in Deutschland.
 
-Formuliere individuelle Zeugnistexte fuer Arbeits- und Sozialverhalten basierend auf meinen Beobachtungsnotizen.
+Formuliere individuelle Zeugnistexte für Arbeits- und Sozialverhalten basierend auf meinen Beobachtungsnotizen.
 
-Das Material ist fuer [Klassenstufe: Klasse 4] in [Bundesland: Hessen]. Die Zeugnisse folgen dem Format [Zeugnisart: Halbjahreszeugnis]. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen vollstaendigen Zeugnistext.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Zeugnisse folgen dem Format ${zeugnisart}. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen vollständigen Zeugnistext.
 
 Gehe so vor:
-1. Lies die Stichpunkte und identifiziere Staerken, Entwicklungsfelder und besondere Leistungen.
-2. Formuliere einen zusammenhaengenden Text von 5-8 Saetzen, der zeugnisueblich klingt und die notige Differenzierung benutzt.
-3. Schlage eine Notenempfehlung fuer Arbeits- und Sozialverhalten vor (sehr gut, gut, befriedigend, ausreichend) und begruende sie kurz.
+1. Lies die Stichpunkte und identifiziere Stärken, Entwicklungsfelder und besondere Leistungen.
+2. Formuliere einen zusammenhängenden Text von 5-8 Sätzen, der zeugnisüblich klingt und die nötige Differenzierung benutzt.
+3. Schlage eine Notenempfehlung für Arbeits- und Sozialverhalten vor (sehr gut, gut, befriedigend, ausreichend) und begründe sie kurz.
 
-Hier sind meine Beobachtungsnotizen zu [Kindname: Max]:
-[Stichpunkte eingeben, z.B.: meldet sich selten, aber seine Beitraege sind treffend, haelt Regeln gut ein, hilft Mitschuelern, manchmal unkonzentriert in langen Phasen, Hausaufgaben immer vollstaendig]
+Hier sind meine Beobachtungsnotizen zu ${kindname}:
+${stichpunkte}
 
-Strukturiere das Ergebnis: zuerst der fertige Zeugnistext, dann die Notenempfehlung mit kurzer Begruendung.
+Strukturiere das Ergebnis: zuerst der fertige Zeugnistext, dann die Notenempfehlung mit kurzer Begründung.
 
-Pruefe vor der Ausgabe:
-- Ist die Sprache zeugnisueblich und nicht wertend?
-- Klingt der Text individuell und nicht wie eine Vorlage, die fuer alle Kinder passt?
-- Sind sowohl Staerken als auch Entwicklungsfelder angemessen beruecksichtigt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-7', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Ist die Sprache zeugnisüblich und nicht wertend?
+- Klingt der Text individuell und nicht wie eine Vorlage, die für alle Kinder passt?
+- Sind sowohl Stärken als auch Entwicklungsfelder angemessen berücksichtigt?`;
+  },
 
-  <div class="prompt-card" id="card-8">
-    <div class="prompt-header" onclick="toggleCard('card-8')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.8</span>
-        <span class="prompt-title">Sitzplan-Optimierer</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-8">Du bist eine erfahrene Grundschullehrerin mit Expertise in Klassenraumgestaltung und sozialem Lernen.
+  8: () => {
+    const klassenstufe  = getVal('p8-klassenstufe');
+    const anzahl        = getVal('p8-anzahl');
+    const raum          = getVal('p8-raum');
+    const stichpunkte   = getVal('p8-stichpunkte');
+    return `Du bist eine erfahrene Grundschullehrerin mit Expertise in Klassenraumgestaltung und sozialem Lernen.
 
-Erstelle einen durchdachten Sitzordnungsvorschlag fuer meine Klasse basierend auf den Informationen, die ich dir gebe.
+Erstelle einen durchdachten Sitzordnungsvorschlag für meine Klasse basierend auf den Informationen, die ich dir gebe.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] mit [Anzahl Kinder: 24 Schuelern]. Der Klassenraum hat [Raumgestaltung: sechs Tischgruppen mit je vier Plaetzen]. Ich moechte folgende Kriterien beruecksichtigen: Foerderbedarf einzelner Kinder, Kombinationen die zu Unruhe fuehren und Staerken-Partnerschaften.
+Das Material ist für ${klassenstufe} mit ${anzahl}. Der Klassenraum hat ${raum}. Ich möchte folgende Kriterien berücksichtigen: Förderbedarf einzelner Kinder, Kombinationen die zu Unruhe führen und Stärken-Partnerschaften.
 
 Gehe so vor:
-1. Ich beschreibe dir in Stichpunkten einige Kinder und ihre Besonderheiten. Du baust daraus einen Vorschlag fuer die Sitzgruppen.
-2. Erklaere kurz, warum du welche Kombination gewaehlt hast.
-3. Gib mir zwei oder drei Alternativvorschlaege fuer Kinder, bei denen die Platzierung schwierig ist.
+1. Ich beschreibe dir in Stichpunkten einige Kinder und ihre Besonderheiten. Du baust daraus einen Vorschlag für die Sitzgruppen.
+2. Erkläre kurz, warum du welche Kombination gewählt hast.
+3. Gib mir zwei oder drei Alternativvorschläge für Kinder, bei denen die Platzierung schwierig ist.
 
 Meine Stichpunkte zu einzelnen Kindern:
-[Hier deine Infos eingeben, z.B.: Tim lenkt andere ab, sitzt am besten alleine oder neben ruhigeren Kindern. Lea und Sophie arbeiten sehr gut zusammen. Jonas hat Foerderbedarf Lernen und braucht Naehe zum Lehrerpult. ...]
+${stichpunkte}
 
-Strukturiere das Ergebnis: zuerst die Sitzplan-Tabelle oder ein Schaubild mit Gruppe 1-6, dann die Begruendungen, dann die Alternativvorschlaege.
+Strukturiere das Ergebnis: zuerst die Sitzplan-Tabelle oder ein Schaubild mit den Gruppen, dann die Begründungen, dann die Alternativvorschläge.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Sind die genannten Problemkombinationen wirklich getrennt?
-- Ist jedes Kind mit Foerderbedarf sinnvoll platziert?
-- Klingt die Begruendung nachvollziehbar, falls Eltern oder Schulleitung fragen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-8', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+- Ist jedes Kind mit Förderbedarf sinnvoll platziert?
+- Klingt die Begründung nachvollziehbar, falls Eltern oder Schulleitung fragen?`;
+  },
 
-  <div class="prompt-card" id="card-9">
-    <div class="prompt-header" onclick="toggleCard('card-9')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.9</span>
-        <span class="prompt-title">Materiallisten-Ersteller</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-9">Du bist eine erfahrene Grundschullehrerin, die weiss, welche Materialien in welcher Klassenstufe und welchem Fach wirklich gebraucht werden.
+  9: () => {
+    const klassenstufe = getVal('p9-klassenstufe');
+    const bundesland   = getVal('p9-bundesland');
+    const faecher      = getVal('p9-faecher');
+    return `Du bist eine erfahrene Grundschullehrerin, die weiß, welche Materialien in welcher Klassenstufe und welchem Fach wirklich gebraucht werden.
 
-Erstelle eine vollstaendige Materialliste fuer den Start eines neuen Schuljahres oder nach den Ferien.
+Erstelle eine vollständige Materialliste für den Start eines neuen Schuljahres oder nach den Ferien.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Die Faecher dieser Klasse sind [Faecher: Deutsch, Mathe, Sachunterricht, Kunst, Musik, Sport, Englisch]. Ich moechte eine Liste, die ich direkt als Elternbrief beilegen oder in die Schulapp stellen kann.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Fächer dieser Klasse sind ${faecher}. Ich möchte eine Liste, die ich direkt als Elternbrief beilegen oder in die Schulapp stellen kann.
 
 Gehe so vor:
 1. Erstelle eine Materialliste differenziert nach Fach mit konkreten Mengenangaben (z.B. "2 Hefter DIN A4, liniert, 80 Seiten").
-2. Markiere, was die Schule stellt und was Eltern besorgen muessen.
-3. Ergaenze eine kurze Hinweis-Spalte, wo sinnvoll (z.B. "bitte beschriften", "kein Glitzerkleber wegen Allergien").
-4. Schreibe einen kurzen Begleittext fuer den Elternbrief oder die Schulapp.
+2. Markiere, was die Schule stellt und was Eltern besorgen müssen.
+3. Ergänze eine kurze Hinweis-Spalte, wo sinnvoll (z.B. "bitte beschriften", "kein Glitzerkleber wegen Allergien").
+4. Schreibe einen kurzen Begleittext für den Elternbrief oder die Schulapp.
 
-Strukturiere das Ergebnis: zuerst die Tabelle nach Faechern, dann der Begleittext.
+Strukturiere das Ergebnis: zuerst die Tabelle nach Fächern, dann der Begleittext.
 
-Pruefe vor der Ausgabe:
-- Sind die Materialien typisch fuer die genannte Klassenstufe?
-- Sind Mengenangaben konkret genug, damit Eltern einkaufen koennen ohne rueckfragen zu muessen?
-- Fehlt etwas Offensichtliches fuer den Schulalltag dieser Klassenstufe?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-9', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind die Materialien typisch für die genannte Klassenstufe?
+- Sind Mengenangaben konkret genug, damit Eltern einkaufen können ohne rückfragen zu müssen?
+- Fehlt etwas Offensichtliches für den Schulalltag dieser Klassenstufe?`;
+  },
 
-  <div class="prompt-card" id="card-10">
-    <div class="prompt-header" onclick="toggleCard('card-10')">
-      <div class="prompt-meta">
-        <span class="prompt-number">1.10</span>
-        <span class="prompt-title">Wochenplan-Vorlage</span>
-      </div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-10">Du bist eine erfahrene Grundschullehrerin mit Erfahrung in offenem Unterricht und differenziertem Lernen.
+  10: () => {
+    const klassenstufe   = getVal('p10-klassenstufe');
+    const faecher        = getVal('p10-faecher');
+    const zeitraum       = getVal('p10-zeitraum');
+    const diff           = getVal('p10-diff');
+    const deutschthema   = getVal('p10-deutschthema');
+    const mathethema     = getVal('p10-mathethema');
+    return `Du bist eine erfahrene Grundschullehrerin mit Erfahrung in offenem Unterricht und differenziertem Lernen.
 
-Erstelle eine strukturierte Wochenplan-Vorlage fuer meine Klasse, die Kinder mit unterschiedlichem Leistungsstand selbststaendig bearbeiten koennen.
+Erstelle eine strukturierte Wochenplan-Vorlage für meine Klasse, die Kinder mit unterschiedlichem Leistungsstand selbstständig bearbeiten können.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [Faecher: Deutsch und Mathe]. Der Wochenplan soll [Zeitraum: von Montag bis Freitag] laufen. In der Klasse gibt es [Differenzierungsstufen: starke, durchschnittliche und schwache Leser und Rechner].
+Das Material ist für ${klassenstufe} in ${faecher}. Der Wochenplan soll ${zeitraum} laufen. In der Klasse gibt es ${diff}.
 
 Gehe so vor:
-1. Erstelle eine Wochenplan-Tabelle mit Spalten fuer Montag bis Freitag und Zeilen fuer Deutsch-Aufgaben und Mathe-Aufgaben.
-2. Baue fuer jede Aufgabe eine Pflichtspalte (alle Kinder) und eine Zusatz-Spalte (schnelle Kinder) ein.
-3. Beschreibe zu jeder Aufgabe in einem Satz, was die Kinder tun sollen (so klar, dass sie es selbst lesen koennen).
-4. Ergaenze eine Kontrollspalte, in der Kinder abgehakt koennen, was sie geschafft haben.
+1. Erstelle eine Wochenplan-Tabelle mit Spalten für Montag bis Freitag und Zeilen für Deutsch-Aufgaben und Mathe-Aufgaben.
+2. Baue für jede Aufgabe eine Pflichtspalte (alle Kinder) und eine Zusatz-Spalte (schnelle Kinder) ein.
+3. Beschreibe zu jeder Aufgabe in einem Satz, was die Kinder tun sollen (so klar, dass sie es selbst lesen können).
+4. Ergänze eine Kontrollspalte, in der Kinder abhaken können, was sie geschafft haben.
 
-Themen des Wochenplans: [Deutschthema: Woerter mit ie, Satzbau] und [Mathethema: Einmaleins 6 und 7, Textaufgaben].
+Themen des Wochenplans: Deutschthema: ${deutschthema} und Mathethema: ${mathethema}.
 
-Strukturiere das Ergebnis als druckfertige Tabelle plus eine kurze Erklaerung, wie ich den Wochenplan einfuehre.
+Strukturiere das Ergebnis als druckfertige Tabelle plus eine kurze Erklärung, wie ich den Wochenplan einführe.
 
-Pruefe vor der Ausgabe:
-- Koennen Kinder der 3. Klasse die Aufgabenbeschreibungen selbst lesen?
-- Gibt es genuegend Aufgaben fuer die ganze Woche, ohne dass es zu viel wird?
-- Sind Pflicht- und Zusatzaufgaben klar unterschieden?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-10', this)">
-        <span class="copy-icon">📋</span> Kopieren
-      </button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Können Kinder der ${klassenstufe} die Aufgabenbeschreibungen selbst lesen?
+- Gibt es genügend Aufgaben für die ganze Woche, ohne dass es zu viel wird?
+- Sind Pflicht- und Zusatzaufgaben klar unterschieden?`;
+  }
+};
 
-</div>
-
-<nav class="day-nav">
-  <a href="tag-1.html" class="nav-link disabled">← Tag 1</a>
-  <a href="tag-2.html" class="nav-link">Tag 2 →</a>
-</nav>
-
-<footer>
-  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
-  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
-</footer>
-
-<script>
-function toggleCard(id) {
-  const card = document.getElementById(id);
-  card.classList.toggle('open');
+function generate(num) {
+  const text = templates[num]();
+  const textEl = document.getElementById('text-' + num);
+  const resultBox = document.getElementById('result-' + num);
+  textEl.textContent = text;
+  resultBox.classList.add('visible');
+  resultBox.style.display = 'block';
+  resultBox.style.animation = 'none';
+  void resultBox.offsetWidth;
+  resultBox.style.animation = 'slideDown 0.25s ease';
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-function copyPrompt(textId, btn) {
-  const text = document.getElementById(textId).textContent;
+
+function copyPrompt(num, btn) {
+  const text = document.getElementById('text-' + num).textContent;
   navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<span class="copy-icon">✓</span> Kopiert!';
+    btn.textContent = 'Kopiert!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => {
+      btn.textContent = 'Kopieren';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const el = document.getElementById('text-' + num);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = 'Text markiert — Strg+C zum Kopieren';
+    setTimeout(() => { btn.textContent = 'Kopieren'; }, 3000);
   });
 }
 </script>

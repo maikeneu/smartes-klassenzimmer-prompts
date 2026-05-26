@@ -3,365 +3,964 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tag 2/10: Grundschule, Fachunterricht – 100 Claude-Prompts</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Tag 2: Grundschule, Fachunterricht – @smartes.klassenzimmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
-  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
-  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
-  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
-  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
-  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
-  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
-  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
-  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
-  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
-  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
-  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s ease; }
-  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
-  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
-  .prompt-header:hover { background: rgba(90,0,153,0.12); }
-  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
-  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
-  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
-  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s ease; flex-shrink: 0; }
-  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
-  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
-  .prompt-card.open .prompt-body { display: block; }
-  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; font-family: 'Poppins', monospace; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
-  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s ease; }
-  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
-  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
-  .copy-icon { font-size: 1rem; }
-  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
-  .nav-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s ease; }
-  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
-  .nav-link.disabled { opacity: 0.3; pointer-events: none; }
-  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
-  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; letter-spacing: 0.05em; }
-  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
-  .footer-orange { color: #FF9D00; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #0D0015 0%, #1A0033 100%);
+    min-height: 100vh;
+    color: #FFFFFF;
+    padding-bottom: 4rem;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid rgba(90,0,153,0.3);
+    background: rgba(13,0,21,0.6);
+  }
+
+  .day-badge {
+    display: inline-block;
+    background: #5A0099;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 0.9rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  header h1 span { color: #FF9D00; }
+
+  .header-brand {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .prompt-card {
+    background: rgba(90,0,153,0.15);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .prompt-card:hover { border-color: rgba(90,0,153,0.7); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .prompt-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(90,0,153,0.5);
+    border: 1px solid rgba(90,0,153,0.6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c084fc;
+  }
+
+  .card-title-wrap h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .card-title-wrap p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+    line-height: 1.5;
+  }
+
+  .fields-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .fields-grid { grid-template-columns: 1fr; }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field-group.full-width { grid-column: 1 / -1; }
+
+  .field-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.03em;
+  }
+
+  .field-group input,
+  .field-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: #FF9D00;
+    background: rgba(255,157,0,0.05);
+  }
+
+  .field-group textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+
+  .btn-generate {
+    margin-top: 1.2rem;
+    width: 100%;
+    background: #FF9D00;
+    color: #0D0015;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-generate:hover { background: #ffb333; }
+  .btn-generate:active { transform: scale(0.98); }
+
+  .result-box {
+    margin-top: 1rem;
+    display: none;
+    animation: slideDown 0.25s ease;
+  }
+
+  .result-box.visible { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-text {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    white-space: pre-wrap;
+    word-break: break-word;
+    user-select: text;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-copy {
+    margin-top: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+  .btn-copy.copied {
+    background: rgba(34,197,94,0.2);
+    border-color: rgba(34,197,94,0.5);
+    color: #4ade80;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(90,0,153,0.25);
+    margin-top: 1rem;
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF9D00;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="header-brand"><span class="asterisk">✱</span><span class="brand-name">@smartes.klassenzimmer</span></div>
-  <div class="header-title">100 Claude-Prompts</div>
+  <div class="day-badge">Tag 2 von 10</div>
+  <h1>Grundschule: <span>Fachunterricht</span></h1>
+  <div class="header-brand">@smartes.klassenzimmer</div>
+  <div class="header-sub">10 Prompts für Claude — füll deine Werte ein und generiere deinen Prompt</div>
 </header>
-<div class="day-indicator">
-  <div class="day-badge">Tag 2 / 10</div>
-  <div class="day-title">Grundschule</div>
-  <div class="day-subtitle">Fachunterricht</div>
-</div>
-<div class="prompts-grid">
 
-  <div class="prompt-card open" id="card-1">
-    <div class="prompt-header" onclick="toggleCard('card-1')">
-      <div class="prompt-meta"><span class="prompt-number">2.1</span><span class="prompt-title">Buchstaben-Einführung planen</span></div>
-      <span class="toggle-icon">▼</span>
+<div class="container">
+  <p class="intro-text">
+    Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
+  </p>
+
+  <!-- PROMPT 2.1 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.1</div>
+      <div class="card-title-wrap">
+        <h2>Buchstaben-Einführung planen</h2>
+        <p>Plant eine vollständige 45-Minuten-Stunde zur Einführung eines neuen Buchstabens mit Bewegung, Schreibübung, Höraufgabe und Differenzierung.</p>
+      </div>
     </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-1">Du bist eine erfahrene Grundschullehrerin mit Spezialisierung auf Deutsch in Klasse 1 und 2 und kennst die gaengigen Fibellehrplaene gut.
 
-Erstelle eine vollstaendige Unterrichtsstunde zur Einfuehrung eines neuen Buchstabens fuer die Grundschule.
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p1-klassenstufe" value="Klasse 1">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p1-bundesland" value="Nordrhein-Westfalen">
+      </div>
+      <div class="field-group">
+        <label>Buchstabe</label>
+        <input type="text" id="p1-buchstabe" value="Mm">
+      </div>
+      <div class="field-group full-width">
+        <label>Besondere Umstände in der Klasse</label>
+        <input type="text" id="p1-umstaende" value="zwei Kinder mit Deutsch als Zweitsprache und ein Kind mit Förderbedarf Sprache">
+      </div>
+    </div>
 
-Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Nordrhein-Westfalen]. Der einzufuehrende Buchstabe ist [Buchstabe: Mm]. Die Stunde dauert 45 Minuten. In der Klasse gibt es [besondere Umstaende: zwei Kinder mit Deutsch als Zweitsprache und ein Kind mit Foerderbedarf Sprache].
+    <button class="btn-generate" onclick="generate(1)">Prompt generieren</button>
+
+    <div class="result-box" id="result-1">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-1"></div>
+      <button class="btn-copy" onclick="copyPrompt(1, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.2 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.2</div>
+      <div class="card-title-wrap">
+        <h2>Zahlen schreiben lernen</h2>
+        <p>Erstellt gestufte Übungsmaterialien zum Zahlenschreiben mit Nachspuren, Hilfslinien und freien Übungsaufgaben für unterschiedliche feinmotorische Entwicklung.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p2-klassenstufe" value="Klasse 1">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p2-bundesland" value="Sachsen">
+      </div>
+      <div class="field-group">
+        <label>Zahl (die eingeführt wird)</label>
+        <input type="text" id="p2-zahl" value="die 8">
+      </div>
+      <div class="field-group">
+        <label>Vorwissen der Kinder</label>
+        <input type="text" id="p2-vorwissen" value="die Zahlen 0 bis 7">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(2)">Prompt generieren</button>
+
+    <div class="result-box" id="result-2">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-2"></div>
+      <button class="btn-copy" onclick="copyPrompt(2, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.3 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.3</div>
+      <div class="card-title-wrap">
+        <h2>Lerntagebuch Sachunterricht</h2>
+        <p>Erstellt ein Lerntagebuch für eine Sachunterrichts-Einheit, das Kinder selbst führen können und das am Ende als Kompetenznachweis dient.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p3-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p3-bundesland" value="Bayern">
+      </div>
+      <div class="field-group">
+        <label>Thema der Einheit</label>
+        <input type="text" id="p3-thema" value="Tiere im Winter, Schlaf und Wanderung">
+      </div>
+      <div class="field-group">
+        <label>Dauer der Einheit</label>
+        <input type="text" id="p3-dauer" value="vier Wochen">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(3)">Prompt generieren</button>
+
+    <div class="result-box" id="result-3">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-3"></div>
+      <button class="btn-copy" onclick="copyPrompt(3, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.4 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.4</div>
+      <div class="card-title-wrap">
+        <h2>Kopfrechenaufgaben Mathe</h2>
+        <p>Erstellt 20 Kopfrechenaufgaben für den Stundeneinstieg, aufgeteilt in aktuelles Thema und Wiederholung, mit Lösungen und zwei Einsatzvarianten.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p4-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Aktuelles Thema</label>
+        <input type="text" id="p4-thema" value="Einmaleins, Siebenerreihe">
+      </div>
+      <div class="field-group full-width">
+        <label>Ziel der Aufgaben</label>
+        <input type="text" id="p4-ziel" value="das neue Einmaleins üben und gleichzeitig die Sechserreihe aus der letzten Woche wiederholen">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(4)">Prompt generieren</button>
+
+    <div class="result-box" id="result-4">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-4"></div>
+      <button class="btn-copy" onclick="copyPrompt(4, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.5 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.5</div>
+      <div class="card-title-wrap">
+        <h2>Englisch-Portfolio erstellen</h2>
+        <p>Erstellt ein ausdruckbares Portfolio für den Englischunterricht mit Startseite, Aufgabenseiten zu verschiedenen Themen, Selbsteinschätzung und Lehrkraft-Kommentar.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p5-klassenstufe" value="Klasse 4">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p5-bundesland" value="Nordrhein-Westfalen">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum des Portfolios</label>
+        <input type="text" id="p5-zeitraum" value="ein Schulhalbjahr">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(5)">Prompt generieren</button>
+
+    <div class="result-box" id="result-5">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-5"></div>
+      <button class="btn-copy" onclick="copyPrompt(5, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.6 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.6</div>
+      <div class="card-title-wrap">
+        <h2>Lernstraße Buchstaben</h2>
+        <p>Plant eine vollständige Lernstraße mit sechs Stationen (Kneten, Schreiben, Hören, Lesen, Bewegen, Gestalten) zur Festigung eines Buchstabens.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p6-klassenstufe" value="Klasse 1">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p6-bundesland" value="Hessen">
+      </div>
+      <div class="field-group">
+        <label>Buchstabe</label>
+        <input type="text" id="p6-buchstabe" value="Ff">
+      </div>
+      <div class="field-group">
+        <label>Dauer der Lernstraße</label>
+        <input type="text" id="p6-dauer" value="60 Minuten">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(6)">Prompt generieren</button>
+
+    <div class="result-box" id="result-6">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-6"></div>
+      <button class="btn-copy" onclick="copyPrompt(6, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.7 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.7</div>
+      <div class="card-title-wrap">
+        <h2>Leseförderung differenziert</h2>
+        <p>Erstellt denselben Lesetext in drei Schwierigkeitsstufen mit passenden Verständnisfragen, damit alle Kinder denselben Sachinhalt auf ihrem Leseniveau erarbeiten.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p7-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p7-bundesland" value="Bayern">
+      </div>
+      <div class="field-group">
+        <label>Thema des Textes</label>
+        <input type="text" id="p7-thema" value="Igel im Herbst">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(7)">Prompt generieren</button>
+
+    <div class="result-box" id="result-7">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-7"></div>
+      <button class="btn-copy" onclick="copyPrompt(7, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.8 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.8</div>
+      <div class="card-title-wrap">
+        <h2>Sachunterricht-Experiment</h2>
+        <p>Plant ein vollständiges Experiment für den Sachunterricht mit kindgerechter Versuchsanleitung, Materialliste, Beobachtungsbogen und Lehrkraft-Erklärung.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p8-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p8-bundesland" value="Bayern">
+      </div>
+      <div class="field-group">
+        <label>Thema des Experiments</label>
+        <input type="text" id="p8-thema" value="Wasser löst Stoffe auf">
+      </div>
+      <div class="field-group">
+        <label>Dauer</label>
+        <input type="text" id="p8-dauer" value="30 Minuten">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(8)">Prompt generieren</button>
+
+    <div class="result-box" id="result-8">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-8"></div>
+      <button class="btn-copy" onclick="copyPrompt(8, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.9 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.9</div>
+      <div class="card-title-wrap">
+        <h2>Rechengeschichten erfinden</h2>
+        <p>Erstellt 15 Rechengeschichten aus der Lebenswelt von Kindern in drei Schwierigkeitsstufen nach Zahlenraum und Rechenart, jeweils mit Lösungswegen.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p9-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Aktuelles Thema</label>
+        <input type="text" id="p9-thema" value="Addition und Subtraktion im Zahlenraum bis 100">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(9)">Prompt generieren</button>
+
+    <div class="result-box" id="result-9">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-9"></div>
+      <button class="btn-copy" onclick="copyPrompt(9, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 2.10 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">2.10</div>
+      <div class="card-title-wrap">
+        <h2>Diktat-Vorbereitung</h2>
+        <p>Erstellt vier Übungsmaterialien zur Diktat-Vorbereitung: Lückentext, Schleichdiktat-Karten, Partner-Diktat-Anleitung und Übungsliste mit Sätzen.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p10-klassenstufe" value="Klasse 3">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p10-bundesland" value="Nordrhein-Westfalen">
+      </div>
+      <div class="field-group full-width">
+        <label>Lernwörter (kommagetrennt)</label>
+        <input type="text" id="p10-woerter" value="fragen, spielen, schreiben, laufen, lachen, denken, hören, singen, malen, lesen">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum bis zum Diktat</label>
+        <input type="text" id="p10-zeitraum" value="nächste Woche">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(10)">Prompt generieren</button>
+
+    <div class="result-box" id="result-10">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-10"></div>
+      <button class="btn-copy" onclick="copyPrompt(10, this)">Kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">@smartes.klassenzimmer</div>
+  <div class="footer-sub">100 Prompts in 10 Tagen &mdash; Tag 2 von 10</div>
+</footer>
+
+<script>
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+const templates = {
+  1: () => {
+    const klassenstufe = getVal('p1-klassenstufe');
+    const bundesland   = getVal('p1-bundesland');
+    const buchstabe    = getVal('p1-buchstabe');
+    const umstaende    = getVal('p1-umstaende');
+    return `Du bist eine erfahrene Grundschullehrerin mit Spezialisierung auf Deutsch in Klasse 1 und 2 und kennst die gängigen Fibellehrpläne gut.
+
+Erstelle eine vollständige Unterrichtsstunde zur Einführung eines neuen Buchstabens für die Grundschule.
+
+Das Material ist für ${klassenstufe} in ${bundesland}. Der einzuführende Buchstabe ist ${buchstabe}. Die Stunde dauert 45 Minuten. In der Klasse gibt es ${umstaende}.
 
 Gehe so vor:
-1. Plane eine kurze Bewegungsuebung zum Einstieg, die mit dem Buchstaben oder seinem Klang verbunden ist (5 Minuten).
-2. Erstelle eine Schreibuebung mit Hilfslinien: zuerst Nachspuren, dann selbst schreiben, dann frei ueben (15 Minuten).
-3. Plane eine Hoeraufgabe, bei der Kinder den Buchstaben in Woertern identifizieren (10 Minuten).
-4. Ergaenze eine Differenzierungsaufgabe fuer schnellere Kinder und eine erleichterte Version fuer Kinder mit Foerderbedarf (10 Minuten).
+1. Plane eine kurze Bewegungsübung zum Einstieg, die mit dem Buchstaben oder seinem Klang verbunden ist (5 Minuten).
+2. Erstelle eine Schreibübung mit Hilfslinien: zuerst Nachspuren, dann selbst schreiben, dann frei üben (15 Minuten).
+3. Plane eine Höraufgabe, bei der Kinder den Buchstaben in Wörtern identifizieren (10 Minuten).
+4. Ergänze eine Differenzierungsaufgabe für schnellere Kinder und eine erleichterte Version für Kinder mit Förderbedarf (10 Minuten).
 5. Plane einen kurzen Abschluss, bei dem Kinder zeigen, was sie gelernt haben (5 Minuten).
 
-Strukturiere das Ergebnis als Stundenverlaufsplan mit Zeitangaben, Lernziel, benotigten Materialien und konkreten Aufgabenformulierungen.
+Strukturiere das Ergebnis als Stundenverlaufsplan mit Zeitangaben, Lernziel, benötigten Materialien und konkreten Aufgabenformulierungen.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Passt die Stunde wirklich in 45 Minuten?
-- Sind die Aufgaben fuer Erstklassler sprachlich und motorisch angemessen?
-- Sind die Differenzierungsmoeglichkeiten konkret, nicht nur als Hinweis formuliert?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+- Sind die Aufgaben für Erstklässler sprachlich und motorisch angemessen?
+- Sind die Differenzierungsmöglichkeiten konkret, nicht nur als Hinweis formuliert?`;
+  },
 
-  <div class="prompt-card" id="card-2">
-    <div class="prompt-header" onclick="toggleCard('card-2')">
-      <div class="prompt-meta"><span class="prompt-number">2.2</span><span class="prompt-title">Zahlen schreiben lernen</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-2">Du bist eine erfahrene Grundschullehrerin mit fundiertem Wissen in der Mathematikdidaktik der Grundschule.
+  2: () => {
+    const klassenstufe = getVal('p2-klassenstufe');
+    const bundesland   = getVal('p2-bundesland');
+    const zahl         = getVal('p2-zahl');
+    const vorwissen    = getVal('p2-vorwissen');
+    return `Du bist eine erfahrene Grundschullehrerin mit fundiertem Wissen in der Mathematikdidaktik der Grundschule.
 
-Erstelle gestufte Uebungsmaterialien zum Zahlenschreiben fuer den Mathematikunterricht.
+Erstelle gestufte Übungsmaterialien zum Zahlenschreiben für den Mathematikunterricht.
 
-Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Sachsen]. Die Zahl, die gerade eingefuehrt wird, ist [Zahl: die 8]. Die Kinder haben bisher [Vorwissen: die Zahlen 0 bis 7] gelernt. In der Klasse gibt es Kinder mit sehr unterschiedlicher feinmotorischer Entwicklung.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Zahl, die gerade eingeführt wird, ist ${zahl}. Die Kinder haben bisher ${vorwissen} gelernt. In der Klasse gibt es Kinder mit sehr unterschiedlicher feinmotorischer Entwicklung.
 
 Gehe so vor:
-1. Erstelle eine Nachspuraufgabe: Die Zahl 8 in verschiedenen Groessen mit duennen Linien zum Nachfahren.
-2. Erstelle eine Hilfslinien-Aufgabe: Karos oder Linien, auf denen die Kinder die 8 selbst schreiben, mit einem Startpfeil als Orientierung.
-3. Erstelle eine freie Uebungsaufgabe: Kinder schreiben die 8 in eigener Groesse und verbinden sie mit passenden Mengenbildern.
-4. Ergaenze einen Lernschritt fuer die Ziffernschreibweise (wie fange ich an, wo dreht die Linie).
-5. Fuege eine kurze Uebung hinzu, bei der Kinder die 8 in ihrer Umgebung suchen und aufzeichnen.
+1. Erstelle eine Nachspuraufgabe: Die Zahl in verschiedenen Größen mit dünnen Linien zum Nachfahren.
+2. Erstelle eine Hilfslinien-Aufgabe: Karos oder Linien, auf denen die Kinder die Zahl selbst schreiben, mit einem Startpfeil als Orientierung.
+3. Erstelle eine freie Übungsaufgabe: Kinder schreiben die Zahl in eigener Größe und verbinden sie mit passenden Mengenbildern.
+4. Ergänze einen Lernschritt für die Ziffernschreibweise (wie fange ich an, wo dreht die Linie).
+5. Füge eine kurze Übung hinzu, bei der Kinder die Zahl in ihrer Umgebung suchen und aufzeichnen.
 
-Strukturiere das Ergebnis als Abfolge von fuenf Aufgaben, die in einer Stunde oder aufgeteilt auf mehrere kurze Uebungsphasen benutzt werden koennen.
+Strukturiere das Ergebnis als Abfolge von fünf Aufgaben, die in einer Stunde oder aufgeteilt auf mehrere kurze Übungsphasen benutzt werden können.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Ist der Schwierigkeitsgrad von Aufgabe zu Aufgabe sinnvoll gesteigert?
 - Sind die Anweisungen so formuliert, dass Kinder sie mit Hilfe einer Lehrkraft verstehen?
-- Ist die motorische Anforderung fuer Erstklassler realistisch?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+- Ist die motorische Anforderung für Erstklässler realistisch?`;
+  },
 
-  <div class="prompt-card" id="card-3">
-    <div class="prompt-header" onclick="toggleCard('card-3')">
-      <div class="prompt-meta"><span class="prompt-number">2.3</span><span class="prompt-title">Lerntagebuch Sachunterricht</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-3">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in der portfolioorientierten Leistungsdokumentation und aktuellen Sachunterrichts-Lehrplaenen.
+  3: () => {
+    const klassenstufe = getVal('p3-klassenstufe');
+    const bundesland   = getVal('p3-bundesland');
+    const thema        = getVal('p3-thema');
+    const dauer        = getVal('p3-dauer');
+    return `Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in der portfolioorientierten Leistungsdokumentation und aktuellen Sachunterrichts-Lehrplänen.
 
-Erstelle ein Lerntagebuch fuer eine Sachunterrichts-Einheit, das Kinder selbst fuehren koennen.
+Erstelle ein Lerntagebuch für eine Sachunterrichts-Einheit, das Kinder selbst führen können.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Thema der Einheit ist [Thema: Tiere im Winter, Schlaf und Wanderung]. Die Einheit dauert [Dauer: vier Wochen]. Das Lerntagebuch soll die Kinder durch die Einheit begleiten und am Ende als Kompetenznachweis dienen.
+Das Material ist für ${klassenstufe} in ${bundesland}. Das Thema der Einheit ist ${thema}. Die Einheit dauert ${dauer}. Das Lerntagebuch soll die Kinder durch die Einheit begleiten und am Ende als Kompetenznachweis dienen.
 
 Gehe so vor:
 1. Erstelle eine Startseite, auf der Kinder eintragen, was sie schon wissen und was sie noch nicht wissen (Vorwissen aktivieren).
-2. Erstelle pro Unterthema eine Doppelseite mit: Lernziel in Kindersprache, Platz fuer eigene Notizen und Zeichnungen, ein oder zwei kurze Aufgaben zum Thema.
+2. Erstelle pro Unterthema eine Doppelseite mit: Lernziel in Kindersprache, Platz für eigene Notizen und Zeichnungen, ein oder zwei kurze Aufgaben zum Thema.
 3. Erstelle eine Abschlussseite: Was habe ich gelernt? Was war schwer? Worauf bin ich stolz?
-4. Ergaenze eine Selbsteinschaetzungs-Skala mit Smileys oder Symbolen, die Kinder nach jeder Einheit ausfullen.
+4. Ergänze eine Selbsteinschätzungs-Skala mit Smileys oder Symbolen, die Kinder nach jeder Einheit ausfüllen.
 
-Gib mir eine Vorlage fuer alle Seiten mit klar beschriftetem Layout und Platzhaltern fuer den Inhalt, den ich selbst einsetzen kann.
+Gib mir eine Vorlage für alle Seiten mit klar beschriftetem Layout und Platzhaltern für den Inhalt, den ich selbst einsetzen kann.
 
-Pruefe vor der Ausgabe:
-- Koennen Drittklassler das Lerntagebuch wirklich selbststaendig fuehren?
+Prüfe vor der Ausgabe:
+- Können Drittklässler das Lerntagebuch wirklich selbstständig führen?
 - Ist die Sprache auf dem Niveau der Kinder?
-- Passt das Lerntagebuch zum genannten Sachunterrichtsthema?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+- Passt das Lerntagebuch zum genannten Sachunterrichtsthema?`;
+  },
 
-  <div class="prompt-card" id="card-4">
-    <div class="prompt-header" onclick="toggleCard('card-4')">
-      <div class="prompt-meta"><span class="prompt-number">2.4</span><span class="prompt-title">Kopfrechenaufgaben Mathe</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-4">Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Mathematik und aktivierendem Unterrichtseinstieg.
+  4: () => {
+    const klassenstufe = getVal('p4-klassenstufe');
+    const thema        = getVal('p4-thema');
+    const ziel         = getVal('p4-ziel');
+    return `Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Mathematik und aktivierendem Unterrichtseinstieg.
 
-Erstelle 20 Kopfrechenaufgaben fuer den Stundeneinstieg, passend zum aktuellen Unterrichtsstoff und zur Wiederholung.
+Erstelle 20 Kopfrechenaufgaben für den Stundeneinstieg, passend zum aktuellen Unterrichtsstoff und zur Wiederholung.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [aktuelles Thema: Einmaleins, Sieberreihe]. Die Aufgaben sollen [Ziel: das neue Einmaleins ueben und gleichzeitig die Sechserreihe aus der letzten Woche wiederholen]. Jede Aufgabe soll in 5 bis 10 Sekunden loesbar sein.
+Das Material ist für ${klassenstufe} im aktuellen Thema: ${thema}. Die Aufgaben sollen ${ziel}. Jede Aufgabe soll in 5 bis 10 Sekunden lösbar sein.
 
 Gehe so vor:
-1. Erstelle 10 Aufgaben zum aktuellen Thema (7er-Reihe) in aufsteigendem Schwierigkeitsgrad.
-2. Erstelle 10 Wiederholungsaufgaben aus der 6er-Reihe.
-3. Formuliere zu jeder Aufgabe auch die Loesung, damit ich beim Korrigieren Zeit spare.
+1. Erstelle 10 Aufgaben zum aktuellen Thema in aufsteigendem Schwierigkeitsgrad.
+2. Erstelle 10 Wiederholungsaufgaben zur vorherigen Einheit.
+3. Formuliere zu jeder Aufgabe auch die Lösung, damit ich beim Korrigieren Zeit spare.
 4. Schlage zwei Varianten vor, wie ich die Aufgaben im Unterricht einsetzen kann (z.B. Blitzrechnen an der Tafel, Partnerkontrolle).
 
-Strukturiere das Ergebnis als zwei Aufgabenlisten mit Loesungen und den zwei Einsatz-Varianten am Ende.
+Strukturiere das Ergebnis als zwei Aufgabenlisten mit Lösungen und den zwei Einsatz-Varianten am Ende.
 
-Pruefe vor der Ausgabe:
-- Sind die Aufgaben wirklich fuer Kopfrechnen geeignet, also nicht zu komplex?
+Prüfe vor der Ausgabe:
+- Sind die Aufgaben wirklich für Kopfrechnen geeignet, also nicht zu komplex?
 - Ist die Mischung aus neuem Thema und Wiederholung sinnvoll?
-- Koennte ich diese Aufgaben ohne Vorbereitung direkt in einer Stunde einsetzen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+- Könnte ich diese Aufgaben ohne Vorbereitung direkt in einer Stunde einsetzen?`;
+  },
 
-  <div class="prompt-card" id="card-5">
-    <div class="prompt-header" onclick="toggleCard('card-5')">
-      <div class="prompt-meta"><span class="prompt-number">2.5</span><span class="prompt-title">Englisch-Portfolio erstellen</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-5">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen im Englischunterricht der Grundschule und in der portfolioorientierten Beurteilung.
+  5: () => {
+    const klassenstufe = getVal('p5-klassenstufe');
+    const bundesland   = getVal('p5-bundesland');
+    const zeitraum     = getVal('p5-zeitraum');
+    return `Du bist eine erfahrene Grundschullehrerin mit Kenntnissen im Englischunterricht der Grundschule und in der portfolioorientierten Beurteilung.
 
-Erstelle ein digitales oder ausdruckbares Portfolio fuer den Englischunterricht einer Grundschulklasse.
+Erstelle ein digitales oder ausdruckbares Portfolio für den Englischunterricht einer Grundschulklasse.
 
-Das Material ist fuer [Klassenstufe: Klasse 4] in [Bundesland: Nordrhein-Westfalen]. Das Portfolio soll [Zeitraum: ein Schulhalbjahr] abdecken und Kompetenzen in den Bereichen Hoeren, Sprechen und Lesen dokumentieren. Es soll das Papierportfolio sinnvoll erganzen oder ersetzen.
+Das Material ist für ${klassenstufe} in ${bundesland}. Das Portfolio soll ${zeitraum} abdecken und Kompetenzen in den Bereichen Hören, Sprechen und Lesen dokumentieren. Es soll das Papierportfolio sinnvoll ergänzen oder ersetzen.
 
 Gehe so vor:
-1. Erstelle eine Startseite mit Name, Klasse und einem Satz, den das Kind ueber sich auf Englisch schreiben kann (z.B. "My name is ... and I like ...").
-2. Erstelle vier Aufgabenseiten zu verschiedenen Themen des Englischunterrichts (z.B. My family, Colours and animals, Numbers, Food). Jede Seite hat: eine kurze Aufgabe, Platz fuer das Kind, ein Bild dazu zu zeichnen oder zu kleben.
-3. Ergaenze eine "I can do this!"-Seite, auf der Kinder ankreuzen, was sie auf Englisch koennen.
-4. Fuege eine Lehrkraft-Kommentar-Seite am Ende ein.
+1. Erstelle eine Startseite mit Name, Klasse und einem Satz, den das Kind über sich auf Englisch schreiben kann (z.B. "My name is ... and I like ...").
+2. Erstelle vier Aufgabenseiten zu verschiedenen Themen des Englischunterrichts (z.B. My family, Colours and animals, Numbers, Food). Jede Seite hat: eine kurze Aufgabe, Platz für das Kind, ein Bild dazu zu zeichnen oder zu kleben.
+3. Ergänze eine "I can do this!"-Seite, auf der Kinder ankreuzen, was sie auf Englisch können.
+4. Füge eine Lehrkraft-Kommentar-Seite am Ende ein.
 
-Strukturiere das Ergebnis als vollstaendige Vorlage fuer jede Seite, fertig zum Ausdrucken oder digital auszufullen.
+Strukturiere das Ergebnis als vollständige Vorlage für jede Seite, fertig zum Ausdrucken oder digital auszufüllen.
 
-Pruefe vor der Ausgabe:
-- Sind die Aufgaben sprachlich fuer Viertklassler im Anfaenger-Englisch geeignet?
-- Macht das Portfolio Spass, sodass Kinder es gerne ausfuellen?
-- Sind alle relevanten Kompetenzbereiche abgedeckt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind die Aufgaben sprachlich für ${klassenstufe} im Anfänger-Englisch geeignet?
+- Macht das Portfolio Spaß, sodass Kinder es gerne ausfüllen?
+- Sind alle relevanten Kompetenzbereiche abgedeckt?`;
+  },
 
-  <div class="prompt-card" id="card-6">
-    <div class="prompt-header" onclick="toggleCard('card-6')">
-      <div class="prompt-meta"><span class="prompt-number">2.6</span><span class="prompt-title">Lernstrasse Buchstaben</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-6">Du bist eine erfahrene Grundschullehrerin mit Expertise in offenen Unterrichtsformen und Lernstationen fuer die Grundschule.
+  6: () => {
+    const klassenstufe = getVal('p6-klassenstufe');
+    const bundesland   = getVal('p6-bundesland');
+    const buchstabe    = getVal('p6-buchstabe');
+    const dauer        = getVal('p6-dauer');
+    return `Du bist eine erfahrene Grundschullehrerin mit Expertise in offenen Unterrichtsformen und Lernstationen für die Grundschule.
 
-Plane eine vollstaendige Lernstrasse mit verschiedenen Stationen, um einen Buchstaben zu festigen.
+Plane eine vollständige Lernstraße mit verschiedenen Stationen, um einen Buchstaben zu festigen.
 
-Das Material ist fuer [Klassenstufe: Klasse 1] in [Bundesland: Hessen]. Der Buchstabe ist [Buchstabe: Ff]. Die Lernstrasse soll etwa [Dauer: 60 Minuten] laufen und von den Kindern groesstenteils selbststaendig genutzt werden koennen.
+Das Material ist für ${klassenstufe} in ${bundesland}. Der Buchstabe ist ${buchstabe}. Die Lernstraße soll etwa ${dauer} laufen und von den Kindern größtenteils selbstständig genutzt werden können.
 
 Gehe so vor:
 1. Plane sechs Stationen mit je einer anderen Lernmethode:
    - Station 1: Kneten (Buchstabe aus Ton oder Knete formen)
    - Station 2: Schreiben (auf Sandpapier oder mit Kreide)
-   - Station 3: Hoeren (Woerter mit dem Buchstaben aus einer Liste identifizieren)
-   - Station 4: Lesen (Kaertchen mit Woertern, die den Buchstaben enthalten)
-   - Station 5: Bewegen (Buchstabe mit dem Koerper nachformen)
+   - Station 3: Hören (Wörter mit dem Buchstaben aus einer Liste identifizieren)
+   - Station 4: Lesen (Kärtchen mit Wörtern, die den Buchstaben enthalten)
+   - Station 5: Bewegen (Buchstabe mit dem Körper nachformen)
    - Station 6: Gestalten (Bild malen zu einem Wort mit dem Buchstaben)
-2. Schreibe fuer jede Station eine Aufgabenkarte in einfacher Kindersprache.
-3. Beschreibe das Material, das ich fuer jede Station benotige.
-4. Erklaere, wie ich die Kinder durch die Stationen fuehren kann (Ampelkarte, Laufzettel etc.).
+2. Schreibe für jede Station eine Aufgabenkarte in einfacher Kindersprache.
+3. Beschreibe das Material, das ich für jede Station benötige.
+4. Erkläre, wie ich die Kinder durch die Stationen führen kann (Ampelkarte, Laufzettel etc.).
 
-Strukturiere das Ergebnis als sechs Station-Karteikarten plus eine Materialuebersicht und eine Einfuehrungs-Erklaerung.
+Strukturiere das Ergebnis als sechs Station-Karteikarten plus eine Materialübersicht und eine Einführungs-Erklärung.
 
-Pruefe vor der Ausgabe:
-- Sind alle Aufgaben wirklich ohne Lehrkraft-Hilfe durchfuehrbar?
-- Ist das benotige Material in einer normalen Grundschule vorhanden?
-- Gibt es eine gute Mischung aus ruhigen und bewegten Stationen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind alle Aufgaben wirklich ohne Lehrkraft-Hilfe durchführbar?
+- Ist das benötigte Material in einer normalen Grundschule vorhanden?
+- Gibt es eine gute Mischung aus ruhigen und bewegten Stationen?`;
+  },
 
-  <div class="prompt-card" id="card-7">
-    <div class="prompt-header" onclick="toggleCard('card-7')">
-      <div class="prompt-meta"><span class="prompt-number">2.7</span><span class="prompt-title">Leseförderung differenziert</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-7">Du bist eine erfahrene Grundschullehrerin mit fundierter Ausbildung in der Lesefoerderung und Differenzierung im Deutschunterricht.
+  7: () => {
+    const klassenstufe = getVal('p7-klassenstufe');
+    const bundesland   = getVal('p7-bundesland');
+    const thema        = getVal('p7-thema');
+    return `Du bist eine erfahrene Grundschullehrerin mit fundierter Ausbildung in der Leseförderung und Differenzierung im Deutschunterricht.
 
-Erstelle denselben Lesetext in drei Schwierigkeitsstufen, mit passenden Verstaendnisfragen fuer jede Stufe.
+Erstelle denselben Lesetext in drei Schwierigkeitsstufen, mit passenden Verständnisfragen für jede Stufe.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Das Thema des Textes ist [Thema: Igel im Herbst]. Ziel ist es, dass alle Kinder denselben Sachinhalt lernen, aber auf ihrem Lese-Niveau.
+Das Material ist für ${klassenstufe} in ${bundesland}. Das Thema des Textes ist ${thema}. Ziel ist es, dass alle Kinder denselben Sachinhalt lernen, aber auf ihrem Lese-Niveau.
 
 Gehe so vor:
-1. Schreibe eine einfache Version (Stufe 1): kurze Saetze, einfache Worte, maximal 5-6 Saetze, grosser Schrift angemessen, gerne mit Bildunterstuetzungs-Hinweis.
-2. Schreibe eine mittlere Version (Stufe 2): etwas laengere Saetze, 8-10 Saetze, normales Vokabular fuer Klasse 2.
-3. Schreibe eine anspruchsvollere Version (Stufe 3): 12-14 Saetze, komplexere Saetze, Fremdwoerter mit Erklaerung am Rand.
-4. Schreibe zu jeder Version drei Verstaendnisfragen, passend zum Schwierigkeitsgrad der Textstufe.
+1. Schreibe eine einfache Version (Stufe 1): kurze Sätze, einfache Worte, maximal 5-6 Sätze, großer Schrift angemessen, gerne mit Bildunterstützungs-Hinweis.
+2. Schreibe eine mittlere Version (Stufe 2): etwas längere Sätze, 8-10 Sätze, normales Vokabular für ${klassenstufe}.
+3. Schreibe eine anspruchsvollere Version (Stufe 3): 12-14 Sätze, komplexere Sätze, Fremdwörter mit Erklärung am Rand.
+4. Schreibe zu jeder Version drei Verständnisfragen, passend zum Schwierigkeitsgrad der Textstufe.
 
-Strukturiere das Ergebnis als drei klar getrennte Text-Bloecke mit den jeweiligen Fragen darunter.
+Strukturiere das Ergebnis als drei klar getrennte Text-Blöcke mit den jeweiligen Fragen darunter.
 
-Pruefe vor der Ausgabe:
-- Transportieren alle drei Texte denselben Kerninhalt ueber Igel im Herbst?
-- Ist der Sprachkomplexitaets-Unterschied zwischen den Stufen wirklich deutlich?
-- Sind die Fragen zum Text und zur Klassenstufe angemessen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Transportieren alle drei Texte denselben Kerninhalt über ${thema}?
+- Ist der Sprachkomplexitäts-Unterschied zwischen den Stufen wirklich deutlich?
+- Sind die Fragen zum Text und zur Klassenstufe angemessen?`;
+  },
 
-  <div class="prompt-card" id="card-8">
-    <div class="prompt-header" onclick="toggleCard('card-8')">
-      <div class="prompt-meta"><span class="prompt-number">2.8</span><span class="prompt-title">Sachunterricht-Experiment</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-8">Du bist eine erfahrene Grundschullehrerin mit Begeisterung fuer forschendes Lernen und praktische Sachunterrichts-Experimente.
+  8: () => {
+    const klassenstufe = getVal('p8-klassenstufe');
+    const bundesland   = getVal('p8-bundesland');
+    const thema        = getVal('p8-thema');
+    const dauer        = getVal('p8-dauer');
+    return `Du bist eine erfahrene Grundschullehrerin mit Begeisterung für forschendes Lernen und praktische Sachunterrichts-Experimente.
 
-Plane ein vollstaendiges Experiment fuer den Sachunterricht inklusive Beobachtungsbogen und Erklaerung fuer die Kinder.
+Plane ein vollständiges Experiment für den Sachunterricht inklusive Beobachtungsbogen und Erklärung für die Kinder.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Bayern]. Das Thema ist [Thema: Wasser loest Stoffe auf]. Das Experiment soll [Dauer: 30 Minuten] dauern und in Kleingruppen durchgefuehrt werden.
+Das Material ist für ${klassenstufe} in ${bundesland}. Das Thema ist ${thema}. Das Experiment soll ${dauer} dauern und in Kleingruppen durchgeführt werden.
 
 Gehe so vor:
-1. Beschreibe das Experiment Schritt fuer Schritt in einer kindgerechten Versuchsanleitung mit maximal fuenf Schritten.
+1. Beschreibe das Experiment Schritt für Schritt in einer kindgerechten Versuchsanleitung mit maximal fünf Schritten.
 2. Erstelle eine Materialliste, die ich eine Woche vorher zusammenstellen kann.
-3. Erstelle einen Beobachtungsbogen fuer die Kinder: Was vermute ich vorher (Hypothese), was passiert wirklich, was erklaert mir das.
-4. Schreibe eine einfache Erklaerung, wie die Lehrkraft den Versuch am Ende erklaert (fuer das Unterrichtsgesprach).
-5. Ergaenze einen kurzen Sicherheitshinweis, falls noetig.
+3. Erstelle einen Beobachtungsbogen für die Kinder: Was vermute ich vorher (Hypothese), was passiert wirklich, was erklärt mir das.
+4. Schreibe eine einfache Erklärung, wie die Lehrkraft den Versuch am Ende erklärt (für das Unterrichtsgespräch).
+5. Ergänze einen kurzen Sicherheitshinweis, falls nötig.
 
-Strukturiere das Ergebnis: zuerst die Versuchsanleitung fuer Kinder, dann die Materialliste, dann den Beobachtungsbogen, dann meine Lehrerkraft-Erklaerung.
+Strukturiere das Ergebnis: zuerst die Versuchsanleitung für Kinder, dann die Materialliste, dann den Beobachtungsbogen, dann meine Lehrkraft-Erklärung.
 
-Pruefe vor der Ausgabe:
-- Ist das Experiment wirklich in einer Schulklasse ohne Labor durchfuehrbar?
-- Ist die Kindersprachversion der Anleitung verstaendlich fuer Drittklassler?
-- Sind Hypothese, Beobachtung und Erklaerung klar getrennt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Ist das Experiment wirklich in einer Schulklasse ohne Labor durchführbar?
+- Ist die Kindersprachversion der Anleitung verständlich für ${klassenstufe}?
+- Sind Hypothese, Beobachtung und Erklärung klar getrennt?`;
+  },
 
-  <div class="prompt-card" id="card-9">
-    <div class="prompt-header" onclick="toggleCard('card-9')">
-      <div class="prompt-meta"><span class="prompt-number">2.9</span><span class="prompt-title">Rechengeschichten erfinden</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-9">Du bist eine erfahrene Grundschullehrerin mit Begeisterung fuer kontextbezogenes Mathematiklernen und Alltagsbezuge.
+  9: () => {
+    const klassenstufe = getVal('p9-klassenstufe');
+    const thema        = getVal('p9-thema');
+    return `Du bist eine erfahrene Grundschullehrerin mit Begeisterung für kontextbezogenes Mathematiklernen und Alltagsbezüge.
 
 Erstelle Rechengeschichten aus der Lebenswelt der Kinder, differenziert nach Zahlenraum und Rechenart.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [aktuelles Thema: Addition und Subtraktion im Zahlenraum bis 100]. Die Geschichten sollen die Lebenswelt von Kindern im Grundschulalter widerspiegeln (Schule, Spielplatz, Zuhause, Tiergeschichten).
+Das Material ist für ${klassenstufe} im aktuellen Thema: ${thema}. Die Geschichten sollen die Lebenswelt von Kindern im Grundschulalter widerspiegeln (Schule, Spielplatz, Zuhause, Tiergeschichten).
 
 Gehe so vor:
-1. Erstelle 5 einfache Rechengeschichten (Zahlenraum bis 20) mit Addition.
-2. Erstelle 5 mittlere Rechengeschichten (Zahlenraum bis 50) mit Addition und Subtraktion.
-3. Erstelle 5 anspruchsvollere Rechengeschichten (Zahlenraum bis 100) mit Addition und Subtraktion, darunter eine Aufgabe mit zwei Rechenschritten.
-4. Schreibe zu jeder Geschichte die Loesung mit kurzem Loesungsweg, damit ich schnell korrigieren kann.
+1. Erstelle 5 einfache Rechengeschichten (kleinerer Zahlenraum) mit Addition.
+2. Erstelle 5 mittlere Rechengeschichten (mittlerer Zahlenraum) mit Addition und Subtraktion.
+3. Erstelle 5 anspruchsvollere Rechengeschichten (voller Zahlenraum) mit Addition und Subtraktion, darunter eine Aufgabe mit zwei Rechenschritten.
+4. Schreibe zu jeder Geschichte die Lösung mit kurzem Lösungsweg, damit ich schnell korrigieren kann.
 
-Strukturiere das Ergebnis als drei Gruppen mit den Geschichten und Loesungen darunter.
+Strukturiere das Ergebnis als drei Gruppen mit den Geschichten und Lösungen darunter.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Sind die Geschichten wirklich aus der Lebenswelt von Grundschulkindern?
 - Passen die Zahlen zum angegebenen Zahlenraum?
-- Sind die Loesungswege nachvollziehbar, nicht nur das Ergebnis?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+- Sind die Lösungswege nachvollziehbar, nicht nur das Ergebnis?`;
+  },
 
-  <div class="prompt-card" id="card-10">
-    <div class="prompt-header" onclick="toggleCard('card-10')">
-      <div class="prompt-meta"><span class="prompt-number">2.10</span><span class="prompt-title">Diktat-Vorbereitung</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-10">Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Rechtschreibung und variantenreicher Lernwort-Uebung.
+  10: () => {
+    const klassenstufe = getVal('p10-klassenstufe');
+    const bundesland   = getVal('p10-bundesland');
+    const woerter      = getVal('p10-woerter');
+    const zeitraum     = getVal('p10-zeitraum');
+    return `Du bist eine erfahrene Grundschullehrerin mit didaktischem Schwerpunkt auf Rechtschreibung und variantenreicher Lernwort-Übung.
 
-Erstelle vollstaendige Uebungsmaterialien zu Lernwoertern fuer die Diktat-Vorbereitung.
+Erstelle vollständige Übungsmaterialien zu Lernwörtern für die Diktat-Vorbereitung.
 
-Das Material ist fuer [Klassenstufe: Klasse 3] in [Bundesland: Nordrhein-Westfalen]. Die Lernwoerter sind [Woerter: fragen, spielen, schreiben, laufen, lachen, denken, horen, singen, malen, lesen]. Das Diktat findet [Zeitraum: naechste Woche] statt.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Lernwörter sind: ${woerter}. Das Diktat findet ${zeitraum} statt.
 
 Gehe so vor:
-1. Erstelle einen Lueckentext mit allen zehn Lernwoertern, bei dem die Kinder die fehlenden Woerter eintragen (Schluesselbuchstaben fehlen, nicht das ganze Wort).
-2. Erstelle Schleichdiktat-Kaertchen: Jedes Wort auf einer Karte mit Bild-Hinweis. Kinder schauen, praegen sich das Wort ein, klappen die Karte um und schreiben es auf.
+1. Erstelle einen Lückentext mit allen Lernwörtern, bei dem die Kinder die fehlenden Wörter eintragen (Schlüsselbuchstaben fehlen, nicht das ganze Wort).
+2. Erstelle Schleichdiktat-Kärtchen: Jedes Wort auf einer Karte mit Bild-Hinweis. Kinder schauen, prägen sich das Wort ein, klappen die Karte um und schreiben es auf.
 3. Erstelle eine Partner-Diktat-Anleitung: Wie sage ich meinem Partner das Wort vor, wie korrigieren wir gemeinsam?
-4. Erstelle eine abschliessende Uebungsliste, bei der Kinder jedes Wort dreimal in einem Satz benutzen.
+4. Erstelle eine abschließende Übungsliste, bei der Kinder jedes Wort dreimal in einem Satz benutzen.
 
-Strukturiere das Ergebnis als vier separate Uebungsmaterialien, die ich nacheinander oder parallel in der Woche einsetzen kann.
+Strukturiere das Ergebnis als vier separate Übungsmaterialien, die ich nacheinander oder parallel in der Woche einsetzen kann.
 
-Pruefe vor der Ausgabe:
-- Decken die vier Uebungen verschiedene Lernstrategien ab (visuell, auditiv, schriftlich)?
-- Sind die Uebungen auch ohne Lehrkraft selbststaendig nutzbar?
-- Sind alle zehn Lernwoerter in allen Uebungen beruecksichtigt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span class="copy-icon">📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Decken die vier Übungen verschiedene Lernstrategien ab (visuell, auditiv, schriftlich)?
+- Sind die Übungen auch ohne Lehrkraft selbstständig nutzbar?
+- Sind alle Lernwörter in allen Übungen berücksichtigt?`;
+  }
+};
 
-</div>
-<nav class="day-nav">
-  <a href="tag-1.html" class="nav-link">← Tag 1</a>
-  <a href="tag-3.html" class="nav-link">Tag 3 →</a>
-</nav>
-<footer>
-  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
-  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
-</footer>
-<script>
-function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
-function copyPrompt(textId, btn) {
-  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<span class="copy-icon">✓</span> Kopiert!';
+function generate(num) {
+  const text = templates[num]();
+  const textEl = document.getElementById('text-' + num);
+  const resultBox = document.getElementById('result-' + num);
+  textEl.textContent = text;
+  resultBox.classList.add('visible');
+  resultBox.style.display = 'block';
+  resultBox.style.animation = 'none';
+  void resultBox.offsetWidth;
+  resultBox.style.animation = 'slideDown 0.25s ease';
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyPrompt(num, btn) {
+  const text = document.getElementById('text-' + num).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Kopiert!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => {
+      btn.textContent = 'Kopieren';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const el = document.getElementById('text-' + num);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = 'Text markiert — Strg+C zum Kopieren';
+    setTimeout(() => { btn.textContent = 'Kopieren'; }, 3000);
   });
 }
 </script>

@@ -1,227 +1,636 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tag 9: Kreative Fächer – 100 Prompts Challenge</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%);
-      min-height: 100vh;
-      color: #FFFFFF;
-      padding: 0 0 40px;
-    }
-    .header {
-      text-align: center;
-      padding: 32px 20px 24px;
-      border-bottom: 1px solid rgba(90,0,153,0.3);
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      background: #5A0099;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 700;
-      color: #FF9D00;
-      flex-shrink: 0;
-    }
-    .brand-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 0.5px;
-    }
-    .day-indicator {
-      font-size: 13px;
-      font-weight: 500;
-      color: #FF9D00;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 8px;
-    }
-    .page-title {
-      font-size: clamp(22px, 5vw, 32px);
-      font-weight: 700;
-      color: #FFFFFF;
-      line-height: 1.2;
-      margin-bottom: 4px;
-    }
-    .page-subtitle {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      font-weight: 400;
-    }
-    .main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 24px 16px;
-    }
-    .prompt-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(90,0,153,0.4);
-      border-radius: 12px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-    .prompt-card:hover {
-      border-color: rgba(90,0,153,0.7);
-    }
-    .prompt-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      cursor: pointer;
-      user-select: none;
-      gap: 12px;
-    }
-    .prompt-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-      min-width: 0;
-    }
-    .prompt-number {
-      font-size: 12px;
-      font-weight: 700;
-      color: #FF9D00;
-      background: rgba(255,157,0,0.12);
-      padding: 3px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .prompt-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #FFFFFF;
-      line-height: 1.3;
-    }
-    .toggle-icon {
-      font-size: 12px;
-      color: rgba(255,255,255,0.5);
-      transition: transform 0.25s;
-      flex-shrink: 0;
-    }
-    .prompt-card.open .toggle-icon {
-      transform: rotate(180deg);
-    }
-    .prompt-body {
-      display: none;
-      padding: 0 20px 20px;
-      border-top: 1px solid rgba(90,0,153,0.3);
-    }
-    .prompt-card.open .prompt-body {
-      display: block;
-    }
-    .prompt-text {
-      font-size: 13.5px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.85);
-      white-space: pre-wrap;
-      margin-top: 16px;
-      margin-bottom: 16px;
-    }
-    .copy-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #5A0099;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .copy-btn:hover {
-      background: #7200bf;
-    }
-    .copy-btn:active {
-      transform: scale(0.97);
-    }
-    .copy-btn.copied {
-      background: #2d8a4e;
-    }
-    .nav-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(90,0,153,0.3);
-    }
-    .nav-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: rgba(90,0,153,0.25);
-      border: 1px solid rgba(90,0,153,0.5);
-      border-radius: 8px;
-      color: #FFFFFF;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .nav-btn:hover {
-      background: rgba(90,0,153,0.5);
-    }
-    .nav-btn.disabled {
-      opacity: 0.4;
-      cursor: default;
-    }
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255,255,255,0.35);
-      margin-top: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tag 9: Kreative Fächer – @smartes.klassenzimmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #0D0015 0%, #1A0033 100%);
+    min-height: 100vh;
+    color: #FFFFFF;
+    padding-bottom: 4rem;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid rgba(90,0,153,0.3);
+    background: rgba(13,0,21,0.6);
+  }
+
+  .day-badge {
+    display: inline-block;
+    background: #5A0099;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 0.9rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  header h1 span { color: #FF9D00; }
+
+  .header-brand {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .prompt-card {
+    background: rgba(90,0,153,0.15);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .prompt-card:hover { border-color: rgba(90,0,153,0.7); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .prompt-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(90,0,153,0.5);
+    border: 1px solid rgba(90,0,153,0.6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c084fc;
+  }
+
+  .card-title-wrap h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .card-title-wrap p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+    line-height: 1.5;
+  }
+
+  .fields-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .fields-grid { grid-template-columns: 1fr; }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field-group.full-width { grid-column: 1 / -1; }
+
+  .field-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.03em;
+  }
+
+  .field-group input,
+  .field-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: #FF9D00;
+    background: rgba(255,157,0,0.05);
+  }
+
+  .field-group textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+
+  .btn-generate {
+    margin-top: 1.2rem;
+    width: 100%;
+    background: #FF9D00;
+    color: #0D0015;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-generate:hover { background: #ffb333; }
+  .btn-generate:active { transform: scale(0.98); }
+
+  .result-box {
+    margin-top: 1rem;
+    display: none;
+    animation: slideDown 0.25s ease;
+  }
+
+  .result-box.visible { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-text {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    white-space: pre-wrap;
+    word-break: break-word;
+    user-select: text;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-copy {
+    margin-top: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+
+  .btn-copy.copied {
+    background: rgba(34,197,94,0.2);
+    border-color: rgba(34,197,94,0.5);
+    color: #4ade80;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(90,0,153,0.25);
+    margin-top: 1rem;
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF9D00;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
+</style>
 </head>
 <body>
-  <header class="header">
-    <div class="brand">
-      <div class="brand-icon">✱</div>
-      <div class="brand-name">@smartes.klassenzimmer</div>
+
+<header>
+  <div class="day-badge">Tag 9 von 10</div>
+  <h1>Kreative <span>Fächer</span></h1>
+  <div class="header-brand">@smartes.klassenzimmer</div>
+  <div class="header-sub">10 Prompts für Claude — füll deine Werte ein und generiere deinen Prompt</div>
+</header>
+
+<div class="container">
+  <p class="intro-text">
+    Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
+  </p>
+
+  <!-- PROMPT 9.1 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.1</div>
+      <div class="card-title-wrap">
+        <h2>Kunststunde planen</h2>
+        <p>Plant eine vollständige Doppelstunde Kunstunterricht mit kunsthistorischem Bezug, Schritt-für-Schritt-Anleitung und Bewertungsraster.</p>
+      </div>
     </div>
-    <div class="day-indicator">Tag 9/10: Kreative Fächer</div>
-    <h1 class="page-title">Kreative Fächer</h1>
-    <p class="page-subtitle">Kunst, Musik, Sport, Theater</p>
-  </header>
-  <main class="main">
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Thema</label>
+        <input type="text" id="p1-thema" value="Porträtzeichnung im Stil von Egon Schiele">
+      </div>
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p1-klasse" value="Klasse 9">
+      </div>
+      <div class="field-group">
+        <label>Schulform</label>
+        <input type="text" id="p1-schulform" value="Gymnasium">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(1)">Prompt generieren</button>
+    <div class="result-box" id="result-1">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-1"></div>
+      <button class="btn-copy" onclick="copyPrompt(1, this)">Kopieren</button>
+    </div>
+  </div>
 
-        <div class="prompt-card open" id="card-9-1">
-          <div class="prompt-header" onclick="toggleCard('card-9-1')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.1</span>
-              <span class="prompt-title">Kunststunde planen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-1">Du bist eine erfahrene Kunstlehrerin mit Zusatzausbildung in Kunstdidaktik. Du hast breite Kenntnisse in verschiedenen Techniken und weißt, wie man einen Künstler-Bezug so einbindet, dass er Schülerinnen und Schüler wirklich interessiert.
+  <!-- PROMPT 9.2 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.2</div>
+      <div class="card-title-wrap">
+        <h2>Sport-Stundenentwurf erstellen</h2>
+        <p>Erstellt einen vollständigen Stundenentwurf in vier Phasen, der motorische, soziale und kognitive Lernziele verbindet.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Thema</label>
+        <input type="text" id="p2-thema" value="Einführung Volleyball: Baggern">
+      </div>
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p2-klasse" value="Klasse 8">
+      </div>
+      <div class="field-group">
+        <label>Schulform</label>
+        <input type="text" id="p2-schulform" value="Realschule">
+      </div>
+      <div class="field-group full-width">
+        <label>Anzahl Schülerinnen und Schüler</label>
+        <input type="text" id="p2-anzahl" value="28">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(2)">Prompt generieren</button>
+    <div class="result-box" id="result-2">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-2"></div>
+      <button class="btn-copy" onclick="copyPrompt(2, this)">Kopieren</button>
+    </div>
+  </div>
 
-Deine Aufgabe ist es, eine vollständige Doppelstunde (90 Minuten) Kunstunterricht zu planen: Thema [Standardwert: Porträtzeichnung im Stil von Egon Schiele], Klasse [Standardwert: 9], Schulform [Standardwert: Gymnasium].
+  <!-- PROMPT 9.3 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.3</div>
+      <div class="card-title-wrap">
+        <h2>Bewertungsraster für kreative Fächer erstellen</h2>
+        <p>Entwickelt ein transparentes Bewertungsraster für kreative Leistungen, das Schülerinnen und Schüler vorab kennen und selbst anwenden können.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Aufgabe</label>
+        <input type="text" id="p3-aufgabe" value="Choreografie zu einem selbst gewählten Musikstück, 2 bis 3 Minuten, Einzel- oder Partnerarbeit">
+      </div>
+      <div class="field-group">
+        <label>Fach</label>
+        <input type="text" id="p3-fach" value="Sport/Tanz">
+      </div>
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p3-klasse" value="Klasse 9">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(3)">Prompt generieren</button>
+    <div class="result-box" id="result-3">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-3"></div>
+      <button class="btn-copy" onclick="copyPrompt(3, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.4 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.4</div>
+      <div class="card-title-wrap">
+        <h2>Musikstück für den Unterricht didaktisieren</h2>
+        <p>Bereitet ein Musikstück mit Hintergrundwissen, drei gestuften Höraufgaben und einer kreativen Abschlussaufgabe für den Unterricht auf.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Musikstück und Komponist/Künstler</label>
+        <input type="text" id="p4-stueck" value="Beethoven, 5. Sinfonie, 1. Satz">
+      </div>
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p4-klasse" value="Klasse 8">
+      </div>
+      <div class="field-group">
+        <label>Fokus der Stunde</label>
+        <input type="text" id="p4-fokus" value="Aufbau und Wirkung eines musikalischen Motivs">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(4)">Prompt generieren</button>
+    <div class="result-box" id="result-4">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-4"></div>
+      <button class="btn-copy" onclick="copyPrompt(4, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.5 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.5</div>
+      <div class="card-title-wrap">
+        <h2>Theater-Projekt planen</h2>
+        <p>Plant ein kleines Schultheaterprojekt ohne professionelle Ausstattung: Probenplan, Rollenverteilung, Requisiten und Aufführungsablauf.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p5-klasse" value="Klasse 6">
+      </div>
+      <div class="field-group">
+        <label>Dauer</label>
+        <input type="text" id="p5-dauer" value="drei Wochen, je zwei Schulstunden pro Woche">
+      </div>
+      <div class="field-group full-width">
+        <label>Anlass</label>
+        <input type="text" id="p5-anlass" value="Aufführung vor einer Parallelklasse">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(5)">Prompt generieren</button>
+    <div class="result-box" id="result-5">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-5"></div>
+      <button class="btn-copy" onclick="copyPrompt(5, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.6 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.6</div>
+      <div class="card-title-wrap">
+        <h2>Bewegungspausen erstellen</h2>
+        <p>Erstellt 10 sofort einsetzbare Bewegungspausen für verschiedene Unterrichtssituationen, kein Material nötig, im Klassenzimmer durchführbar.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Klassenstufe</label>
+        <input type="text" id="p6-klasse" value="Klasse 3 bis 5, Grundschule">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(6)">Prompt generieren</button>
+    <div class="result-box" id="result-6">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-6"></div>
+      <button class="btn-copy" onclick="copyPrompt(6, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.7 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.7</div>
+      <div class="card-title-wrap">
+        <h2>Fächerübergreifendes Projekt Kunst und Schreiben</h2>
+        <p>Entwickelt ein fächerübergreifendes Projektwoche-Konzept, das Deutsch und Kunst so verbindet, dass die Verbindung inhaltlich trägt.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p7-klasse" value="Klasse 7">
+      </div>
+      <div class="field-group">
+        <label>Dauer</label>
+        <input type="text" id="p7-dauer" value="eine Projektwoche">
+      </div>
+      <div class="field-group full-width">
+        <label>Thema</label>
+        <input type="text" id="p7-thema" value="Mein Ort: Das Viertel in dem ich lebe">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(7)">Prompt generieren</button>
+    <div class="result-box" id="result-7">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-7"></div>
+      <button class="btn-copy" onclick="copyPrompt(7, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.8 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.8</div>
+      <div class="card-title-wrap">
+        <h2>Musik-Bodypercussion Anleitung erstellen</h2>
+        <p>Erstellt eine vollständige Bodypercussion-Anleitung mit einfacher Notation, Grund- und Erweiterungsversion und einem Stundenverlauf.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Lied</label>
+        <input type="text" id="p8-lied" value="We Will Rock You von Queen">
+      </div>
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p8-klasse" value="Klasse 5 bis 7">
+      </div>
+      <div class="field-group">
+        <label>Gruppengröße</label>
+        <input type="text" id="p8-gruppe" value="gesamte Klasse, auch als mehrstimmige Version möglich">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(8)">Prompt generieren</button>
+    <div class="result-box" id="result-8">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-8"></div>
+      <button class="btn-copy" onclick="copyPrompt(8, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.9 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.9</div>
+      <div class="card-title-wrap">
+        <h2>Sportturnier organisieren</h2>
+        <p>Plant ein komplettes Turnierkonzept mit Format, Spielplan, Regelblatt, Schiedsrichter-Konzept und Urkunden-Vorlage.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Sportart</label>
+        <input type="text" id="p9-sportart" value="Volleyball">
+      </div>
+      <div class="field-group">
+        <label>Zeitrahmen</label>
+        <input type="text" id="p9-zeit" value="ein Schultag, 8 bis 13 Uhr">
+      </div>
+      <div class="field-group full-width">
+        <label>Ebene (Klasse, Parallelklassen, Schüleranzahl)</label>
+        <input type="text" id="p9-ebene" value="Klassenstufe 8, drei Parallelklassen, je 28 Schülerinnen und Schüler">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(9)">Prompt generieren</button>
+    <div class="result-box" id="result-9">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-9"></div>
+      <button class="btn-copy" onclick="copyPrompt(9, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 9.10 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">9.10</div>
+      <div class="card-title-wrap">
+        <h2>Schulausstellung konzipieren</h2>
+        <p>Entwickelt ein vollständiges Ausstellungskonzept mit kuratorischem Konzept, Hänge-Plan, Vernissage-Ablauf und Einladungstext.</p>
+      </div>
+    </div>
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group full-width">
+        <label>Anlass</label>
+        <input type="text" id="p10-anlass" value="Ende des Schuljahres, Jahresausstellung der Kunstkurse Klasse 9 und 10">
+      </div>
+      <div class="field-group">
+        <label>Ort</label>
+        <input type="text" id="p10-ort" value="Schulflur und Aula">
+      </div>
+      <div class="field-group">
+        <label>Dauer</label>
+        <input type="text" id="p10-dauer" value="eine Woche, Eröffnung Donnerstagabend">
+      </div>
+    </div>
+    <button class="btn-generate" onclick="generate(10)">Prompt generieren</button>
+    <div class="result-box" id="result-10">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-10"></div>
+      <button class="btn-copy" onclick="copyPrompt(10, this)">Kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">@smartes.klassenzimmer</div>
+  <div class="footer-sub">100 Prompts in 10 Tagen &mdash; Tag 9 von 10</div>
+</footer>
+
+<script>
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+const templates = {
+  1: () => {
+    const thema    = getVal('p1-thema');
+    const klasse   = getVal('p1-klasse');
+    const schulform = getVal('p1-schulform');
+    return `Du bist eine erfahrene Kunstlehrerin mit Zusatzausbildung in Kunstdidaktik. Du hast breite Kenntnisse in verschiedenen Techniken und weißt, wie man einen Künstler-Bezug so einbindet, dass er Schülerinnen und Schüler wirklich interessiert.
+
+Deine Aufgabe ist es, eine vollständige Doppelstunde (90 Minuten) Kunstunterricht zu planen: Thema ${thema}, Klasse ${klasse}, Schulform ${schulform}.
 
 Gehe so vor:
 1. Kurze Einführung zum Künstler und zur Technik (10 Minuten): Was macht diesen Stil besonders? Zeige mir, wie du das für Schülerinnen und Schüler spannend aufbereiten würdest.
@@ -234,24 +643,17 @@ Format: Stundenverlaufsplan mit Zeitangaben, dann die Schritt-für-Schritt-Anlei
 Prüfe vor der Ausgabe:
 - Hat die Stunde einen klaren kunsthistorischen Bezug, der nicht nur schmückendes Beiwerk ist?
 - Ist die Schritt-für-Schritt-Anleitung so klar, dass Schülerinnen und Schüler ohne ständige Nachfragen arbeiten können?
-- Messen die Bewertungskriterien das, was in dieser Aufgabe wirklich erlernt werden soll?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-1', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-2">
-          <div class="prompt-header" onclick="toggleCard('card-9-2')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.2</span>
-              <span class="prompt-title">Sport-Stundenentwurf erstellen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-2">Du bist eine erfahrene Sportlehrkraft mit Kenntnissen in Bewegungs- und Trainingspädagogik. Du weißt, wie man eine Sportstunde so plant, dass sie motorische, soziale und kognitive Lernziele verbindet.
+- Messen die Bewertungskriterien das, was in dieser Aufgabe wirklich erlernt werden soll?`;
+  },
 
-Deine Aufgabe ist es, einen vollständigen Stundenentwurf für eine 45-Minuten-Sportstunde zu erstellen: Thema [Standardwert: Einführung Volleyball: Baggern], Klasse [Standardwert: 8], Schulform [Standardwert: Realschule], Anzahl der Schülerinnen und Schüler [Standardwert: 28].
+  2: () => {
+    const thema    = getVal('p2-thema');
+    const klasse   = getVal('p2-klasse');
+    const schulform = getVal('p2-schulform');
+    const anzahl   = getVal('p2-anzahl');
+    return `Du bist eine erfahrene Sportlehrkraft mit Kenntnissen in Bewegungs- und Trainingspädagogik. Du weißt, wie man eine Sportstunde so plant, dass sie motorische, soziale und kognitive Lernziele verbindet.
+
+Deine Aufgabe ist es, einen vollständigen Stundenentwurf für eine 45-Minuten-Sportstunde zu erstellen: Thema ${thema}, Klasse ${klasse}, Schulform ${schulform}, Anzahl der Schülerinnen und Schüler ${anzahl}.
 
 Plane die Stunde in vier Phasen:
 1. Aufwärmphase (8 Minuten): Ein Aufwärmspiel, das thematisch zum Hauptinhalt passt und alle sofort einbindet.
@@ -262,26 +664,18 @@ Plane die Stunde in vier Phasen:
 Ergänze für jede Phase: Methode, Material, Sicherheitshinweise, Differenzierungsmöglichkeiten.
 
 Prüfe vor der Ausgabe:
-- Hat jede Phase ein klares Ziel, das über &quot;Bewegung machen&quot; hinausgeht?
+- Hat jede Phase ein klares Ziel, das über "Bewegung machen" hinausgeht?
 - Sind die Sicherheitshinweise vollständig, besonders für die Erarbeitungsphase?
-- Gibt es Differenzierungsmöglichkeiten für leistungsschwächere und leistungsstärkere Schülerinnen und Schüler?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-2', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-3">
-          <div class="prompt-header" onclick="toggleCard('card-9-3')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.3</span>
-              <span class="prompt-title">Bewertungsraster für kreative Fächer erstellen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-3">Du bist eine erfahrene Lehrkraft für kreative Fächer (Kunst, Musik, Theater, Sport). Du weißt, wie schwierig es ist, kreative Leistungen fair und transparent zu bewerten, und wie wichtig es ist, dass Schülerinnen und Schüler die Kriterien vor der Aufgabe kennen.
+- Gibt es Differenzierungsmöglichkeiten für leistungsschwächere und leistungsstärkere Schülerinnen und Schüler?`;
+  },
 
-Deine Aufgabe ist es, ein vollständiges Bewertungsraster zu erstellen für: [Aufgabe, Standardwert: &quot;Choreografie zu einem selbst gewählten Musikstück, 2 bis 3 Minuten, Einzel- oder Partnerarbeit&quot;], Fach [Standardwert: Sport/Tanz], Klasse [Standardwert: 9].
+  3: () => {
+    const aufgabe = getVal('p3-aufgabe');
+    const fach    = getVal('p3-fach');
+    const klasse  = getVal('p3-klasse');
+    return `Du bist eine erfahrene Lehrkraft für kreative Fächer (Kunst, Musik, Theater, Sport). Du weißt, wie schwierig es ist, kreative Leistungen fair und transparent zu bewerten, und wie wichtig es ist, dass Schülerinnen und Schüler die Kriterien vor der Aufgabe kennen.
+
+Deine Aufgabe ist es, ein vollständiges Bewertungsraster zu erstellen für: ${aufgabe}, Fach ${fach}, Klasse ${klasse}.
 
 Gehe so vor:
 1. Entwickle sechs Bewertungskriterien, die sowohl den Prozess als auch das Produkt erfassen.
@@ -294,24 +688,16 @@ Format: Raster als Tabelle (Kriterium / sehr gut / teilweise / kaum / Gewichtung
 Prüfe vor der Ausgabe:
 - Sind alle Kriterien auf die Aufgabe zugeschnitten und nicht austauschbar gegen jedes andere Projekt?
 - Können Schülerinnen und Schüler anhand des Rasters ihre eigene Leistung einschätzen, bevor die Lehrkraft bewertet?
-- Fließt mindestens ein Kriterium zum Prozess oder zur Zusammenarbeit ein?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-3', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-4">
-          <div class="prompt-header" onclick="toggleCard('card-9-4')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.4</span>
-              <span class="prompt-title">Musikstück für den Unterricht didaktisieren</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-4">Du bist eine erfahrene Musiklehrerin mit Kenntnissen in Musiktheorie, Höranalyse und musikgeschichtlichem Kontext. Du weißt, wie man ein Musikstück so aufbereitet, dass es Schülerinnen und Schüler wirklich berührt und nicht nur abgespielt wird.
+- Fließt mindestens ein Kriterium zum Prozess oder zur Zusammenarbeit ein?`;
+  },
 
-Deine Aufgabe ist es, folgendes Musikstück für den Unterricht aufzubereiten: [Musikstück und Komponist/Künstler, Standardwert: &quot;Beethoven, 5. Sinfonie, 1. Satz&quot;]. Klassenstufe: [Standardwert: 8], Fokus der Stunde: [Standardwert: Aufbau und Wirkung eines musikalischen Motivs].
+  4: () => {
+    const stueck = getVal('p4-stueck');
+    const klasse = getVal('p4-klasse');
+    const fokus  = getVal('p4-fokus');
+    return `Du bist eine erfahrene Musiklehrerin mit Kenntnissen in Musiktheorie, Höranalyse und musikgeschichtlichem Kontext. Du weißt, wie man ein Musikstück so aufbereitet, dass es Schülerinnen und Schüler wirklich berührt und nicht nur abgespielt wird.
+
+Deine Aufgabe ist es, folgendes Musikstück für den Unterricht aufzubereiten: ${stueck}. Klassenstufe: ${klasse}, Fokus der Stunde: ${fokus}.
 
 Erstelle:
 1. Hintergrundwissen-Text für die Lehrkraft (max. eine Seite): Das Wichtigste zum Stück, zum Komponisten und zum historischen Kontext.
@@ -326,24 +712,16 @@ Format: Lehrkraft-Text als Fließtext, Höraufgaben als nummerierte Liste mit kl
 Prüfe vor der Ausgabe:
 - Bauen die drei Hördurchgänge systematisch aufeinander auf?
 - Ist die kreative Abschlussaufgabe offen genug für verschiedene Zugänge, aber konkret genug, damit Schülerinnen und Schüler wissen, was zu tun ist?
-- Kann die Stunde von einer Lehrkraft ohne Klavier-Kenntnisse durchgeführt werden?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-4', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-5">
-          <div class="prompt-header" onclick="toggleCard('card-9-5')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.5</span>
-              <span class="prompt-title">Theater-Projekt planen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-5">Du bist eine erfahrene Theaterpädagogin. Du weißt, wie man ein Schultheaterprojekt so aufbaut, dass es ohne professionelle Ausstattung funktioniert, aber trotzdem eine echte Wirkung auf Schülerinnen und Schüler hat.
+- Kann die Stunde von einer Lehrkraft ohne Klavier-Kenntnisse durchgeführt werden?`;
+  },
 
-Deine Aufgabe ist es, ein kleines Theaterprojekt für folgende Situation zu planen: Klasse [Standardwert: 6], Dauer [Standardwert: drei Wochen, je zwei Schulstunden pro Woche], Anlass [Standardwert: Aufführung vor einer Parallelklasse].
+  5: () => {
+    const klasse  = getVal('p5-klasse');
+    const dauer   = getVal('p5-dauer');
+    const anlass  = getVal('p5-anlass');
+    return `Du bist eine erfahrene Theaterpädagogin. Du weißt, wie man ein Schultheaterprojekt so aufbaut, dass es ohne professionelle Ausstattung funktioniert, aber trotzdem eine echte Wirkung auf Schülerinnen und Schüler hat.
+
+Deine Aufgabe ist es, ein kleines Theaterprojekt für folgende Situation zu planen: Klasse ${klasse}, Dauer ${dauer}, Anlass ${anlass}.
 
 Erstelle:
 1. Themenwahl: Zwei bis drei Themenvorschläge mit kurzer Begründung, warum das Thema für diese Altersgruppe geeignet ist.
@@ -357,24 +735,14 @@ Format: Fünf Abschnitte mit Überschriften, Probenplan als Tabelle, alle andere
 Prüfe vor der Ausgabe:
 - Ist das Projekt ohne externe Unterstützung durchführbar?
 - Gibt es für jede Schülerin und jeden Schüler eine bedeutungsvolle Rolle, auch hinter der Bühne?
-- Endet das Projekt mit einem echten Erfolgserlebnis für alle?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-5', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-6">
-          <div class="prompt-header" onclick="toggleCard('card-9-6')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.6</span>
-              <span class="prompt-title">Bewegungspausen erstellen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-6">Du bist eine erfahrene Grundschullehrerin mit Zusatzausbildung in Bewegtem Lernen und Entspannungspädagogik. Du weißt, dass kurze Bewegungspausen die Konzentration steigern, wenn sie gut eingesetzt werden.
+- Endet das Projekt mit einem echten Erfolgserlebnis für alle?`;
+  },
 
-Deine Aufgabe ist es, 10 sofort einsetzbare Bewegungspausen zu erstellen für: Klasse [Standardwert: 3 bis 5, Grundschule], je 3 bis 5 Minuten Dauer, kein Material nötig, im Klassenzimmer durchführbar.
+  6: () => {
+    const klasse = getVal('p6-klasse');
+    return `Du bist eine erfahrene Grundschullehrerin mit Zusatzausbildung in Bewegtem Lernen und Entspannungspädagogik. Du weißt, dass kurze Bewegungspausen die Konzentration steigern, wenn sie gut eingesetzt werden.
+
+Deine Aufgabe ist es, 10 sofort einsetzbare Bewegungspausen zu erstellen für: ${klasse}, je 3 bis 5 Minuten Dauer, kein Material nötig, im Klassenzimmer durchführbar.
 
 Erstelle je zwei Pausen für fünf verschiedene Situationen:
 1. Nach langer Stillarbeit: Aktivierung, Energieboost.
@@ -390,24 +758,16 @@ Format: 10 nummerierte Bewegungspausen, jede mit den vier genannten Punkten.
 Prüfe vor der Ausgabe:
 - Kann jede Pause ohne Vorbereitung spontan eingesetzt werden?
 - Gibt es für jede Pause einen klaren Ausstieg, damit die Klasse danach wieder arbeitsfähig ist?
-- Sind die Pausen altersgerecht und würdevoll, sodass auch ältere Grundschulkinder mitmachen?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-6', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-7">
-          <div class="prompt-header" onclick="toggleCard('card-9-7')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.7</span>
-              <span class="prompt-title">Fächerübergreifendes Projekt Kunst und Schreiben</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-7">Du bist eine erfahrene Lehrkraft mit Erfahrung in fächerübergreifendem Arbeiten. Du weißt, wie man zwei Fächer so verbindet, dass die Verbindung inhaltlich trägt und nicht erzwungen wirkt.
+- Sind die Pausen altersgerecht und würdevoll, sodass auch ältere Grundschulkinder mitmachen?`;
+  },
 
-Deine Aufgabe ist es, ein fächerübergreifendes Projekt zu entwickeln, das Deutsch und Kunst verbindet: Klasse [Standardwert: 7], Dauer [Standardwert: eine Projektwoche], Thema [Standardwert: &quot;Mein Ort: Das Viertel in dem ich lebe&quot;].
+  7: () => {
+    const klasse = getVal('p7-klasse');
+    const dauer  = getVal('p7-dauer');
+    const thema  = getVal('p7-thema');
+    return `Du bist eine erfahrene Lehrkraft mit Erfahrung in fächerübergreifendem Arbeiten. Du weißt, wie man zwei Fächer so verbindet, dass die Verbindung inhaltlich trägt und nicht erzwungen wirkt.
+
+Deine Aufgabe ist es, ein fächerübergreifendes Projekt zu entwickeln, das Deutsch und Kunst verbindet: Klasse ${klasse}, Dauer ${dauer}, Thema "${thema}".
 
 Gehe so vor:
 1. Formuliere ein übergreifendes Lernziel, das beide Fächer verbindet.
@@ -421,24 +781,16 @@ Format: Übergreifendes Lernziel als ein Satz ganz oben, dann Wochenplan als Tab
 Prüfe vor der Ausgabe:
 - Könnten Schülerinnen und Schüler in beiden Fächern etwas Wesentliches lernen, auch wenn sie nur eines der beiden Fächer haben?
 - Ist die Verbindung zwischen Schreiben und Gestalten inhaltlich schlüssig?
-- Ist das Endprodukt ausstellbar oder präsentierbar und damit ein echtes Erfolgserlebnis?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-7', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-8">
-          <div class="prompt-header" onclick="toggleCard('card-9-8')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.8</span>
-              <span class="prompt-title">Musik-Bodypercussion Anleitung erstellen</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-8">Du bist eine erfahrene Musiklehrerin mit Schwerpunkt auf praktischem Musikmachen ohne Instrumente. Du weißt, wie man Bodypercussion so notiert und erklärt, dass auch Schülerinnen und Schüler ohne Musikerfahrung mitmachen können.
+- Ist das Endprodukt ausstellbar oder präsentierbar und damit ein echtes Erfolgserlebnis?`;
+  },
 
-Deine Aufgabe ist es, eine vollständige Bodypercussion-Anleitung zu erstellen für: Lied [Standardwert: &quot;We Will Rock You&quot; von Queen], Klassenstufe [Standardwert: 5 bis 7], Gruppengröße [Standardwert: gesamte Klasse, auch als mehrstimmige Version möglich].
+  8: () => {
+    const lied   = getVal('p8-lied');
+    const klasse = getVal('p8-klasse');
+    const gruppe = getVal('p8-gruppe');
+    return `Du bist eine erfahrene Musiklehrerin mit Schwerpunkt auf praktischem Musikmachen ohne Instrumente. Du weißt, wie man Bodypercussion so notiert und erklärt, dass auch Schülerinnen und Schüler ohne Musikerfahrung mitmachen können.
+
+Deine Aufgabe ist es, eine vollständige Bodypercussion-Anleitung zu erstellen für: Lied "${lied}", Klassenstufe ${klasse}, Gruppengröße ${gruppe}.
 
 Erstelle:
 1. Eine einfache Notationsweise, die ohne Noten-Kenntnisse funktioniert (z.B. Symbole für Klatschen, Stampfen, Patschen, Schnipsen).
@@ -452,24 +804,16 @@ Format: Notationsschlüssel als Legende, dann Grundversion und Erweiterung als t
 Prüfe vor der Ausgabe:
 - Kann eine Lehrkraft ohne Musikstudium diese Anleitung einsetzen?
 - Ist die Notation eindeutig genug, dass Schülerinnen und Schüler sie selbst lesen können?
-- Endet die Stunde mit einem gemeinsamen Aufführungsmoment, der ein Erfolgsgefühl erzeugt?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-8', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-9">
-          <div class="prompt-header" onclick="toggleCard('card-9-9')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.9</span>
-              <span class="prompt-title">Sportturnier organisieren</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-9">Du bist eine erfahrene Sportlehrkraft und Veranstaltungsorganisatorin. Du weißt, wie man ein Turnier innerhalb der Schule so plant, dass es fair, spaßig und ohne großen Zusatzaufwand durchführbar ist.
+- Endet die Stunde mit einem gemeinsamen Aufführungsmoment, der ein Erfolgsgefühl erzeugt?`;
+  },
 
-Deine Aufgabe ist es, ein komplettes Turnierkonzept zu erstellen für: Sportart [Standardwert: Volleyball], Ebene [Standardwert: Klassenstufe 8, drei Parallelklassen, je 28 Schülerinnen und Schüler], Zeitrahmen [Standardwert: ein Schultag, 8 bis 13 Uhr].
+  9: () => {
+    const sportart = getVal('p9-sportart');
+    const zeit     = getVal('p9-zeit');
+    const ebene    = getVal('p9-ebene');
+    return `Du bist eine erfahrene Sportlehrkraft und Veranstaltungsorganisatorin. Du weißt, wie man ein Turnier innerhalb der Schule so plant, dass es fair, spaßig und ohne großen Zusatzaufwand durchführbar ist.
+
+Deine Aufgabe ist es, ein komplettes Turnierkonzept zu erstellen für: Sportart ${sportart}, Ebene ${ebene}, Zeitrahmen ${zeit}.
 
 Erstelle:
 1. Turnierformat: Welches Format passt für diese Teilnehmerzahl und diese Zeit? Gruppenphase plus K.o.-Runde, Jeder-gegen-Jeden oder anderes? Begründe die Wahl.
@@ -483,24 +827,16 @@ Format: Fünf Abschnitte mit Überschriften, Spielplan als Tabelle, alle anderen
 Prüfe vor der Ausgabe:
 - Hat jede Mannschaft mindestens drei Spiele, egal wie früh sie ausscheidet?
 - Gibt es für alle Schülerinnen und Schüler eine aktive Aufgabe, auch für die, die gerade nicht spielen?
-- Ist das Regelblatt in einer Sprache geschrieben, die Schülerinnen und Schüler selbst lesen und anwenden können?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-9', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-        <div class="prompt-card" id="card-9-10">
-          <div class="prompt-header" onclick="toggleCard('card-9-10')">
-            <div class="prompt-meta">
-              <span class="prompt-number">9.10</span>
-              <span class="prompt-title">Schulausstellung konzipieren</span>
-            </div>
-            <span class="toggle-icon">▼</span>
-          </div>
-          <div class="prompt-body">
-            <div class="prompt-text" id="text-9-10">Du bist eine erfahrene Kunstlehrerin und Ausstellungskuratorin im Schulkontext. Du weißt, wie man Schülerarbeiten so präsentiert, dass sie gewürdigt werden und eine echte Wirkung auf Besucherinnen und Besucher haben.
+- Ist das Regelblatt in einer Sprache geschrieben, die Schülerinnen und Schüler selbst lesen und anwenden können?`;
+  },
 
-Deine Aufgabe ist es, ein vollständiges Ausstellungskonzept für folgende Situation zu entwickeln: Anlass [Standardwert: Ende des Schuljahres, Jahresausstellung der Kunstkurse Klasse 9 und 10], Ort [Standardwert: Schulflur und Aula], Dauer [Standardwert: eine Woche, Eröffnung Donnerstagabend].
+  10: () => {
+    const anlass = getVal('p10-anlass');
+    const ort    = getVal('p10-ort');
+    const dauer  = getVal('p10-dauer');
+    return `Du bist eine erfahrene Kunstlehrerin und Ausstellungskuratorin im Schulkontext. Du weißt, wie man Schülerarbeiten so präsentiert, dass sie gewürdigt werden und eine echte Wirkung auf Besucherinnen und Besucher haben.
+
+Deine Aufgabe ist es, ein vollständiges Ausstellungskonzept für folgende Situation zu entwickeln: Anlass ${anlass}, Ort ${ort}, Dauer ${dauer}.
 
 Erstelle:
 1. Kuratorisches Konzept: Unter welchem Thema werden die Arbeiten präsentiert? Wie wird eine Verbindung zwischen den verschiedenen Werken hergestellt?
@@ -514,30 +850,43 @@ Format: Fünf Abschnitte mit Überschriften. Hänge-Konzept als Fließtext, Vern
 Prüfe vor der Ausgabe:
 - Kommt jedes Kind mit seinem Werk vor, und nicht nur die besonders talentierten?
 - Hat die Vernissage einen Moment, in dem Schülerinnen und Schüler selbst zu Wort kommen?
-- Ist der Einladungstext so formuliert, dass auch Eltern kommen, die sonst wenig Kontakt zur Schule haben?</div>
-            <button class="copy-btn" onclick="copyPrompt('text-9-10', this)">
-              <span>📋</span> Kopieren
-            </button>
-          </div>
-        </div>
-    <nav class="nav-bar">
-      <a href="tag-8.html" class="nav-btn">← Tag 8</a>
-      <a href="tag-10.html" class="nav-btn">Tag 10 →</a>
-    </nav>
-    <p class="footer">100 Prompts in 10 Tagen Challenge</p>
-  </main>
-  <script>
-    function toggleCard(id) {
-      document.getElementById(id).classList.toggle('open');
-    }
-    function copyPrompt(textId, btn) {
-      navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '<span>✓</span> Kopiert!';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
-      });
-    }
-  </script>
+- Ist der Einladungstext so formuliert, dass auch Eltern kommen, die sonst wenig Kontakt zur Schule haben?`;
+  }
+};
+
+function generate(num) {
+  const text = templates[num]();
+  const textEl = document.getElementById('text-' + num);
+  const resultBox = document.getElementById('result-' + num);
+  textEl.textContent = text;
+  resultBox.classList.add('visible');
+  resultBox.style.display = 'block';
+  resultBox.style.animation = 'none';
+  void resultBox.offsetWidth;
+  resultBox.style.animation = 'slideDown 0.25s ease';
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyPrompt(num, btn) {
+  const text = document.getElementById('text-' + num).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Kopieren';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const el = document.getElementById('text-' + num);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = 'Text markiert — Strg+C zum Kopieren';
+    setTimeout(() => { btn.textContent = 'Kopieren'; }, 3000);
+  });
+}
+</script>
 </body>
 </html>

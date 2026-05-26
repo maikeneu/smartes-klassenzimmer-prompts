@@ -3,367 +3,873 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tag 3/10: Grundschule, Schultag strukturieren – 100 Claude-Prompts</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Tag 3: Schultag strukturieren – @smartes.klassenzimmer</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #0D0015 0%, #1A0033 100%); min-height: 100vh; color: #FFFFFF; }
-  header { background: linear-gradient(135deg, #1A0033 0%, #2D0055 100%); border-bottom: 1px solid rgba(90,0,153,0.4); padding: 1.5rem 1rem; text-align: center; }
-  .header-brand { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem; }
-  .asterisk { font-size: 2rem; color: #5A0099; line-height: 1; font-weight: 700; }
-  .brand-name { font-size: 1rem; font-weight: 600; color: #c084fc; letter-spacing: 0.05em; }
-  .header-title { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.08em; text-transform: uppercase; }
-  .day-indicator { text-align: center; padding: 2rem 1rem 1rem; }
-  .day-badge { display: inline-block; background: linear-gradient(135deg, #5A0099, #7B00CC); border-radius: 50px; padding: 0.4rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #e9d5ff; margin-bottom: 0.8rem; }
-  .day-title { font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
-  .day-subtitle { font-size: 1rem; color: #a78bfa; margin-top: 0.3rem; }
-  .prompts-grid { max-width: 900px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1.2rem; }
-  .prompt-card { background: rgba(90,0,153,0.08); border: 1px solid rgba(90,0,153,0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(90,0,153,0.15); transition: box-shadow 0.2s ease; }
-  .prompt-card:hover { box-shadow: 0 0 32px rgba(90,0,153,0.3); }
-  .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; cursor: pointer; user-select: none; gap: 1rem; }
-  .prompt-header:hover { background: rgba(90,0,153,0.12); }
-  .prompt-meta { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 0; }
-  .prompt-number { background: linear-gradient(135deg, #5A0099, #FF9D00); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.7rem; font-weight: 700; color: #fff; white-space: nowrap; flex-shrink: 0; }
-  .prompt-title { font-size: 1rem; font-weight: 600; color: #e9d5ff; line-height: 1.3; }
-  .toggle-icon { color: #a78bfa; font-size: 1.2rem; transition: transform 0.25s ease; flex-shrink: 0; }
-  .prompt-card.open .toggle-icon { transform: rotate(180deg); }
-  .prompt-body { display: none; padding: 0 1.2rem 1.2rem; }
-  .prompt-card.open .prompt-body { display: block; }
-  .prompt-text { background: rgba(0,0,0,0.35); border: 1px solid rgba(90,0,153,0.25); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.82rem; line-height: 1.7; color: #d4b8ff; font-family: 'Poppins', monospace; white-space: pre-wrap; word-break: break-word; margin-bottom: 0.8rem; }
-  .copy-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #5A0099, #7B00CC); border: none; border-radius: 8px; padding: 0.55rem 1.1rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: #FFFFFF; cursor: pointer; transition: all 0.2s ease; }
-  .copy-btn:hover { background: linear-gradient(135deg, #7B00CC, #9D00FF); transform: translateY(-1px); }
-  .copy-btn.copied { background: linear-gradient(135deg, #166534, #15803d); }
-  nav.day-nav { display: flex; justify-content: center; gap: 0.8rem; padding: 1.5rem 1rem 2rem; flex-wrap: wrap; }
-  .nav-link { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; color: #a78bfa; border: 1px solid rgba(90,0,153,0.4); transition: all 0.2s ease; }
-  .nav-link:hover { background: rgba(90,0,153,0.2); color: #FFFFFF; }
-  footer { border-top: 1px solid rgba(90,0,153,0.3); padding: 1.5rem 1rem; text-align: center; }
-  .footer-title { font-size: 0.85rem; font-weight: 600; color: #7c3aed; }
-  .footer-sub { font-size: 0.75rem; color: #6b7280; margin-top: 0.3rem; }
-  .footer-orange { color: #FF9D00; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #0D0015 0%, #1A0033 100%);
+    min-height: 100vh;
+    color: #FFFFFF;
+    padding-bottom: 4rem;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid rgba(90,0,153,0.3);
+    background: rgba(13,0,21,0.6);
+  }
+
+  .day-badge {
+    display: inline-block;
+    background: #5A0099;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 0.9rem;
+  }
+
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  header h1 span { color: #FF9D00; }
+
+  .header-brand {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .prompt-card {
+    background: rgba(90,0,153,0.15);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .prompt-card:hover { border-color: rgba(90,0,153,0.7); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .prompt-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(90,0,153,0.5);
+    border: 1px solid rgba(90,0,153,0.6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c084fc;
+  }
+
+  .card-title-wrap h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .card-title-wrap p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+    line-height: 1.5;
+  }
+
+  .fields-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    .fields-grid { grid-template-columns: 1fr; }
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .field-group.full-width { grid-column: 1 / -1; }
+
+  .field-group label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.03em;
+  }
+
+  .field-group input,
+  .field-group textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(90,0,153,0.4);
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input:focus,
+  .field-group textarea:focus {
+    border-color: #FF9D00;
+    background: rgba(255,157,0,0.05);
+  }
+
+  .field-group textarea {
+    resize: vertical;
+    min-height: 70px;
+    line-height: 1.5;
+  }
+
+  .btn-generate {
+    margin-top: 1.2rem;
+    width: 100%;
+    background: #FF9D00;
+    color: #0D0015;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-generate:hover { background: #ffb333; }
+  .btn-generate:active { transform: scale(0.98); }
+
+  .result-box {
+    margin-top: 1rem;
+    display: none;
+    animation: slideDown 0.25s ease;
+  }
+
+  .result-box.visible { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-text {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    white-space: pre-wrap;
+    word-break: break-word;
+    user-select: text;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .btn-copy {
+    margin-top: 0.6rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-copy:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+  .btn-copy.copied {
+    background: rgba(34,197,94,0.2);
+    border-color: rgba(34,197,94,0.5);
+    color: #4ade80;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-top: 1px solid rgba(90,0,153,0.25);
+    margin-top: 1rem;
+  }
+
+  .footer-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FF9D00;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+  }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="header-brand"><span class="asterisk">✱</span><span class="brand-name">@smartes.klassenzimmer</span></div>
-  <div class="header-title">100 Claude-Prompts</div>
+  <div class="day-badge">Tag 3 von 10</div>
+  <h1>Grundschule: <span>Schultag strukturieren</span></h1>
+  <div class="header-brand">@smartes.klassenzimmer</div>
+  <div class="header-sub">10 Prompts für Claude — füll deine Werte ein und generiere deinen Prompt</div>
 </header>
-<div class="day-indicator">
-  <div class="day-badge">Tag 3 / 10</div>
-  <div class="day-title">Grundschule</div>
-  <div class="day-subtitle">Schultag strukturieren</div>
-</div>
-<div class="prompts-grid">
 
-  <div class="prompt-card open" id="card-1">
-    <div class="prompt-header" onclick="toggleCard('card-1')">
-      <div class="prompt-meta"><span class="prompt-number">3.1</span><span class="prompt-title">Digitaler Tafel-Startbildschirm</span></div>
-      <span class="toggle-icon">▼</span>
+<div class="container">
+  <p class="intro-text">
+    Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
+  </p>
+
+  <!-- PROMPT 3.1 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.1</div>
+      <div class="card-title-wrap">
+        <h2>Digitaler Tafel-Startbildschirm</h2>
+        <p>Entwirft das Konzept für einen täglichen Dashboard-Startbildschirm auf der digitalen Tafel, der Kindern beim ruhigen Ankommen hilft und alle wichtigen Infos bündelt.</p>
+      </div>
     </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-1">Du bist eine erfahrene Grundschullehrerin mit guten Kenntnissen in der Arbeit mit digitalen Tafeln und im Classroom Management.
 
-Entwirf das Konzept fuer einen Tages-Dashboard-Startbildschirm, den ich jeden Morgen auf der digitalen Tafel zeigen kann.
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p1-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Schulform</label>
+        <input type="text" id="p1-schulform" value="Grundschule">
+      </div>
+    </div>
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Schulform: Grundschule]. Der Startbildschirm soll Kindern beim Ankommen helfen, die wichtigsten Informationen des Tages auf einen Blick liefern und einen ruhigen Start in den Tag ermoglichen.
+    <button class="btn-generate" onclick="generate(1)">Prompt generieren</button>
+
+    <div class="result-box" id="result-1">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-1"></div>
+      <button class="btn-copy" onclick="copyPrompt(1, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.2 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.2</div>
+      <div class="card-title-wrap">
+        <h2>Klassendienste fair einteilen</h2>
+        <p>Erstellt einen Rotationsplan für Klassendienste als Tabelle, der sicherstellt, dass jedes Kind im Halbjahr alle Dienste mindestens einmal übernimmt.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p2-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Anzahl Kinder</label>
+        <input type="text" id="p2-anzahl" value="22 Kindern">
+      </div>
+      <div class="field-group full-width">
+        <label>Klassendienste (kommagetrennt)</label>
+        <input type="text" id="p2-dienste" value="Tafel abwischen, Materialien austeilen, Fenster öffnen, Pflanzen gießen, Müll entsorgen, Licht aus/an, Ordnungsdienst, Klassenraum aufräumen, Post holen, Klassen-Buch vorlesen">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum</label>
+        <input type="text" id="p2-zeitraum" value="ein Schulhalbjahr">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(2)">Prompt generieren</button>
+
+    <div class="result-box" id="result-2">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-2"></div>
+      <button class="btn-copy" onclick="copyPrompt(2, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.3 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.3</div>
+      <div class="card-title-wrap">
+        <h2>Wochenenderlebnisse dokumentieren</h2>
+        <p>Erstellt eine Vorlage für den Montagsmorgen-Kreis, mit der Kinder auf verschiedenen Sprachniveaus ihre Wochenenderlebnisse festhalten können.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p3-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Bundesland</label>
+        <input type="text" id="p3-bundesland" value="Bayern">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(3)">Prompt generieren</button>
+
+    <div class="result-box" id="result-3">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-3"></div>
+      <button class="btn-copy" onclick="copyPrompt(3, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.4 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.4</div>
+      <div class="card-title-wrap">
+        <h2>Morgenkreis-Impulse</h2>
+        <p>Erstellt 20 kurze Morgenkreis-Impulse für fünf verschiedene Situationen, jeweils mit konkreter Formulierung und Zeitangabe unter 5 Minuten.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p4-klassenstufe" value="Klasse 3">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(4)">Prompt generieren</button>
+
+    <div class="result-box" id="result-4">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-4"></div>
+      <button class="btn-copy" onclick="copyPrompt(4, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.5 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.5</div>
+      <div class="card-title-wrap">
+        <h2>Belohnungssystem designen</h2>
+        <p>Entwirft ein faires, motivierendes Belohnungssystem für die Klasse mit klaren Regeln, visueller Umsetzung, Kinder-Erklärung und kostenloser Belohnungs-Liste.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p5-klassenstufe" value="Klasse 2">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(5)">Prompt generieren</button>
+
+    <div class="result-box" id="result-5">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-5"></div>
+      <button class="btn-copy" onclick="copyPrompt(5, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.6 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.6</div>
+      <div class="card-title-wrap">
+        <h2>Übergangs-Rituale</h2>
+        <p>Plant Übergangs-Rituale für fünf typische Unterrichtsphasen, inklusive Einführungstipp, einer Konzentrationsübung und drei spontan einsetzbaren Bewegungspausen.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p6-klassenstufe" value="Klasse 1 und 2">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(6)">Prompt generieren</button>
+
+    <div class="result-box" id="result-6">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-6"></div>
+      <button class="btn-copy" onclick="copyPrompt(6, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.7 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.7</div>
+      <div class="card-title-wrap">
+        <h2>Wochenrückblick für Kinder</h2>
+        <p>Erstellt eine kindgerechte Reflexionsvorlage für den Freitagsabschluss, die in 10 Minuten ausgefüllt ist und Fragen zu Lernen, Schwierigkeiten und Stolz enthält.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p7-klassenstufe" value="Klasse 3">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(7)">Prompt generieren</button>
+
+    <div class="result-box" id="result-7">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-7"></div>
+      <button class="btn-copy" onclick="copyPrompt(7, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.8 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.8</div>
+      <div class="card-title-wrap">
+        <h2>Visualisierter Tagesablauf</h2>
+        <p>Erstellt ein Konzept für einen bilderbasierten Tagesplan, den auch Kinder verstehen, die noch nicht sicher lesen können, mit Symbolen und individueller Unterstützung.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p8-klassenstufe" value="Klasse 1">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(8)">Prompt generieren</button>
+
+    <div class="result-box" id="result-8">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-8"></div>
+      <button class="btn-copy" onclick="copyPrompt(8, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.9 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.9</div>
+      <div class="card-title-wrap">
+        <h2>Regeln gemeinsam formulieren</h2>
+        <p>Plant einen partizipativen Prozess, bei dem Kinder ihre Klassenregeln wirklich selbst entwickeln, inklusive Methode, Regelplakat-Konzept und Einsatz-Strategie.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p9-klassenstufe" value="Klasse 2">
+      </div>
+      <div class="field-group">
+        <label>Zeitraum für den Prozess</label>
+        <input type="text" id="p9-zeitraum" value="in den ersten zwei Schulwochen">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(9)">Prompt generieren</button>
+
+    <div class="result-box" id="result-9">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-9"></div>
+      <button class="btn-copy" onclick="copyPrompt(9, this)">Kopieren</button>
+    </div>
+  </div>
+
+  <!-- PROMPT 3.10 -->
+  <div class="prompt-card">
+    <div class="card-header">
+      <div class="prompt-number">3.10</div>
+      <div class="card-title-wrap">
+        <h2>Abschlusskreis-Ideen</h2>
+        <p>Erstellt 20 Varianten für den Abschlusskreis am Schultagsende in vier Kategorien: Reflexion, Spiel, Würdigung und Vorschau, alle ohne Materialvorbereitung nutzbar.</p>
+      </div>
+    </div>
+
+    <div class="fields-label">Deine Angaben</div>
+    <div class="fields-grid">
+      <div class="field-group">
+        <label>Klassenstufe</label>
+        <input type="text" id="p10-klassenstufe" value="Klasse 1 bis 4">
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generate(10)">Prompt generieren</button>
+
+    <div class="result-box" id="result-10">
+      <div class="result-label">Dein fertiger Prompt</div>
+      <div class="result-text" id="text-10"></div>
+      <button class="btn-copy" onclick="copyPrompt(10, this)">Kopieren</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-brand">@smartes.klassenzimmer</div>
+  <div class="footer-sub">100 Prompts in 10 Tagen &mdash; Tag 3 von 10</div>
+</footer>
+
+<script>
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+const templates = {
+  1: () => {
+    const klassenstufe = getVal('p1-klassenstufe');
+    const schulform    = getVal('p1-schulform');
+    return `Du bist eine erfahrene Grundschullehrerin mit guten Kenntnissen in der Arbeit mit digitalen Tafeln und im Classroom Management.
+
+Entwirf das Konzept für einen Tages-Dashboard-Startbildschirm, den ich jeden Morgen auf der digitalen Tafel zeigen kann.
+
+Das Material ist für ${klassenstufe} in einer ${schulform}. Der Startbildschirm soll Kindern beim Ankommen helfen, die wichtigsten Informationen des Tages auf einen Blick liefern und einen ruhigen Start in den Tag ermöglichen.
 
 Gehe so vor:
 1. Beschreibe, welche Bereiche auf dem Startbildschirm sein sollten: Datum, Wochentag, Stundenplan des Tages, Nachricht des Tages, Klassendienste.
-2. Schlage vor, welche Informationen in welcher Groesse und Farbe dargestellt werden sollen, damit Kinder sie schnell lesen koennen.
+2. Schlage vor, welche Informationen in welcher Größe und Farbe dargestellt werden sollen, damit Kinder sie schnell lesen können.
 3. Beschreibe, wie ein kurzer Herzenskreis-Impuls am Morgen visuell integriert werden kann.
-4. Erklaere, wie ich den Bildschirm in 5 Minuten aktualisieren kann, ohne viel Zeit zu verlieren.
-5. Schlage Tools oder Methoden vor, die keine Schuelerdaten in die Cloud schicken (DSGVO-Hinweis).
+4. Erkläre, wie ich den Bildschirm in 5 Minuten aktualisieren kann, ohne viel Zeit zu verlieren.
+5. Schlage Tools oder Methoden vor, die keine Schülerdaten in die Cloud schicken (DSGVO-Hinweis).
 
-Strukturiere das Ergebnis als beschreibendes Konzept mit klarer Struktur und einer Schritt-fuer-Schritt-Anleitung fuer die Einrichtung.
+Strukturiere das Ergebnis als beschreibendes Konzept mit klarer Struktur und einer Schritt-für-Schritt-Anleitung für die Einrichtung.
 
-Pruefe vor der Ausgabe:
-- Ist das Konzept wirklich in unter 5 Minuten taeglich aktualisierbar?
+Prüfe vor der Ausgabe:
+- Ist das Konzept wirklich in unter 5 Minuten täglich aktualisierbar?
 - Hilft der Startbildschirm Kindern beim ruhigen Ankommen?
-- Sind DSGVO-Hinweise fuer den Schulkontext beruecksichtigt?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-1', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Sind DSGVO-Hinweise für den Schulkontext berücksichtigt?`;
+  },
 
-  <div class="prompt-card" id="card-2">
-    <div class="prompt-header" onclick="toggleCard('card-2')">
-      <div class="prompt-meta"><span class="prompt-number">3.2</span><span class="prompt-title">Klassendienste fair einteilen</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-2">Du bist eine erfahrene Grundschullehrerin mit Erfahrung in Klassengemeinschaft, fairer Aufgabenverteilung und altersgerechter Eigenverantwortung.
+  2: () => {
+    const klassenstufe = getVal('p2-klassenstufe');
+    const anzahl       = getVal('p2-anzahl');
+    const dienste      = getVal('p2-dienste');
+    const zeitraum     = getVal('p2-zeitraum');
+    return `Du bist eine erfahrene Grundschullehrerin mit Erfahrung in Klassengemeinschaft, fairer Aufgabenverteilung und altersgerechter Eigenverantwortung.
 
-Erstelle einen Rotationsplan fuer Klassendienste, der fair ist und sicherstellt, dass jedes Kind im Laufe des Schuljahres alle Dienste uebernimmt.
+Erstelle einen Rotationsplan für Klassendienste, der fair ist und sicherstellt, dass jedes Kind im Laufe des Schuljahres alle Dienste übernimmt.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] mit [Anzahl Kinder: 22 Kindern]. Die Klasse hat folgende Klassendienste: [Dienste: Tafel abwischen, Materialien austeilen, Fenster oeffnen, Pflanzen giessen, Muell entsorgen, Licht aus/an, Ordnungsdienst, Klassenraum aufraumen, Post holen, Klassen-Buch vorlesen]. Kinder koennen Wuensche aeussern, aber jedes Kind soll jeden Dienst mindestens einmal uebernommen haben.
+Das Material ist für ${klassenstufe} mit ${anzahl}. Die Klasse hat folgende Klassendienste: ${dienste}. Kinder können Wünsche äußern, aber jedes Kind soll jeden Dienst mindestens einmal übernommen haben.
 
 Gehe so vor:
-1. Erstelle einen Rotationsplan fuer [Zeitraum: ein Schulhalbjahr] als uebersichtliche Tabelle.
-2. Zeige, wie ich Kinderwuensche einbauen kann, ohne die Fairness zu verlieren.
-3. Schreibe eine kurze Erklaerung in Kindersprache, warum Klassendienste fuer alle wichtig sind.
-4. Erstelle ein Dienstplan-Schaubild, das ich gut sichtbar im Klassenraum aufhaengen kann (als Beschreibung, damit ich es selbst gestalten kann).
+1. Erstelle einen Rotationsplan für ${zeitraum} als übersichtliche Tabelle.
+2. Zeige, wie ich Kinderwünsche einbauen kann, ohne die Fairness zu verlieren.
+3. Schreibe eine kurze Erklärung in Kindersprache, warum Klassendienste für alle wichtig sind.
+4. Erstelle ein Dienstplan-Schaubild, das ich gut sichtbar im Klassenraum aufhängen kann (als Beschreibung, damit ich es selbst gestalten kann).
 
-Strukturiere das Ergebnis: Rotationsplan als Tabelle, dann die Erklaerung in Kindersprache, dann das Schaubild-Konzept.
+Strukturiere das Ergebnis: Rotationsplan als Tabelle, dann die Erklärung in Kindersprache, dann das Schaubild-Konzept.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Kann ich sicherstellen, dass jedes Kind im Halbjahr jeden Dienst mindestens einmal hatte?
 - Ist der Plan aktualisierbar, wenn Kinder krank sind?
-- Klingt die Erklaerung fuer Siebenjaehrige verstaendlich?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-2', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Klingt die Erklärung für Siebenjährige verständlich?`;
+  },
 
-  <div class="prompt-card" id="card-3">
-    <div class="prompt-header" onclick="toggleCard('card-3')">
-      <div class="prompt-meta"><span class="prompt-number">3.3</span><span class="prompt-title">Wochenenderlebnisse dokumentieren</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-3">Du bist eine erfahrene Grundschullehrerin mit Schwerpunkt auf sprachfoerdernden Schreibanlassen und digitaler Grundbildung.
+  3: () => {
+    const klassenstufe = getVal('p3-klassenstufe');
+    const bundesland   = getVal('p3-bundesland');
+    return `Du bist eine erfahrene Grundschullehrerin mit Schwerpunkt auf sprachfördernden Schreibanlässen und digitaler Grundbildung.
 
-Erstelle eine Vorlage, mit der Kinder ihre Wochenenderlebnisse auf verschiedenen Wegen festhalten koennen.
+Erstelle eine Vorlage, mit der Kinder ihre Wochenenderlebnisse auf verschiedenen Wegen festhalten können.
 
-Das Material ist fuer [Klassenstufe: Klasse 2] in [Bundesland: Bayern]. Die Vorlage soll Montags beim Morgenkreis benutzt werden und Kinder auf verschiedenen Sprachniveaus abholen: Kinder die schon gut schreiben koennen, Kinder die noch Hilfe brauchen, und Kinder die lieber zeichnen.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Vorlage soll Montags beim Morgenkreis benutzt werden und Kinder auf verschiedenen Sprachniveaus abholen: Kinder die schon gut schreiben können, Kinder die noch Hilfe brauchen, und Kinder die lieber zeichnen.
 
 Gehe so vor:
-1. Erstelle eine Papiervorlage mit drei Bereichen: ein Feld fuer ein Bild oder Zeichnung, ein Feld fuer Stichworte oder einen Satz, ein Feld fuer einen kleinen Text fuer fortgeschrittene Schreiber.
-2. Formuliere eine kurze Einstiegsfrage, die alle Kinder beantworten koennen ("Das war das Beste am Wochenende...").
-3. Beschreibe, wie ich Kinder ermutigen kann zu erzahlen, ohne dass es zur Pflicht wird.
-4. Schlage eine digitale Alternative vor: Was koennen Kinder tun, wenn ein Tablet vorhanden ist? (DSGVO-konform, kein Speichern in der Cloud ohne Einwilligung)
+1. Erstelle eine Papiervorlage mit drei Bereichen: ein Feld für ein Bild oder Zeichnung, ein Feld für Stichworte oder einen Satz, ein Feld für einen kleinen Text für fortgeschrittene Schreiber.
+2. Formuliere eine kurze Einstiegsfrage, die alle Kinder beantworten können ("Das war das Beste am Wochenende...").
+3. Beschreibe, wie ich Kinder ermutigen kann zu erzählen, ohne dass es zur Pflicht wird.
+4. Schlage eine digitale Alternative vor: Was können Kinder tun, wenn ein Tablet vorhanden ist? (DSGVO-konform, kein Speichern in der Cloud ohne Einwilligung)
 
-Strukturiere das Ergebnis: zuerst die Papiervorlage-Beschreibung, dann die Einstiegsfrage, dann die muendliche Erganzung, dann die digitale Alternative.
+Strukturiere das Ergebnis: zuerst die Papiervorlage-Beschreibung, dann die Einstiegsfrage, dann die mündliche Ergänzung, dann die digitale Alternative.
 
-Pruefe vor der Ausgabe:
-- Koennen wirklich alle Kinder der 2. Klasse diese Vorlage benutzen, unabhaengig von ihrem Schreibstand?
+Prüfe vor der Ausgabe:
+- Können wirklich alle Kinder der ${klassenstufe} diese Vorlage benutzen, unabhängig von ihrem Schreibstand?
 - Ist die Vorlage einladend und nicht einengend?
-- Ist die digitale Alternative wirklich DSGVO-konform fuer Schulen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-3', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Ist die digitale Alternative wirklich DSGVO-konform für Schulen?`;
+  },
 
-  <div class="prompt-card" id="card-4">
-    <div class="prompt-header" onclick="toggleCard('card-4')">
-      <div class="prompt-meta"><span class="prompt-number">3.4</span><span class="prompt-title">Morgenkreis-Impulse</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-4">Du bist eine erfahrene Grundschullehrerin mit Leidenschaft fuer soziales Lernen, Gemeinschaftsriturale und einen guten Start in den Schultag.
+  4: () => {
+    const klassenstufe = getVal('p4-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin mit Leidenschaft für soziales Lernen, Gemeinschaftsrituale und einen guten Start in den Schultag.
 
-Erstelle 20 Morgenkreis-Impulse fuer verschiedene Situationen und Anlaesse im Grundschulalltag.
+Erstelle 20 Morgenkreis-Impulse für verschiedene Situationen und Anlässe im Grundschulalltag.
 
-Das Material ist fuer [Klassenstufe: Klasse 3]. Die Impulse sollen kurz sein (maximal 5 Minuten), die Kinder aktivieren und eine gute Atmosphaere schaffen.
+Das Material ist für ${klassenstufe}. Die Impulse sollen kurz sein (maximal 5 Minuten), die Kinder aktivieren und eine gute Atmosphäre schaffen.
 
-Erstelle je vier Impulse fuer diese fuenf Kategorien:
-1. Montags-Einstieg (Wochenende war gerade, Energie ist noch muede)
-2. Geburtstag in der Klasse (Wuerdigung ohne Druck)
+Erstelle je vier Impulse für diese fünf Kategorien:
+1. Montags-Einstieg (Wochenende war gerade, Energie ist noch müde)
+2. Geburtstag in der Klasse (Würdigung ohne Druck)
 3. Konflikt oder schlechte Stimmung (deeskalierend, ohne Schuldige zu benennen)
 4. Jahreszeit oder besonderer Anlass (z.B. erster Schnee, letzter Schultag vor Ferien)
-5. Gefuehle und Befindlichkeit (kurze Blitzrunde, jeder kommt zu Wort)
+5. Gefühle und Befindlichkeit (kurze Blitzrunde, jeder kommt zu Wort)
 
-Gehe so vor: Beschreibe jeden Impuls mit einem Satz Erklaerung und einer konkreten Formulierung, die ich als Lehrkraft benutzen kann. Auch Materialien oder Gegenstande angeben, wenn noetig.
+Gehe so vor: Beschreibe jeden Impuls mit einem Satz Erklärung und einer konkreten Formulierung, die ich als Lehrkraft benutzen kann. Auch Materialien oder Gegenstände angeben, wenn nötig.
 
-Strukturiere das Ergebnis als fuenf Gruppen mit je vier beschrifteten Impulsen.
+Strukturiere das Ergebnis als fünf Gruppen mit je vier beschrifteten Impulsen.
 
-Pruefe vor der Ausgabe:
-- Sind die Impulse wirklich kurz genug fuer einen normalen Schulmorgen?
-- Passen sie zu Grundschulkindern in Klasse 3 (nicht zu komplex, nicht zu kindisch)?
-- Gibt es eine gute Mischung aus bewegungsorientierten, sprachlichen und spielerischen Impulsen?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-4', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind die Impulse wirklich kurz genug für einen normalen Schulmorgen?
+- Passen sie zu Grundschulkindern in ${klassenstufe} (nicht zu komplex, nicht zu kindisch)?
+- Gibt es eine gute Mischung aus bewegungsorientierten, sprachlichen und spielerischen Impulsen?`;
+  },
 
-  <div class="prompt-card" id="card-5">
-    <div class="prompt-header" onclick="toggleCard('card-5')">
-      <div class="prompt-meta"><span class="prompt-number">3.5</span><span class="prompt-title">Belohnungssystem designen</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-5">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in Motivationspsychologie, Classroom Management und altersgerechter Anerkennungskultur.
+  5: () => {
+    const klassenstufe = getVal('p5-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in Motivationspsychologie, Classroom Management und altersgerechter Anerkennungskultur.
 
-Entwirf ein fairesg, motivierendes Belohnungssystem fuer eine Grundschulklasse, das Kinder intrinsisch motiviert und klar verstaendlich ist.
+Entwirf ein faires, motivierendes Belohnungssystem für eine Grundschulklasse, das Kinder intrinsisch motiviert und klar verständlich ist.
 
-Das Material ist fuer [Klassenstufe: Klasse 2]. Das System soll sowohl Einzel- als auch Gruppenleistungen berucksichtigen und keine Kinder dauerhaft ausschliessen.
+Das Material ist für ${klassenstufe}. Das System soll sowohl Einzel- als auch Gruppenleistungen berücksichtigen und keine Kinder dauerhaft ausschließen.
 
 Gehe so vor:
 1. Beschreibe das System mit klaren Regeln: Wann bekommt ein Kind oder die Klasse eine Anerkennung? Wie wird sie sichtbar gemacht?
-2. Erstelle eine visuelle Darstellung: Was sehe ich an der Wand oder auf dem Tisch (Marmeln-Glas, Sternentafel, Teambarometer, o.ae.)? Beschreibe die Gestaltung konkret.
-3. Schreibe eine altersgerechte Erklaerung fuer die Kinder: Wie erklaere ich das System am ersten Tag?
-4. Ergaenze, wie ich das System fair halte, wenn einzelne Kinder schwierige Tage haben.
+2. Erstelle eine visuelle Darstellung: Was sehe ich an der Wand oder auf dem Tisch (Marmeln-Glas, Sternentafel, Teambarometer oder ähnliches)? Beschreibe die Gestaltung konkret.
+3. Schreibe eine altersgerechte Erklärung für die Kinder: Wie erkläre ich das System am ersten Tag?
+4. Ergänze, wie ich das System fair halte, wenn einzelne Kinder schwierige Tage haben.
 5. Schlage eine Sammlung von kleinen Belohnungen vor, die nichts kosten (5 Minuten Wunschspiel, Vorlesen-Runde, etc.).
 
-Strukturiere das Ergebnis: System-Beschreibung, visuelle Umsetzung, Kinder-Erklaerung, Fairness-Strategie, Belohnungs-Liste.
+Strukturiere das Ergebnis: System-Beschreibung, visuelle Umsetzung, Kinder-Erklärung, Fairness-Strategie, Belohnungs-Liste.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Ist das System langfristig (mindestens ein Schulhalbjahr) durchhaltbar?
-- Foerdert es Gemeinschaft statt Konkurrenz?
-- Ist es ohne grossen Aufwand alltagstauglich?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-5', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Fördert es Gemeinschaft statt Konkurrenz?
+- Ist es ohne großen Aufwand alltagstauglich?`;
+  },
 
-  <div class="prompt-card" id="card-6">
-    <div class="prompt-header" onclick="toggleCard('card-6')">
-      <div class="prompt-meta"><span class="prompt-number">3.6</span><span class="prompt-title">Übergangs-Rituale</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-6">Du bist eine erfahrene Grundschullehrerin, die weiss, wie wichtig reibungslose Uebergange zwischen Unterrichtsphasen fuer den Lernfluss sind.
+  6: () => {
+    const klassenstufe = getVal('p6-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin, die weiß, wie wichtig reibungslose Übergänge zwischen Unterrichtsphasen für den Lernfluss sind.
 
-Plane Uebergangs-Rituale, die den Wechsel zwischen Unterrichtsphasen klar strukturieren und ohne lange Wartezeiten funktionieren.
+Plane Übergangs-Rituale, die den Wechsel zwischen Unterrichtsphasen klar strukturieren und ohne lange Wartezeiten funktionieren.
 
-Das Material ist fuer [Klassenstufe: Klasse 1 und 2]. Die Uebergange, die ich strukturieren moechte: Start der Stunde, Wechsel von Einzel- zu Gruppenarbeit, Aufraumen, Pause-Ende, Stunden-Ende.
+Das Material ist für ${klassenstufe}. Die Übergänge, die ich strukturieren möchte: Start der Stunde, Wechsel von Einzel- zu Gruppenarbeit, Aufräumen, Pause-Ende, Stunden-Ende.
 
 Gehe so vor:
-1. Beschreibe fuer jeden der fuenf Uebergange ein kurzes Ritual oder Signal (Klangschale, Klatschmuster, Lied, Ampelkarte, Zaehlen).
-2. Erklaere, wie ich das Ritual in der ersten Schulwoche einfuehre.
-3. Beschreibe eine kurze Konzentrationsuebung (2 Minuten) fuer den Einstieg nach unruhigen Phasen.
-4. Ergaenze drei Bewegungspausen (je 3 Minuten), die ich spontan einbauen kann.
+1. Beschreibe für jeden der fünf Übergänge ein kurzes Ritual oder Signal (Klangschale, Klatschmuster, Lied, Ampelkarte, Zählen).
+2. Erkläre, wie ich das Ritual in der ersten Schulwoche einführe.
+3. Beschreibe eine kurze Konzentrationsübung (2 Minuten) für den Einstieg nach unruhigen Phasen.
+4. Ergänze drei Bewegungspausen (je 3 Minuten), die ich spontan einbauen kann.
 
-Strukturiere das Ergebnis: fuenf Uebergangs-Rituale jeweils mit Beschreibung und Einfuehrungs-Tipp, dann die Konzentrationsuebung, dann die drei Bewegungspausen.
+Strukturiere das Ergebnis: fünf Übergangs-Rituale jeweils mit Beschreibung und Einführungs-Tipp, dann die Konzentrationsübung, dann die drei Bewegungspausen.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Sind alle Rituale ohne Vorbereitung im Moment einsetzbar?
 - Funktionieren sie auch, wenn einzelne Kinder nicht mitmachen?
-- Sind die Bewegungspausen wirklich in 3 Minuten durchfuehrbar?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-6', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Sind die Bewegungspausen wirklich in 3 Minuten durchführbar?`;
+  },
 
-  <div class="prompt-card" id="card-7">
-    <div class="prompt-header" onclick="toggleCard('card-7')">
-      <div class="prompt-meta"><span class="prompt-number">3.7</span><span class="prompt-title">Wochenrückblick für Kinder</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-7">Du bist eine erfahrene Grundschullehrerin mit Schwerpunkt auf Reflexionskultur und Metakognition im Grundschulalter.
+  7: () => {
+    const klassenstufe = getVal('p7-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin mit Schwerpunkt auf Reflexionskultur und Metakognition im Grundschulalter.
 
-Erstelle eine kindgerechte Reflexionsvorlage fuer den Wochenrueckblick am Freitag.
+Erstelle eine kindgerechte Reflexionsvorlage für den Wochenrückblick am Freitag.
 
-Das Material ist fuer [Klassenstufe: Klasse 3]. Die Vorlage soll Kinder dazu einladen, ueber ihre eigene Lernwoche nachzudenken: Was haben sie gelernt, was war schwer, worauf sind sie stolz. Die Vorlage soll in 10 Minuten ausfuellbar sein.
+Das Material ist für ${klassenstufe}. Die Vorlage soll Kinder dazu einladen, über ihre eigene Lernwoche nachzudenken: Was haben sie gelernt, was war schwer, worauf sind sie stolz. Die Vorlage soll in 10 Minuten ausfüllbar sein.
 
 Gehe so vor:
 1. Erstelle drei bis vier Hauptfragen in einfacher Kindersprache:
    - Was habe ich diese Woche gelernt?
-   - Was war schwierig fuer mich?
+   - Was war schwierig für mich?
    - Worauf bin ich stolz?
-   - Was moechte ich naechste Woche ausprobieren?
-2. Ergaenze eine kurze Gefuehls-Skala (Smileys oder Symbole) fuer den allgemeinen Wocheneindruck.
-3. Fuege einen freien Bereich ein, in dem Kinder zeichnen oder schreiben koennen, was sie bewegt hat.
-4. Beschreibe, wie ich als Lehrkraft die ausgefuellten Vorlagen nutzen kann, ohne alle im Detail lesen zu muessen.
+   - Was möchte ich nächste Woche ausprobieren?
+2. Ergänze eine kurze Gefühls-Skala (Smileys oder Symbole) für den allgemeinen Wocheneindruck.
+3. Füge einen freien Bereich ein, in dem Kinder zeichnen oder schreiben können, was sie bewegt hat.
+4. Beschreibe, wie ich als Lehrkraft die ausgefüllten Vorlagen nutzen kann, ohne alle im Detail lesen zu müssen.
 
 Strukturiere das Ergebnis als druckfertige Vorlage plus eine kurze Beschreibung, wie ich sie einsetze.
 
-Pruefe vor der Ausgabe:
-- Sind die Fragen fuer Drittklassler formuliert, nicht fuer Erwachsene?
-- Ist die Vorlage wirklich in 10 Minuten ausfuellbar?
-- Laesst die Vorlage genug Raum fuer individuelle Antworten?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-7', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Sind die Fragen für ${klassenstufe} formuliert, nicht für Erwachsene?
+- Ist die Vorlage wirklich in 10 Minuten ausfüllbar?
+- Lässt die Vorlage genug Raum für individuelle Antworten?`;
+  },
 
-  <div class="prompt-card" id="card-8">
-    <div class="prompt-header" onclick="toggleCard('card-8')">
-      <div class="prompt-meta"><span class="prompt-number">3.8</span><span class="prompt-title">Visualisierter Tagesablauf</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-8">Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in inklusiver Unterrichtsgestaltung und der Unterstuetzung von Kindern, die noch nicht sicher lesen koennen.
+  8: () => {
+    const klassenstufe = getVal('p8-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin mit Kenntnissen in inklusiver Unterrichtsgestaltung und der Unterstützung von Kindern, die noch nicht sicher lesen können.
 
-Erstelle ein Konzept fuer einen visualisierten Tagesablauf-Plan fuer die Klasse, der auch nicht-lesende Kinder informiert und beruhigt.
+Erstelle ein Konzept für einen visualisierten Tagesablauf-Plan für die Klasse, der auch nicht-lesende Kinder informiert und beruhigt.
 
-Das Material ist fuer [Klassenstufe: Klasse 1]. Der Tagesablauf soll mit Bildern oder Symbolen dargestellt werden, damit alle Kinder verstehen, was als naechstes kommt.
+Das Material ist für ${klassenstufe}. Der Tagesablauf soll mit Bildern oder Symbolen dargestellt werden, damit alle Kinder verstehen, was als nächstes kommt.
 
 Gehe so vor:
 1. Beschreibe die Phasen eines typischen Grundschultags, die visualisiert werden sollten (Ankommen, Morgenkreis, Unterrichtsstunden, Pause, Mittagessen, Nachmittag, Abschluss).
-2. Schlage konkrete Symbole oder Bilder fuer jede Phase vor, die ich zeichnen oder drucken kann.
-3. Beschreibe, wie ich den Plan so gestalte, dass ich abgehakte oder erledigte Phasen sichtbar mache (umdrehen, abklebenn, verschieben).
-4. Erklaere, wie ich Kinder mit besonderem Orientierungsbedarf zusaetzlich unterstuetzen kann (z.B. individuelle Mini-Tagesplaene).
-5. Nenne DSGVO-konforme digitale Tools, die ich dafuer benutzen kann, falls ich das digital umsetzen moechte.
+2. Schlage konkrete Symbole oder Bilder für jede Phase vor, die ich zeichnen oder drucken kann.
+3. Beschreibe, wie ich den Plan so gestalte, dass ich abgehakte oder erledigte Phasen sichtbar mache (umdrehen, abkleben, verschieben).
+4. Erkläre, wie ich Kinder mit besonderem Orientierungsbedarf zusätzlich unterstützen kann (z.B. individuelle Mini-Tagespläne).
+5. Nenne DSGVO-konforme digitale Tools, die ich dafür benutzen kann, falls ich das digital umsetzen möchte.
 
-Strukturiere das Ergebnis: Phase-Symbole-Uebersicht, Gestaltungs-Tipps, individuelle Unterstuetzung, digitale Alternativen.
+Strukturiere das Ergebnis: Phase-Symbole-Übersicht, Gestaltungs-Tipps, individuelle Unterstützung, digitale Alternativen.
 
-Pruefe vor der Ausgabe:
-- Koennte ein Kind, das noch nicht lesen kann, den Plan wirklich verstehen?
+Prüfe vor der Ausgabe:
+- Könnte ein Kind, das noch nicht lesen kann, den Plan wirklich verstehen?
 - Sind die vorgeschlagenen Symbole eindeutig und nicht mehrdeutig?
-- Ist der Plan mit einfachen Mitteln umsetzbar?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-8', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Ist der Plan mit einfachen Mitteln umsetzbar?`;
+  },
 
-  <div class="prompt-card" id="card-9">
-    <div class="prompt-header" onclick="toggleCard('card-9')">
-      <div class="prompt-meta"><span class="prompt-number">3.9</span><span class="prompt-title">Regeln gemeinsam formulieren</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-9">Du bist eine erfahrene Grundschullehrerin mit Expertise in partizipativer Padagogik und der Entwicklung von Klassengemeinschaft.
+  9: () => {
+    const klassenstufe = getVal('p9-klassenstufe');
+    const zeitraum     = getVal('p9-zeitraum');
+    return `Du bist eine erfahrene Grundschullehrerin mit Expertise in partizipativer Pädagogik und der Entwicklung von Klassengemeinschaft.
 
 Plane einen Prozess, bei dem die Kinder ihre eigenen Klassenregeln gemeinsam entwickeln, inklusive einer anschaulichen Visualisierung.
 
-Das Material ist fuer [Klassenstufe: Klasse 2]. Der Prozess soll [Dauer: in den ersten zwei Schulwochen] stattfinden und die Kinder wirklich einbeziehen, nicht nur vorgefertigte Regeln bestaetigen lassen.
+Das Material ist für ${klassenstufe}. Der Prozess soll ${zeitraum} stattfinden und die Kinder wirklich einbeziehen, nicht nur vorgefertigte Regeln bestätigen lassen.
 
 Gehe so vor:
-1. Schreibe einen Einstieg: Wie eroeffne ich das Thema "Was brauchen wir, um gut miteinander zu lernen?" in der Klasse?
-2. Beschreibe eine Methode, bei der Kinder ihre Ideen einbringen (Kaertchen schreiben, Bilder malen, Ideenrunde).
-3. Erklaere, wie wir gemeinsam aus vielen Ideen 5-6 Regeln formen, die alle mittragen koennen.
-4. Plane die Visualisierung: Wie sieht das fertige Regelplakat aus? Was steht drauf, wie unterschreiben oder unterschreiben es die Kinder?
-5. Beschreibe, wie ich die Regeln in den ersten Wochen aktiv benutze, ohne staendig zu ermahnen.
+1. Schreibe einen Einstieg: Wie eröffne ich das Thema "Was brauchen wir, um gut miteinander zu lernen?" in der Klasse?
+2. Beschreibe eine Methode, bei der Kinder ihre Ideen einbringen (Kärtchen schreiben, Bilder malen, Ideenrunde).
+3. Erkläre, wie wir gemeinsam aus vielen Ideen 5-6 Regeln formen, die alle mittragen können.
+4. Plane die Visualisierung: Wie sieht das fertige Regelplakat aus? Was steht drauf, wie unterzeichnen es die Kinder?
+5. Beschreibe, wie ich die Regeln in den ersten Wochen aktiv benutze, ohne ständig zu ermahnen.
 
 Strukturiere das Ergebnis: Einstieg, Methode, Auswahl-Prozess, Visualisierungs-Konzept, Einsatz-Strategie.
 
-Pruefe vor der Ausgabe:
-- Haben die Kinder wirklich Gestaltungsspielraum oder werden sie nur bestaetigt?
-- Sind die vorgeschlagenen Schritte fuer eine 2. Klasse umsetzbar?
-- Foerdert das Ergebnis das Gefuehl von Selbstwirksamkeit bei den Kindern?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-9', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+Prüfe vor der Ausgabe:
+- Haben die Kinder wirklich Gestaltungsspielraum oder werden sie nur bestätigt?
+- Sind die vorgeschlagenen Schritte für ${klassenstufe} umsetzbar?
+- Fördert das Ergebnis das Gefühl von Selbstwirksamkeit bei den Kindern?`;
+  },
 
-  <div class="prompt-card" id="card-10">
-    <div class="prompt-header" onclick="toggleCard('card-10')">
-      <div class="prompt-meta"><span class="prompt-number">3.10</span><span class="prompt-title">Abschlusskreis-Ideen</span></div>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div class="prompt-body">
-      <div class="prompt-text" id="text-10">Du bist eine erfahrene Grundschullehrerin mit Erfahrung in Ritualen, Gemeinschaftsgefuhl und einem guten Abschluss des Schultags.
+  10: () => {
+    const klassenstufe = getVal('p10-klassenstufe');
+    return `Du bist eine erfahrene Grundschullehrerin mit Erfahrung in Ritualen, Gemeinschaftsgefühl und einem guten Abschluss des Schultags.
 
-Erstelle 20 verschiedene Varianten fuer den Abschlusskreis am Ende des Schultags.
+Erstelle 20 verschiedene Varianten für den Abschlusskreis am Ende des Schultags.
 
-Das Material ist fuer [Klassenstufe: Klasse 1 bis 4]. Jede Variante soll maximal 10 Minuten dauern und ohne besondere Materialien oder Vorbereitung funktionieren.
+Das Material ist für ${klassenstufe}. Jede Variante soll maximal 10 Minuten dauern und ohne besondere Materialien oder Vorbereitung funktionieren.
 
-Erstelle je fuenf Varianten fuer diese vier Kategorien:
+Erstelle je fünf Varianten für diese vier Kategorien:
 1. Reflexion (Was habe ich heute gelernt?)
 2. Spiel (kurzes, ruhiges Abschluss-Spiel)
-3. Wuerdigung (Jemanden aus der Klasse loben oder danken)
+3. Würdigung (Jemanden aus der Klasse loben oder danken)
 4. Vorschau (Was kommt morgen, worauf freue ich mich?)
 
-Gehe so vor: Beschreibe jede Variante mit einem Satz Erklaerung und einer konkreten Anleitung, wie ich sie starte. Weise auf besondere Eignung hin (z.B. nach einem langen oder unruhigen Tag).
+Gehe so vor: Beschreibe jede Variante mit einem Satz Erklärung und einer konkreten Anleitung, wie ich sie starte. Weise auf besondere Eignung hin (z.B. nach einem langen oder unruhigen Tag).
 
-Strukturiere das Ergebnis als vier Gruppen mit je fuenf benannten Abschluss-Varianten und einer kurzen Anleitung.
+Strukturiere das Ergebnis als vier Gruppen mit je fünf benannten Abschluss-Varianten und einer kurzen Anleitung.
 
-Pruefe vor der Ausgabe:
+Prüfe vor der Ausgabe:
 - Passen alle Varianten in 10 Minuten oder weniger?
 - Gibt es eine gute Mischung aus ruhigen und lebendigeren Varianten?
-- Koennen alle Varianten ohne Vorbereitung eingesetzt werden?</div>
-      <button class="copy-btn" onclick="copyPrompt('text-10', this)"><span>📋</span> Kopieren</button>
-    </div>
-  </div>
+- Können alle Varianten ohne Vorbereitung eingesetzt werden?`;
+  }
+};
 
-</div>
-<nav class="day-nav">
-  <a href="tag-2.html" class="nav-link">← Tag 2</a>
-  <a href="tag-4.html" class="nav-link">Tag 4 →</a>
-</nav>
-<footer>
-  <div class="footer-title">100 Prompts in 10 Tagen <span class="footer-orange">Challenge</span></div>
-  <div class="footer-sub">@smartes.klassenzimmer · Öffne die Dateien tag-1.html bis tag-10.html in deinem Browser</div>
-</footer>
-<script>
-function toggleCard(id) { document.getElementById(id).classList.toggle('open'); }
-function copyPrompt(textId, btn) {
-  navigator.clipboard.writeText(document.getElementById(textId).textContent).then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<span>✓</span> Kopiert!';
+function generate(num) {
+  const text = templates[num]();
+  const textEl = document.getElementById('text-' + num);
+  const resultBox = document.getElementById('result-' + num);
+  textEl.textContent = text;
+  resultBox.classList.add('visible');
+  resultBox.style.display = 'block';
+  resultBox.style.animation = 'none';
+  void resultBox.offsetWidth;
+  resultBox.style.animation = 'slideDown 0.25s ease';
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyPrompt(num, btn) {
+  const text = document.getElementById('text-' + num).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Kopiert!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => {
+      btn.textContent = 'Kopieren';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const el = document.getElementById('text-' + num);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    btn.textContent = 'Text markiert — Strg+C zum Kopieren';
+    setTimeout(() => { btn.textContent = 'Kopieren'; }, 3000);
   });
 }
 </script>
