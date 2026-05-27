@@ -277,6 +277,64 @@
   }
 
   .dsgvo-notice{background:rgba(255,157,0,0.1);border:1px solid rgba(255,157,0,0.3);border-radius:12px;padding:16px 20px;margin:0 auto 30px;max-width:660px;font-size:14px;color:rgba(255,255,255,0.8);line-height:1.5}
+
+  /* KI-HINWEIS */
+  .ki-hinweis {
+    background: rgba(255,80,80,0.12);
+    border: 1px solid rgba(255,80,80,0.35);
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin: 1.5rem auto 0;
+    max-width: 660px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+
+  /* LEGAL LINKS */
+  .legal-links {
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+  }
+
+  .legal-links a {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .legal-links a:hover {
+    color: #FF9D00;
+  }
+
+  .legal-sep {
+    color: rgba(255,255,255,0.2);
+    margin: 0 0.5rem;
+  }
+
+  /* LEGAL SECTIONS */
+  .legal-section {
+    max-width: 660px;
+    margin: 1rem auto 0;
+    text-align: left;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    border-top: 1px solid rgba(90,0,153,0.25);
+    padding-top: 1rem;
+  }
+
+  .legal-section h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-section p {
+    margin-bottom: 0.8rem;
+  }
+
 </style>
 </head>
 <body>
@@ -671,8 +729,51 @@
 
 <footer>
   <div class="footer-brand">@smartes.klassenzimmer</div>
-  <div class="footer-sub">100 Prompts in 10 Tagen &mdash; Tag 2 von 10</div>
+  <div class="footer-sub">100 Prompts in 10 Tagen</div>
+
+  <div class="ki-hinweis">
+    <strong>Wichtig:</strong> Alle mit KI erstellten Inhalte muessen von dir als Lehrkraft geprueft und angepasst werden. KI kann Fehler machen. Du traegst die Verantwortung fuer die Materialien, die du im Unterricht einsetzt.
+  </div>
+
+  <div class="legal-links">
+    <a href="#impressum" onclick="toggleLegal('impressum')">Impressum</a>
+    <span class="legal-sep">|</span>
+    <a href="#datenschutz" onclick="toggleLegal('datenschutz')">Datenschutz</a>
+  </div>
+
+  <div class="legal-section" id="impressum" style="display:none;">
+    <h3>Impressum</h3>
+    <p>Angaben gemaess § 5 TMG</p>
+    <p>
+      Maike Neuheisel<br>
+      c/o GAM<br>
+      Pappelallee 64<br>
+      10437 Berlin
+    </p>
+    <p><strong>Kontakt:</strong><br>
+      E-Mail: maike.neuheisel@gmail.com<br>
+      Telefon: +49 178 4535140
+    </p>
+    <p><strong>Verantwortlich fuer den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+      Maike Neuheisel
+    </p>
+  </div>
+
+  <div class="legal-section" id="datenschutz" style="display:none;">
+    <h3>Datenschutz</h3>
+    <p><strong>1. Keine Datenerhebung durch diese Seite</strong><br>
+    Diese Webseite erhebt, speichert oder verarbeitet keine personenbezogenen Daten. Es werden keine Cookies gesetzt, kein Tracking eingesetzt und keine Daten an Dritte uebermittelt.</p>
+    <p><strong>2. Prompt-Generierung</strong><br>
+    Die Prompts werden vollstaendig in deinem Browser erzeugt (clientseitig). Keine deiner Eingaben verlassen dein Geraet. Es findet keine Uebertragung an einen Server statt.</p>
+    <p><strong>3. Hosting</strong><br>
+    Diese Seite wird ueber GitHub Pages gehostet. GitHub kann technische Zugriffsdaten (z.B. IP-Adresse, Browsertyp) in Server-Logs erfassen. Details dazu findest du in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener" style="color:#FF9D00;">GitHub Datenschutzerklaerung</a>.</p>
+    <p><strong>4. Externe Schriftarten</strong><br>
+    Diese Seite laedt die Schriftart Poppins von Google Fonts. Dabei wird deine IP-Adresse an Google uebermittelt. Details: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:#FF9D00;">Google Datenschutzerklaerung</a>.</p>
+    <p><strong>5. Hinweis zu KI-generierten Inhalten</strong><br>
+    Die auf dieser Seite bereitgestellten Prompts erzeugen mit Hilfe von KI (Claude von Anthropic) Unterrichtsmaterialien. Alle KI-generierten Inhalte muessen von der nutzenden Lehrkraft geprueft, angepasst und freigegeben werden, bevor sie im Unterricht eingesetzt werden. Fuer die inhaltliche Richtigkeit und paedagogische Eignung der mit KI erzeugten Materialien traegt die nutzende Lehrkraft die Verantwortung.</p>
+  </div>
 </footer>
+
 
 <script>
 function getVal(id) {
@@ -969,6 +1070,15 @@ function copyPrompt(num, btn) {
     setTimeout(() => { btn.textContent = 'Kopieren'; }, 3000);
   });
 }
+
+function toggleLegal(id) {
+  var el = document.getElementById(id);
+  var other = id === "impressum" ? "datenschutz" : "impressum";
+  document.getElementById(other).style.display = "none";
+  el.style.display = el.style.display === "none" ? "block" : "none";
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 </script>
 </body>
 </html>
