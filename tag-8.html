@@ -278,6 +278,18 @@
     font-size: 0.8rem;
     color: rgba(255,255,255,0.3);
   }
+
+  .dsgvo-notice {
+    background: rgba(255,157,0,0.1);
+    border: 1px solid rgba(255,157,0,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 0 auto 30px;
+    max-width: 660px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -293,6 +305,10 @@
   <p class="intro-text">
     Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
   </p>
+
+  <div class="dsgvo-notice">
+    <strong>Datenschutz-Hinweis:</strong> Gib keine echten Schülernamen oder persönliche Daten ein. Die generierten Prompts sind Vorlagen. Personenbezogene Daten füllst du erst im fertigen Dokument von Hand ein.
+  </div>
 
   <!-- PROMPT 8.1 -->
   <div class="prompt-card">
@@ -332,7 +348,7 @@
       <div class="prompt-number">8.2</div>
       <div class="card-title-wrap">
         <h2>Nachteilsausgleich formulieren</h2>
-        <p>Erstellt einen vollständigen Nachteilsausgleichs-Antrag mit Maßnahmen, Begründungen und fertigem Antragstext.</p>
+        <p>Erstellt eine Muster-Vorlage für einen Nachteilsausgleichs-Antrag, die du mit den echten Daten von Hand ergänzt.</p>
       </div>
     </div>
     <div class="fields-label">Deine Angaben</div>
@@ -342,16 +358,16 @@
         <input type="text" id="p2-bundesland" value="NRW">
       </div>
       <div class="field-group">
-        <label>Diagnose</label>
-        <input type="text" id="p2-diagnose" value="Lese-Rechtschreib-Schwäche (LRS)">
-      </div>
-      <div class="field-group">
         <label>Klassenstufe</label>
-        <input type="text" id="p2-klasse" value="Klasse 8">
+        <input type="text" id="p2-klasse" value="8">
       </div>
       <div class="field-group">
         <label>Schulform</label>
         <input type="text" id="p2-schulform" value="Gesamtschule">
+      </div>
+      <div class="field-group">
+        <label>Förderschwerpunkt</label>
+        <input type="text" id="p2-foerderschwerpunkt" value="Lese-Rechtschreib-Schwäche (LRS)">
       </div>
     </div>
     <button class="btn-generate" onclick="generate(2)">Prompt generieren</button>
@@ -526,16 +542,12 @@
     <div class="fields-label">Deine Angaben</div>
     <div class="fields-grid">
       <div class="field-group">
-        <label>Alter und Klasse</label>
-        <input type="text" id="p8-alter" value="10 Jahre, Klasse 4">
+        <label>Klassenstufe</label>
+        <input type="text" id="p8-klasse" value="Klasse 4">
       </div>
       <div class="field-group">
         <label>Förderschwerpunkt</label>
         <input type="text" id="p8-foerderschwerpunkt" value="Lernen und emotionale-soziale Entwicklung">
-      </div>
-      <div class="field-group full-width">
-        <label>Besonderheiten des Kindes</label>
-        <textarea id="p8-besonderheiten">geringe Frustrationstoleranz, braucht klare Struktur, mag Bewegung und hat Stärken im Werken</textarea>
       </div>
     </div>
     <button class="btn-generate" onclick="generate(8)">Prompt generieren</button>
@@ -582,12 +594,16 @@
     <div class="fields-label">Deine Angaben</div>
     <div class="fields-grid">
       <div class="field-group full-width">
-        <label>Art des Übergangs</label>
+        <label>Übergang</label>
         <input type="text" id="p10-uebergang" value="Wechsel von Klasse 4 Grundschule zur Förderschule Lernen Klasse 5">
       </div>
-      <div class="field-group full-width">
-        <label>Angaben zum Kind</label>
-        <input type="text" id="p10-kind" value="10 Jahre, Förderbedarf Lernen, kommt aus einer russischsprachigen Familie">
+      <div class="field-group">
+        <label>Förderschwerpunkt</label>
+        <input type="text" id="p10-foerderschwerpunkt" value="Förderbedarf Lernen">
+      </div>
+      <div class="field-group">
+        <label>Alter</label>
+        <input type="text" id="p10-alter" value="10 Jahre">
       </div>
     </div>
     <button class="btn-generate" onclick="generate(10)">Prompt generieren</button>
@@ -640,30 +656,32 @@ Prüfe vor der Ausgabe:
   },
 
   2: () => {
-    const bundesland = getVal('p2-bundesland');
-    const diagnose   = getVal('p2-diagnose');
-    const klasse     = getVal('p2-klasse');
-    const schulform  = getVal('p2-schulform');
+    const bundesland        = getVal('p2-bundesland');
+    const klasse            = getVal('p2-klasse');
+    const schulform         = getVal('p2-schulform');
+    const foerderschwerpunkt = getVal('p2-foerderschwerpunkt');
     return `Du bist eine erfahrene Beratungslehrerin und Schulrechtsexpertin. Du kennst die rechtlichen Grundlagen für Nachteilsausgleich in ${bundesland} und weißt, wie man Formulierungen wählt, die im Schulalltag umsetzbar sind und einer schulrechtlichen Prüfung standhalten.
 
-Deine Aufgabe ist es, einen vollständigen Nachteilsausgleichs-Antrag für folgendes Kind zu formulieren:
-- Name (Platzhalter): Schülerin/Schüler
-- Diagnose: ${diagnose}
+Deine Aufgabe ist es, eine Muster-Vorlage für einen Nachteilsausgleichs-Antrag zu erstellen. Erstelle den Antrag für den Förderschwerpunkt ${foerderschwerpunkt}.
 - Klassenstufe: ${klasse}
 - Schulform: ${schulform}
+- Bundesland: ${bundesland}
 
 Gehe so vor:
-1. Formuliere zunächst eine kurze Beschreibung der Ausgangslage, die auf Basis der Diagnose typisch ist.
+1. Formuliere zunächst eine kurze Beschreibung der Ausgangslage, die für diesen Förderschwerpunkt typisch ist.
 2. Liste die konkreten Maßnahmen auf, die beantragt werden sollen (z.B. Zeitzuschlag, Schriftgrößen, Vorlesehilfe), und begründe jede Maßnahme kurz.
-3. Schreibe den offiziellen Antragstext als fertiges Dokument, das die Lehrkraft nur noch mit den echten Daten füllen muss.
+3. Schreibe den offiziellen Antragstext als fertiges Muster-Dokument mit Platzhaltern für alle personenbezogenen Angaben.
 4. Ergänze am Ende Hinweise, was bei der Vorlage in der Konferenz zu beachten ist.
 
-Format: Erst die Übersicht der Maßnahmen als nummerierte Liste, dann den vollständigen Antragstext als formellen Brief.
+Alle personenbezogenen Felder (Name, Geburtsdatum, konkrete Diagnose-Details) bleiben als Platzhalter leer und werden von der Lehrkraft nach dem Ausdrucken ergänzt.
+
+Format: Erst die Übersicht der Maßnahmen als nummerierte Liste, dann den vollständigen Antragstext mit Platzhaltern als formellen Brief.
 
 Prüfe vor der Ausgabe:
 - Sind alle Maßnahmen rechtlich zulässig und in ${bundesland} üblich?
 - Ist der Antragstext klar und verständlich für Eltern, Schulleitung und Kollegen?
-- Enthält der Text keine Formulierungen, die ein Kind stigmatisieren könnten?`;
+- Enthält der Text keine Formulierungen, die ein Kind stigmatisieren könnten?
+- Sind alle personenbezogenen Felder als Platzhalter gekennzeichnet (z.B. [Name wird von Hand ergänzt])?`;
   },
 
   3: () => {
@@ -781,21 +799,19 @@ Prüfe vor der Ausgabe:
   },
 
   8: () => {
-    const alter              = getVal('p8-alter');
+    const klasse             = getVal('p8-klasse');
     const foerderschwerpunkt = getVal('p8-foerderschwerpunkt');
-    const besonderheiten     = getVal('p8-besonderheiten');
     return `Du bist eine erfahrene Förderlehrkraft. Du weißt, wie man einen Wochenplan aufbaut, der ein Kind mit besonderem Förderbedarf strukturiert, motiviert und gleichzeitig in den regulären Klassenunterricht einbindet.
 
-Deine Aufgabe ist es, einen vollständigen Wochenplan für folgende Situation zu erstellen:
-- Schüler/Schülerin: ${alter}
-- Förderschwerpunkt: ${foerderschwerpunkt}
-- Besonderheiten: ${besonderheiten}
+Erstelle einen Muster-Wochenplan für ein Kind mit dem Förderschwerpunkt ${foerderschwerpunkt}, Klassenstufe ${klasse}. Der Plan soll als Vorlage dienen, die ich an das individuelle Kind anpasse.
 
 Gehe so vor:
 1. Erstelle eine Wochenplan-Übersicht für fünf Tage mit Morgenroutine, Unterrichtszeiten, Pausen und festen Ruhephasen.
-2. Schreibe für jeden Vormittag konkrete Aufgaben in zwei bis drei Fächern, die das Kind in seinem Tempo bearbeiten kann.
-3. Integriere an jedem Tag eine Stärkenaufgabe, die an die genannten Interessen anknüpft.
-4. Formuliere eine kurze Lehrkraft-Notiz mit Hinweisen, wie auf Frustrations-Momente reagiert werden kann.
+2. Schreibe für jeden Vormittag konkrete Aufgaben in zwei bis drei Fächern, die ein Kind mit diesem Förderschwerpunkt in seinem Tempo bearbeiten kann.
+3. Integriere an jedem Tag eine Stärkenaufgabe, die typische Ressourcen bei diesem Förderschwerpunkt anspricht.
+4. Formuliere eine kurze Lehrkraft-Notiz mit Hinweisen, wie auf schwierige Momente reagiert werden kann.
+
+Der Plan enthält keine personenbezogenen Daten. Individuelle Anpassungen nehme ich nach dem Ausdrucken von Hand vor.
 
 Format: Wochenplan als übersichtliche Tabelle (Montag bis Freitag), darunter die Lehrkraft-Notiz als Fließtext.
 
@@ -826,22 +842,26 @@ Prüfe vor der Ausgabe:
   },
 
   10: () => {
-    const uebergang = getVal('p10-uebergang');
-    const kind      = getVal('p10-kind');
+    const uebergang          = getVal('p10-uebergang');
+    const foerderschwerpunkt = getVal('p10-foerderschwerpunkt');
+    const alter              = getVal('p10-alter');
     return `Du bist eine erfahrene Förderlehrkraft mit Schwerpunkt auf Übergängen im Schulsystem. Du weißt, dass Übergänge für Kinder mit Förderbedarf besondere Herausforderungen bedeuten und gute Vorbereitung für alle Beteiligten entscheidend ist.
 
-Deine Aufgabe ist es, vollständige Übergangsmaterialien für folgende Situation zu erstellen: ${uebergang}. Das Kind: ${kind}.
+Erstelle Übergangsmaterialien für ein Kind mit dem Förderschwerpunkt ${foerderschwerpunkt}, Alter ${alter}. Art des Übergangs: ${uebergang}.
+
+Alle personenbezogenen Felder bleiben als Platzhalter leer.
 
 Erstelle:
-1. Ein Übergabedokument für die aufnehmende Schule mit den wichtigsten Informationen zu Lernstand, Stärken, Fördermaßnahmen und sozialen Besonderheiten. Nur das, was für einen guten Start wirklich relevant ist.
-2. Einen Brief an die Eltern, der den Übergang erklärt, beruhigt und konkrete nächste Schritte nennt. Einfach formuliert, ohne Fachbegriffe.
-3. Drei Aktivitäten, die die Grundschullehrkraft mit dem Kind in den letzten zwei Wochen machen kann, um den Abschied und den Neustart positiv zu gestalten.
+1. Ein Übergabedokument für die aufnehmende Schule mit den wichtigsten Informationen zu Lernstand, Stärken, Fördermaßnahmen und sozialen Besonderheiten. Nur das, was für einen guten Start wirklich relevant ist. Alle personenbezogenen Angaben (Name, Geburtsdatum, Adresse) als Platzhalter kennzeichnen.
+2. Einen Brief an die Eltern, der den Übergang erklärt, beruhigt und konkrete nächste Schritte nennt. Formuliere den Elternbrief in einfacher Sprache, damit er auch für Eltern mit eingeschränkten Deutschkenntnissen verständlich ist. Ohne Fachbegriffe, kurze Sätze.
+3. Drei Aktivitäten, die die abgebende Lehrkraft mit dem Kind in den letzten zwei Wochen machen kann, um den Abschied und den Neustart positiv zu gestalten.
 
 Format: Drei getrennte Abschnitte mit Überschriften, jeweils sofort einsetzbar.
 
 Prüfe vor der Ausgabe:
 - Enthält das Übergabedokument ausschließlich Informationen, die für die aufnehmende Schule hilfreich sind, keine wertenden Formulierungen?
-- Ist der Elternbrief in einer Sprache geschrieben, die auch für Eltern mit eingeschränkten Deutschkenntnissen verständlich ist?
+- Sind alle personenbezogenen Felder als Platzhalter gekennzeichnet?
+- Ist der Elternbrief auch für Eltern mit eingeschränkten Deutschkenntnissen verständlich?
 - Enden die Abschiedsaktivitäten auf einer positiven Note?`;
   }
 };

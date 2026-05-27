@@ -275,6 +275,18 @@
     font-size: 0.8rem;
     color: rgba(255,255,255,0.3);
   }
+
+  .dsgvo-notice {
+    background: rgba(255,157,0,0.1);
+    border: 1px solid rgba(255,157,0,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 0 auto 30px;
+    max-width: 660px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -290,6 +302,10 @@
   <p class="intro-text">
     Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
   </p>
+
+  <div class="dsgvo-notice">
+    <strong>Datenschutz-Hinweis:</strong> Gib keine echten Schülernamen oder persönliche Daten ein. Die generierten Prompts sind Vorlagen. Personenbezogene Daten füllst du erst im fertigen Dokument von Hand ein.
+  </div>
 
   <!-- PROMPT 4.1 -->
   <div class="prompt-card">
@@ -339,8 +355,8 @@
     <div class="card-header">
       <div class="prompt-number">4.2</div>
       <div class="card-title-wrap">
-        <h2>Förderplan schreiben</h2>
-        <p>Formuliert auf Basis deiner Beobachtungs-Stichpunkte einen vollständigen, professionellen Förderplan mit SMART-Zielen, Maßnahmen und Evaluationskriterien.</p>
+        <h2>Förderplan-Vorlage erstellen</h2>
+        <p>Erstellt eine leere, professionelle Förderplan-Struktur, die du ausdruckst und für jedes Kind individuell von Hand ausfüllst.</p>
       </div>
     </div>
 
@@ -359,12 +375,8 @@
         <input type="text" id="p2-bundesland" value="Bayern">
       </div>
       <div class="field-group">
-        <label>Name des Kindes</label>
-        <input type="text" id="p2-kindname" value="Lena">
-      </div>
-      <div class="field-group full-width">
-        <label>Stichpunkte zur Lernsituation</label>
-        <textarea id="p2-stichpunkte">liest sehr langsam, versteht Texte gut wenn sie vorgelesen werden, hat Probleme mit Rechtschreibung, besonders ch- und sch-Wörter, ist motiviert und kommt gerne zur Schule, Eltern arbeiten aktiv mit</textarea>
+        <label>Förderschwerpunkt</label>
+        <input type="text" id="p2-foerderschwerpunkt" value="Lesen und Rechtschreibung">
       </div>
     </div>
 
@@ -382,8 +394,8 @@
     <div class="card-header">
       <div class="prompt-number">4.3</div>
       <div class="card-title-wrap">
-        <h2>Elternsprechtag vorbereiten</h2>
-        <p>Formuliert auf Basis deiner Stichpunkte einen strukturierten Gesprächsleitfaden für 15-Minuten-Elterngespräche mit Zeitangaben und Formulierungsvorschlägen.</p>
+        <h2>Elternsprechtag-Leitfaden</h2>
+        <p>Erstellt einen strukturierten Gesprächsleitfaden mit Formulierungsbeispielen für verschiedene Gesprächssituationen.</p>
       </div>
     </div>
 
@@ -398,20 +410,12 @@
         <input type="text" id="p3-klassenstufe" value="Klasse 7">
       </div>
       <div class="field-group">
-        <label>Bundesland</label>
-        <input type="text" id="p3-bundesland" value="Sachsen">
-      </div>
-      <div class="field-group">
         <label>Gesprächsdauer</label>
-        <input type="text" id="p3-dauer" value="15 Minuten">
+        <input type="text" id="p3-gespraechsdauer" value="15 Minuten">
       </div>
       <div class="field-group">
-        <label>Name des Kindes</label>
-        <input type="text" id="p3-kindname" value="Jonas">
-      </div>
-      <div class="field-group full-width">
-        <label>Stichpunkte zum Kind</label>
-        <textarea id="p3-stichpunkte">gute mündliche Mitarbeit, schriftliche Leistungen unter dem Klassendurchschnitt, wirkt manchmal demotiviert, hat gute Beziehungen zu Mitschülern, zu Hause laut Elternauskunft wenig Schreibtischroutine</textarea>
+        <label>Gesprächstyp</label>
+        <input type="text" id="p3-gespraechstyp" value="Standardgespräch zum Halbjahr">
       </div>
     </div>
 
@@ -601,8 +605,8 @@
     <div class="card-header">
       <div class="prompt-number">4.8</div>
       <div class="card-title-wrap">
-        <h2>Übergabe-Dokument</h2>
-        <p>Erstellt ein vollständiges Übergabe-Dokument für einen Klassenleitungswechsel mit Klassenliste, Klassen-Charakteristik, laufenden Prozessen und persönlichen Tipps.</p>
+        <h2>Übergabe-Vorlage erstellen</h2>
+        <p>Erstellt eine strukturierte, leere Übergabe-Vorlage für den Klassenleitungswechsel, die du von Hand mit deinen Informationen füllst.</p>
       </div>
     </div>
 
@@ -750,64 +754,69 @@ Prüfe vor der Ausgabe:
   },
 
   2: () => {
-    const schulform    = getVal('p2-schulform');
-    const klassenstufe = getVal('p2-klassenstufe');
-    const bundesland   = getVal('p2-bundesland');
-    const kindname     = getVal('p2-kindname');
-    const stichpunkte  = getVal('p2-stichpunkte');
-    return `Du bist eine erfahrene Lehrkraft mit Kenntnissen in der sonderpädagogischen Grundversorgung, individuellem Fördern und den rechtlichen Rahmenbedingungen in der Schule.
+    const schulform          = getVal('p2-schulform');
+    const klassenstufe       = getVal('p2-klassenstufe');
+    const bundesland         = getVal('p2-bundesland');
+    const foerderschwerpunkt = getVal('p2-foerderschwerpunkt');
+    return `Du bist eine erfahrene Lehrkraft mit Kenntnissen in der sonderpädagogischen Grundversorgung, individuellem Fördern und der rechtlichen Rahmenbedingungen in der Schule.
 
-Formuliere einen individuellen Förderplan für ein Kind auf Basis der Informationen, die ich dir gebe.
+Erstelle eine professionelle, leere Förderplan-Vorlage, die ich für verschiedene Kinder verwenden kann.
 
-Das Material ist für ${schulform}, ${klassenstufe} in ${bundesland}. Das Kind heißt ${kindname}. Ich gebe dir Stichpunkte zur Lernsituation, du formulierst daraus einen vollständigen Förderplan.
+Das Material ist für ${schulform}, ${klassenstufe} in ${bundesland}. Der Förderschwerpunkt ist ${foerderschwerpunkt}.
 
 Gehe so vor:
-1. Formuliere die Lernausgangslage in ein bis zwei Absätzen (was das Kind kann, wo Lücken sind).
-2. Formuliere zwei bis drei konkrete Förderziele für das nächste Halbjahr (SMART: spezifisch, messbar, erreichbar, realistisch, terminiert).
-3. Beschreibe konkrete Fördermaßnahmen, die in der Schule und zu Hause umgesetzt werden können.
-4. Ergänze Evaluationskriterien: Woran merken wir nach drei Monaten, ob das Kind Fortschritte gemacht hat?
-5. Füge ein Feld für die Unterschriften aller Beteiligten ein (Kind, Eltern, Lehrkraft, ggf. Förderschullehrkraft).
+1. Erstelle die vollständige Struktur eines Förderplans mit allen nötigen Abschnitten: Kopfbereich (Name, Klasse, Datum als leere Felder), Lernausgangslage, Förderziele, Fördermaßnahmen, Evaluationskriterien, Unterschriften.
 
-Meine Stichpunkte zu ${kindname}:
-${stichpunkte}
+2. Schreibe für jeden Abschnitt eine kurze Anleitung in Kursivschrift, die erklärt, was dort eingetragen werden soll. Zum Beispiel: "Hier beschreiben Sie in zwei bis drei Sätzen, was das Kind bereits kann und wo Lücken bestehen."
 
-Strukturiere das Ergebnis als fertiger Förderplan im Schulformat.
+3. Gib für den Abschnitt Förderziele drei Beispielformulierungen als Orientierung, wie ein SMART-formuliertes Förderziel im Bereich ${foerderschwerpunkt} aussehen kann. Markiere diese als Beispiele.
+
+4. Erstelle eine Liste mit zehn typischen Fördermaßnahmen für den Bereich ${foerderschwerpunkt}, die als Auswahlliste dienen kann.
+
+5. Füge Felder für die Unterschriften aller Beteiligten ein (Kind, Eltern, Lehrkraft, ggf. Förderlehrkraft).
+
+Strukturiere das Ergebnis als druckfertige Vorlage. Alle personenbezogenen Felder bleiben leer und werden von Hand ausgefüllt.
 
 Prüfe vor der Ausgabe:
-- Sind die Förderziele wirklich erreichbar in einem Schulhalbjahr?
-- Sind Schule und Elternhaus als Lernorte berücksichtigt?
-- Klingt der Plan professionell und rechtssicher?`;
+- Ist die Vorlage rechtlich korrekt für ${bundesland}?
+- Sind die Anleitungen klar genug, dass auch Berufsanfänger den Plan ausfüllen können?
+- Enthält die Vorlage keine personenbezogenen Daten, nur leere Felder und Beispielformulierungen?`;
   },
 
   3: () => {
-    const schulform    = getVal('p3-schulform');
-    const klassenstufe = getVal('p3-klassenstufe');
-    const bundesland   = getVal('p3-bundesland');
-    const dauer        = getVal('p3-dauer');
-    const kindname     = getVal('p3-kindname');
-    const stichpunkte  = getVal('p3-stichpunkte');
+    const schulform       = getVal('p3-schulform');
+    const klassenstufe    = getVal('p3-klassenstufe');
+    const gespraechsdauer = getVal('p3-gespraechsdauer');
+    const gespraechstyp   = getVal('p3-gespraechstyp');
     return `Du bist eine erfahrene Lehrkraft mit sicherem Gesprächsgefühl und Erfahrung in professioneller Elternkommunikation.
 
-Erstelle Gesprächsleitfäden für den Elternsprechtag basierend auf meinen Stichpunkten zu einzelnen Schülerinnen und Schülern.
+Erstelle einen universellen Gesprächsleitfaden für den Elternsprechtag, den ich für alle Gespräche nutzen kann.
 
-Das Material ist für ${schulform}, ${klassenstufe} in ${bundesland}. Jedes Gespräch dauert ${dauer}. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen strukturierten Gesprächsleitfaden.
+Das Material ist für ${schulform}, ${klassenstufe}. Jedes Gespräch dauert ${gespraechsdauer}. Der Gesprächstyp ist ${gespraechstyp}.
 
 Gehe so vor:
-1. Formuliere eine freundliche Eröffnung des Gesprächs (2 Minuten).
-2. Formuliere einen Abschnitt zu Stärken des Kindes, basierend auf meinen Stichpunkten (3 Minuten).
-3. Formuliere einen Abschnitt zu Entwicklungsfeldern, professionell und ohne anklagend zu klingen (5 Minuten).
-4. Formuliere konkrete nächste Schritte, die Eltern zu Hause unterstützen können (3 Minuten).
-5. Formuliere einen positiven Abschluss (2 Minuten).
+1. Erstelle einen Gesprächsleitfaden mit fünf Phasen und Zeitangaben:
+   - Begrüßung und Atmosphäre schaffen (2 Minuten): Drei Formulierungsbeispiele für einen positiven Einstieg.
+   - Stärken benennen (3 Minuten): Fünf Satzanfänge für verschiedene Stärkenbereiche (fachlich, sozial, Arbeitsverhalten, Kreativität, Engagement).
+   - Entwicklungsfelder ansprechen (5 Minuten): Fünf wertschätzende Formulierungen, die Probleme benennen ohne anzuklagen.
+   - Gemeinsame nächste Schritte (3 Minuten): Drei Formulierungsbeispiele für konkrete Vereinbarungen.
+   - Positiver Abschluss (2 Minuten): Drei Formulierungsbeispiele.
 
-Meine Stichpunkte zu ${kindname}:
-${stichpunkte}
+2. Erstelle einen Vorbereitungsbogen als leere Tabelle, die ich vor jedem Gespräch von Hand ausfülle: Stärken, Entwicklungsfelder, konkrete Beispiele, Zielvereinbarung. Alle Felder leer.
 
-Strukturiere das Ergebnis als Gesprächsleitfaden mit Zeitangaben und konkreten Formulierungsvorschlägen.
+3. Schreibe Formulierungshilfen für drei schwierige Situationen:
+   - Eltern reagieren abwehrend oder aggressiv.
+   - Eltern sind nicht erreichbar oder kommen nicht.
+   - Es gibt ein ernstes Problem (Mobbing, Schulverweigerung, Gewalt).
+
+4. Erstelle eine kurze Nachbereitungs-Checkliste: Was notiere ich nach dem Gespräch?
+
+Strukturiere das Ergebnis: Leitfaden, leerer Vorbereitungsbogen, Formulierungshilfen, Checkliste.
 
 Prüfe vor der Ausgabe:
-- Ist das Gespräch in ${dauer} schaffbar?
-- Klingt der Ton respektvoll und professionell?
-- Sind die nächsten Schritte konkret und für Eltern umsetzbar?`;
+- Sind alle Formulierungen respektvoll und professionell?
+- Ist der Leitfaden in ${gespraechsdauer} realistisch umsetzbar?
+- Enthält der Vorbereitungsbogen keine vorausgefüllten Schülerdaten?`;
   },
 
   4: () => {
@@ -927,23 +936,33 @@ Prüfe vor der Ausgabe:
     const bundesland   = getVal('p8-bundesland');
     return `Du bist eine erfahrene Lehrkraft, die weiß, wie wichtig eine gute Übergabe für den Erfolg der nachfolgenden Lehrkraft und das Wohl der Kinder ist.
 
-Erstelle ein vollständiges Übergabe-Dokument für einen Klassenleitungswechsel.
+Erstelle eine leere, strukturierte Übergabe-Vorlage für einen Klassenleitungswechsel.
 
-Das Material ist für ${schulform}, ${klassenstufe} in ${bundesland}. Die neue Lehrkraft kennt die Kinder noch nicht. Das Dokument soll einen guten Start ohne unnötige Überraschungen ermöglichen.
+Das Material ist für ${schulform}, ${klassenstufe} in ${bundesland}. Die Vorlage soll so aufgebaut sein, dass ich sie ausdrucke und von Hand oder am Computer mit meinen Informationen fülle.
 
 Gehe so vor:
-1. Erstelle eine Klassenliste mit Spalten für alle wichtigen Informationen zu jedem Kind (Name, besondere Umstände, Förderbedarf, Elternkontakt-Notizen, Auffälligkeiten im Sozialverhalten, Stärken).
-2. Schreibe eine kurze Klassen-Charakteristik: Wie ist die Gruppe als Ganzes? Welche sozialen Dynamiken gibt es?
-3. Beschreibe laufende Prozesse, die die neue Lehrkraft weiterführen muss (Förderpläne, offene Elternkontakte, Schülersprecher, AG-Teilnahmen).
-4. Liste alle regelmäßigen Termine auf, die zum Klassenleitung-Alltag gehören.
-5. Gib drei bis fünf persönliche Tipps für den Start mit dieser spezifischen Klasse.
+1. Erstelle eine leere Klassenliste als Tabelle mit diesen Spalten: Laufende Nummer, Name (leer), Förderbedarf (leer), Stärken (leer), Hinweise (leer). Erstelle Platz für 30 Zeilen.
 
-Strukturiere das Ergebnis: Klassenliste als Tabelle, Klassen-Charakteristik, laufende Prozesse, Termine, persönliche Tipps.
+2. Schreibe eine Vorlage für die Klassen-Charakteristik mit Leitfragen, die ich beantworten soll:
+   - Wie ist die Klasse als Gruppe? (Stichpunktfeld leer)
+   - Welche sozialen Dynamiken gibt es? (Stichpunktfeld leer)
+   - Was funktioniert gut in dieser Klasse? (Stichpunktfeld leer)
+   - Was sind die größten Herausforderungen? (Stichpunktfeld leer)
+
+3. Erstelle eine Checkliste für laufende Prozesse: Förderpläne, offene Elternkontakte, Klassensprecher, AG-Teilnahmen, besondere Vereinbarungen. Jeder Punkt als leeres Feld zum Ausfüllen.
+
+4. Liste alle regelmäßigen Termine auf, die typischerweise zur Klassenleitung gehören (Konferenzen, Elternsprechtage, Zeugnistermine, etc.).
+
+5. Füge einen Bereich ein für persönliche Tipps der abgebenden Lehrkraft (drei bis fünf leere nummerierte Zeilen).
+
+6. Ergänze am Ende einen Datenschutz-Hinweis: "Dieses Dokument enthält personenbezogene Daten und ist vertraulich. Nur für die nachfolgende Klassenleitung bestimmt."
+
+Strukturiere das Ergebnis als druckfertige Vorlage. Alle personenbezogenen Felder bleiben leer.
 
 Prüfe vor der Ausgabe:
-- Könnte eine neue Lehrkraft mit diesem Dokument wirklich gut starten?
-- Sind datenschutzrelevante Hinweise berücksichtigt (z.B. wer darf das Dokument sehen)?
-- Fehlt etwas, was bei einem Klassenleitungswechsel typischerweise verloren geht?`;
+- Ist die Vorlage vollständig genug für eine echte Übergabe?
+- Sind alle personenbezogenen Felder wirklich leer?
+- Gibt es einen Datenschutz-Hinweis auf dem Dokument?`;
   },
 
   9: () => {

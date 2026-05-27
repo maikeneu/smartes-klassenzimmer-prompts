@@ -300,6 +300,18 @@
     font-size: 0.8rem;
     color: rgba(255,255,255,0.3);
   }
+
+  .dsgvo-notice {
+    background: rgba(255,157,0,0.1);
+    border: 1px solid rgba(255,157,0,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 0 auto 30px;
+    max-width: 660px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -315,6 +327,10 @@
   <p class="intro-text">
     Füll die Felder mit deinen eigenen Angaben aus und klick auf "Prompt generieren". Der fertige Prompt ist sofort bereit zum Kopieren.
   </p>
+
+  <div class="dsgvo-notice">
+    <strong>Datenschutz-Hinweis:</strong> Gib keine echten Schülernamen oder persönliche Daten ein. Die generierten Prompts sind Vorlagen. Personenbezogene Daten füllst du erst im fertigen Dokument von Hand ein.
+  </div>
 
   <!-- PROMPT 1.1 -->
   <div class="prompt-card">
@@ -399,8 +415,8 @@
     <div class="card-header">
       <div class="prompt-number">1.3</div>
       <div class="card-title-wrap">
-        <h2>Epochalnoten-Tracker</h2>
-        <p>Erstellt eine Notiztabelle für schnelle, übersichtliche mündliche Beobachtungen während und nach jeder Unterrichtsstunde.</p>
+        <h2>Beobachtungsbogen erstellen</h2>
+        <p>Erstellt eine anonyme Beobachtungsvorlage für mündliche Mitarbeit, die du ausdruckst und von Hand ausfüllst.</p>
       </div>
     </div>
 
@@ -551,8 +567,8 @@
     <div class="card-header">
       <div class="prompt-number">1.7</div>
       <div class="card-title-wrap">
-        <h2>Zeugnisformulierungs-Helfer</h2>
-        <p>Formuliert individuelle Zeugnistexte für Arbeits- und Sozialverhalten auf Basis deiner Beobachtungsnotizen.</p>
+        <h2>Zeugnisbausteine-Bibliothek</h2>
+        <p>Erstellt eine Sammlung fertiger Zeugnisformulierungen sortiert nach Kategorien, die du für jedes Kind individuell zusammenstellen kannst.</p>
       </div>
     </div>
 
@@ -570,14 +586,6 @@
         <label>Zeugnisart</label>
         <input type="text" id="p7-zeugnisart" value="Halbjahreszeugnis">
       </div>
-      <div class="field-group">
-        <label>Name des Kindes</label>
-        <input type="text" id="p7-kindname" value="Max">
-      </div>
-      <div class="field-group full-width">
-        <label>Beobachtungsnotizen (Stichpunkte)</label>
-        <textarea id="p7-stichpunkte">meldet sich selten, aber seine Beiträge sind treffend, hält Regeln gut ein, hilft Mitschülern, manchmal unkonzentriert in langen Phasen, Hausaufgaben immer vollständig</textarea>
-      </div>
     </div>
 
     <button class="btn-generate" onclick="generate(7)">Prompt generieren</button>
@@ -594,8 +602,8 @@
     <div class="card-header">
       <div class="prompt-number">1.8</div>
       <div class="card-title-wrap">
-        <h2>Sitzplan-Optimierer</h2>
-        <p>Erstellt einen durchdachten Sitzordnungsvorschlag auf Basis deiner Infos zu Kindern, Förderbedarf und Gruppendynamik.</p>
+        <h2>Sitzordnungs-Strategien</h2>
+        <p>Erstellt erprobte Strategien und Kriterien für verschiedene Sitzordnungen, ohne dass du Schülerdaten eingeben musst.</p>
       </div>
     </div>
 
@@ -607,15 +615,11 @@
       </div>
       <div class="field-group">
         <label>Anzahl Kinder</label>
-        <input type="text" id="p8-anzahl" value="24 Schülern">
+        <input type="text" id="p8-anzahl" value="24 Schüler">
       </div>
       <div class="field-group full-width">
         <label>Raumgestaltung</label>
         <input type="text" id="p8-raum" value="sechs Tischgruppen mit je vier Plätzen">
-      </div>
-      <div class="field-group full-width">
-        <label>Stichpunkte zu einzelnen Kindern</label>
-        <textarea id="p8-stichpunkte">Tim lenkt andere ab, sitzt am besten alleine oder neben ruhigeren Kindern. Lea und Sophie arbeiten sehr gut zusammen. Jonas hat Förderbedarf Lernen und braucht Nähe zum Lehrerpult.</textarea>
       </div>
     </div>
 
@@ -780,12 +784,12 @@ Prüfe vor der Ausgabe:
     const anzahl       = getVal('p3-anzahl');
     return `Du bist eine erfahrene Grundschullehrerin mit fundierten Kenntnissen in der mündlichen Leistungsbeurteilung.
 
-Erstelle eine Notiztabelle, mit der ich während und nach jeder Unterrichtsstunde schnell und übersichtlich mündliche Beobachtungen für jedes Kind festhalten kann.
+Erstelle eine anonyme Beobachtungsvorlage, mit der ich während und nach jeder Unterrichtsstunde schnell und übersichtlich mündliche Mitarbeit dokumentieren kann.
 
 Das Material ist für ${klassenstufe} in ${fach}. Die Klasse hat ${anzahl}. Ich möchte beobachten: mündliche Mitarbeit, Hausaufgaben-Status und offene To-Dos für mich als Lehrkraft.
 
 Gehe so vor:
-1. Erstelle eine Tabelle mit einer Zeile pro Kind und Spalten für Name, Datum, mündliche Mitarbeit (Skala 1-3 oder kurze Stichworte), Hausaufgaben (gemacht/nicht gemacht/teilweise), Bemerkungen.
+1. Erstelle eine Tabelle mit einer Zeile pro Platznummer (Kind 1, Kind 2, Kind 3 usw.) und Spalten für Platznummer, Datum, mündliche Mitarbeit (Skala 1-3 oder kurze Stichworte), Hausaufgaben (gemacht/nicht gemacht/teilweise), Bemerkungen. Lasse die Spalte für Namen leer. Ich trage die Namen nach dem Ausdrucken von Hand ein.
 2. Ergänze eine kurze Erklärung, wie ich die Skala benutzen soll, damit sie über Wochen vergleichbar bleibt.
 3. Füge eine leere Zeile "To-Do für Lehrkraft" unter die Kinderliste, wo ich nach der Stunde meine eigenen Aufgaben notieren kann.
 
@@ -810,7 +814,7 @@ Erstelle eine vollständige Organisationsübersicht für eine bevorstehende Klas
 Das Material ist für ${klassenstufe} in ${bundesland}. Die Fahrt findet ${zeitraum} statt und dauert ${dauer}. Die Klasse hat ${anzahl}.
 
 Gehe so vor:
-1. Erstelle eine Kinderliste mit Spalten: Name, Elternbrief erhalten (ja/nein), Notfallzettel abgegeben (ja/nein), Fahrtgeld bezahlt (ja/nein), besondere Hinweise (Allergien, Medikamente).
+1. Erstelle eine Kinderliste mit Spalten: Name, Elternbrief erhalten (ja/nein), Notfallzettel abgegeben (ja/nein), Fahrtgeld bezahlt (ja/nein), besondere Hinweise (lasse ich von Hand ergänzen). Die Liste enthält keine Gesundheitsdaten. Allergien und Medikamente trage ich nach dem Ausdrucken von Hand ein.
 2. Schreibe eine Erinnerungsnachricht an Eltern, bei denen noch Unterlagen fehlen, höflich aber klar.
 3. Erstelle meine Lehrkraft-Checkliste für die Vorbereitung: Was muss ich mindestens zwei Wochen vorher, eine Woche vorher und am Vortag erledigt haben?
 4. Ergänze eine kurze Liste der Dinge, die ich auf der Fahrt selbst dabei haben muss (Erste-Hilfe-Kasten, Notfallzettel, Medikamente etc.).
@@ -881,55 +885,60 @@ Prüfe vor der Ausgabe:
     const klassenstufe  = getVal('p7-klassenstufe');
     const bundesland    = getVal('p7-bundesland');
     const zeugnisart    = getVal('p7-zeugnisart');
-    const kindname      = getVal('p7-kindname');
-    const stichpunkte   = getVal('p7-stichpunkte');
     return `Du bist eine erfahrene Grundschullehrerin mit tiefen Kenntnissen in der Zeugnissprache und den rechtlichen Rahmenbedingungen in Deutschland.
 
-Formuliere individuelle Zeugnistexte für Arbeits- und Sozialverhalten basierend auf meinen Beobachtungsnotizen.
+Erstelle eine umfassende Bibliothek von Zeugnisbausteinen, die ich für die individuelle Zusammenstellung von Zeugnistexten verwenden kann.
 
-Das Material ist für ${klassenstufe} in ${bundesland}. Die Zeugnisse folgen dem Format ${zeugnisart}. Ich gebe dir Stichpunkte zu einem Kind, du formulierst daraus einen vollständigen Zeugnistext.
+Das Material ist für ${klassenstufe} in ${bundesland}. Die Zeugnisse folgen dem Format ${zeugnisart}.
 
-Gehe so vor:
-1. Lies die Stichpunkte und identifiziere Stärken, Entwicklungsfelder und besondere Leistungen.
-2. Formuliere einen zusammenhängenden Text von 5-8 Sätzen, der zeugnisüblich klingt und die nötige Differenzierung benutzt.
-3. Schlage eine Notenempfehlung für Arbeits- und Sozialverhalten vor (sehr gut, gut, befriedigend, ausreichend) und begründe sie kurz.
+Erstelle Formulierungsbausteine für diese Kategorien:
 
-Hier sind meine Beobachtungsnotizen zu ${kindname}:
-${stichpunkte}
+1. Arbeitsverhalten: Je fünf Formulierungen für die Stufen sehr gut, gut, befriedigend und ausreichend. Die Formulierungen sollen typische Verhaltensweisen beschreiben (Konzentration, Selbstständigkeit, Sorgfalt, Ausdauer).
 
-Strukturiere das Ergebnis: zuerst der fertige Zeugnistext, dann die Notenempfehlung mit kurzer Begründung.
+2. Sozialverhalten: Je fünf Formulierungen für die Stufen sehr gut, gut, befriedigend und ausreichend. Die Formulierungen sollen Teamfähigkeit, Hilfsbereitschaft, Konfliktverhalten und Regelakzeptanz abdecken.
+
+3. Besondere Stärken: Zehn Formulierungen für verschiedene Stärken (kreativ, sportlich, sprachbegabt, hilfsbereit, musikalisch, etc.).
+
+4. Entwicklungsfelder: Zehn wertschätzende Formulierungen für typische Entwicklungsbereiche (Konzentration, Schriftbild, mündliche Mitarbeit, Ordnung, etc.).
+
+5. Abschluss-Sätze: Fünf ermutigende Schlusssätze für das Zeugnis.
+
+Formatiere die Bausteine als übersichtliche Liste, sortiert nach Kategorie und Stufe, damit ich sie wie einen Baukasten verwenden kann.
 
 Prüfe vor der Ausgabe:
-- Ist die Sprache zeugnisüblich und nicht wertend?
-- Klingt der Text individuell und nicht wie eine Vorlage, die für alle Kinder passt?
-- Sind sowohl Stärken als auch Entwicklungsfelder angemessen berücksichtigt?`;
+- Ist die Sprache zeugnissprachlich korrekt und nicht wertend?
+- Sind die Formulierungen vielfältig genug, dass nicht alle Zeugnisse gleich klingen?
+- Entsprechen die Abstufungen den in ${bundesland} üblichen Bewertungsmaßstäben?`;
   },
 
   8: () => {
     const klassenstufe  = getVal('p8-klassenstufe');
     const anzahl        = getVal('p8-anzahl');
     const raum          = getVal('p8-raum');
-    const stichpunkte   = getVal('p8-stichpunkte');
     return `Du bist eine erfahrene Grundschullehrerin mit Expertise in Klassenraumgestaltung und sozialem Lernen.
 
-Erstelle einen durchdachten Sitzordnungsvorschlag für meine Klasse basierend auf den Informationen, die ich dir gebe.
+Erstelle einen Leitfaden für die optimale Sitzordnung in meiner Klasse.
 
-Das Material ist für ${klassenstufe} mit ${anzahl}. Der Klassenraum hat ${raum}. Ich möchte folgende Kriterien berücksichtigen: Förderbedarf einzelner Kinder, Kombinationen die zu Unruhe führen und Stärken-Partnerschaften.
+Die Klasse ist ${klassenstufe} mit ${anzahl}. Der Klassenraum hat ${raum}.
 
 Gehe so vor:
-1. Ich beschreibe dir in Stichpunkten einige Kinder und ihre Besonderheiten. Du baust daraus einen Vorschlag für die Sitzgruppen.
-2. Erkläre kurz, warum du welche Kombination gewählt hast.
-3. Gib mir zwei oder drei Alternativvorschläge für Kinder, bei denen die Platzierung schwierig ist.
 
-Meine Stichpunkte zu einzelnen Kindern:
-${stichpunkte}
+1. Beschreibe drei verschiedene Sitzordnungsmodelle (Reihen, Gruppen, U-Form oder andere), die in diesen Raum passen. Erkläre für jedes Modell: Vorteile, Nachteile, für welchen Unterrichtsstil es am besten passt.
 
-Strukturiere das Ergebnis: zuerst die Sitzplan-Tabelle oder ein Schaubild mit den Gruppen, dann die Begründungen, dann die Alternativvorschläge.
+2. Erstelle eine Kriterienliste für die Sitzplatzverteilung: Welche Faktoren sollte ich berücksichtigen? (z.B. Sichtachsen, Förderkinder nah am Pult, Unruhestifter trennen, Lernpartnerschaften bilden). Erkläre jedes Kriterium in ein bis zwei Sätzen.
+
+3. Beschreibe eine Methode, wie ich die Sitzordnung alle vier bis sechs Wochen fair rotiere, damit alle Kinder verschiedene Nachbarn erleben.
+
+4. Gib fünf erprobte Tipps, wie ich einen Sitzplatzwechsel reibungslos durchführe, ohne dass es Streit gibt.
+
+5. Erstelle eine leere Planungsvorlage als Tabelle, in die ich meine Gruppen eintragen kann (Gruppe 1 bis 6, je vier Plätze, alle leer zum Ausfüllen von Hand).
+
+Strukturiere das Ergebnis: Modelle, Kriterienliste, Rotationsmethode, Tipps, leere Planungsvorlage.
 
 Prüfe vor der Ausgabe:
-- Sind die genannten Problemkombinationen wirklich getrennt?
-- Ist jedes Kind mit Förderbedarf sinnvoll platziert?
-- Klingt die Begründung nachvollziehbar, falls Eltern oder Schulleitung fragen?`;
+- Sind die Modelle wirklich unterschiedlich und nicht nur Varianten desselben Konzepts?
+- Ist die Kriterienliste praxistauglich für eine echte Grundschulklasse?
+- Kann ich die Planungsvorlage ausdrucken und sofort nutzen?`;
   },
 
   9: () => {
